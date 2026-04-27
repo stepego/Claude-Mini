@@ -815,13 +815,213 @@ After the break: **orchestration** — when does multi-agent help, when does it 
 
 # Part 4 — Orchestration + Multi-Agent {.claudeorange #part-4}
 
-## Coming in Part 4
+## The honest framing {.compact}
 
-::: {.callout-note}
-## Placeholder
-
-Why orchestration → when agents help (parallel / critic-fixer / fresh-context) → when they don't → mini-demo of `/qa-quarto` + hooks.
+::: {.incremental}
+- Most "AI for research" demos online ship **the first agent output**.
+- That's not a workflow — it's a draft.
+- The leverage comes from running the loop: **implement → verify → review → fix → re-verify → score**.
 :::
+
+. . .
+
+A model alone is impressive. **A model in a loop is useful.**
+
+## The 6-step orchestrator loop {.compact}
+
+```
+1. IMPLEMENT   — agent does the work
+2. VERIFY      — does it compile / render / parse?
+3. REVIEW      — what does a focused critic think?
+4. FIX         — apply review findings
+5. RE-VERIFY   — did fixes break anything?
+6. SCORE       — numerical quality threshold
+       │
+       ├── Score ≥ threshold → ship
+       └── Score < threshold → loop back to step 3 (max 5 rounds)
+```
+
+. . .
+
+The point isn't the specific 6 steps. It's that **steps 2 and 5 have to be deterministic**.
+
+## Where this lives in the template {.compact}
+
+::: {.incremental}
+- The orchestrator is a **pattern**, not a daemon. There's no background process running it.
+- Specific skills implement it: `/commit`, `/qa-quarto`, `/review-paper --adversarial`, `/slide-excellence`, `/create-lecture`, `/data-analysis`, `/review-paper --peer`.
+- Plan approval does NOT auto-trigger the loop. **You invoke a skill; the skill runs the pattern within its own scope.**
+:::
+
+. . .
+
+Honesty matters: this is a contract that skills implement, not a magic background service.
+
+# When agents help {.claudeorange}
+
+## Three patterns where multi-agent earns its keep {.compact}
+
+::: {.incremental}
+1. **Parallel independent work** — three papers to summarize, ten regression specs to estimate, six sections to proofread. No coordination needed; each agent reads its file and reports back.
+2. **Critic + fixer pairs** — one agent finds problems (read-only); a different agent applies fixes. They alternate until the critic says "approved." Eliminates the "I just wrote this code, it looks fine to me" trap.
+3. **Fresh-context verification** — a verifier agent that has never seen your draft answers verification questions from the source material alone. It can't self-confirm a hallucinated claim because it doesn't know the claim was made.
+:::
+
+## Pattern 1: parallel independent work {.compact}
+
+::: {.incremental}
+- Three referee reports come in. You spawn three agents in parallel: one per report.
+- Each reads its assigned report + the manuscript. Returns a structured response sketch.
+- You synthesize.
+:::
+
+. . .
+
+**When it works:** the tasks are genuinely independent. **When it breaks:** the tasks need to share context (then it's serial, not parallel).
+
+## Pattern 2: critic-fixer loop {.compact}
+
+::: {.incremental}
+- The **critic** reads the artifact (Beamer source, Quarto target, manuscript section). Read-only — it cannot edit.
+- The **fixer** receives the critic's findings and applies them.
+- They alternate. Critic re-audits after each fixer pass. Loop until APPROVED (or max 5 rounds).
+:::
+
+. . .
+
+**Why two agents and not one:** the agent that *wrote* the fix shouldn't be the one judging it. Role separation = honest review.
+
+## Pattern 3: fresh-context verification (CoVe) {.compact}
+
+::: {.incremental}
+- The verifier never sees the draft. It only sees: claims, verification questions, source material.
+- Architecturally enforced via context forking — the verifier *cannot* know what was originally written.
+- Adapted from Dhuliawala et al. 2023, *Chain-of-Verification Reduces Hallucination in LLMs* ([arXiv:2309.11495](https://arxiv.org/abs/2309.11495)).
+:::
+
+. . .
+
+**Why this matters for B-school work:** referee reports cite specific papers. CoVe catches misattributions BEFORE you submit.
+
+## Three patterns, three failure modes {.compact}
+
+| Pattern | Best for | Failure mode |
+|---------|----------|--------------|
+| Parallel | Genuinely independent tasks | Tasks need to share context — coordination chaos |
+| Critic-fixer | Surface-level + structural review | Critic and fixer are the same agent — "self-confirmation" |
+| Fresh-context CoVe | Factual claims (citations, numerical facts) | Forgetting to fork the verifier's context — verifier confirms what it just generated |
+
+# When multi-agent doesn't help {.claudeorange}
+
+## The decomposition trap {.compact}
+
+::: {.incremental}
+- "Spawn 5 agents to refactor this codebase" — sounds good, fails badly.
+- Each agent works on a slice; slices interact; no agent has the whole picture.
+- You get 5 partial fixes that conflict and an integration nightmare.
+:::
+
+. . .
+
+**Rule:** multi-agent is for tasks where the *decomposition is clear*. If you can't write the decomposition in 2 sentences, don't fan out.
+
+## A concrete failure mode {.compact}
+
+::: {.incremental}
+- I once asked: "spawn 3 agents to add fixed effects to my regression in three different ways."
+- Agent 1: firm FE. Agent 2: industry × year FE. Agent 3: matched-sample.
+- Each rewrote the script in its own image. Three branches. Two days reconciling.
+- I should have run them **serially** — one branch, one decision per round.
+:::
+
+. . .
+
+**The lesson:** parallel ≠ better. Parallel = right for *independent* work; serial = right for *interacting* work.
+
+## When ONE agent is enough {.compact}
+
+::: {.incremental}
+- Most editing tasks. **One agent + the orchestrator loop is fine.**
+- Most analysis tasks. Multi-agent on a regression script is over-engineering.
+- Quick fixes. The cost of fanning out exceeds the benefit if the task takes < 5 minutes.
+:::
+
+. . .
+
+**Heuristic:** add a second agent only when you can articulate exactly what *that agent* sees that the first one couldn't.
+
+# The role of hooks {.claudeorange}
+
+## Hooks vs CLAUDE.md vs rules {.compact}
+
+| Mechanism | What it does | Determinism |
+|-----------|--------------|-------------|
+| `CLAUDE.md` | Tells Claude what your project is | Advisory (Claude reads + usually follows) |
+| `.claude/rules/*.md` | Tells Claude what's required for *specific files* | Advisory + path-scoped |
+| `.claude/hooks/*.py` | Runs a Python script at lifecycle events | **Deterministic — runs every time, no exceptions** |
+
+. . .
+
+Hooks are how you turn "Claude is supposed to..." into "this thing actually happens."
+
+## A real hook in this template {.compact}
+
+`.claude/hooks/log-reminder.py` — fires on every Stop event.
+
+::: {.incremental}
+- If the session log under `quality_reports/session_logs/` hasn't been touched in N response cycles, prints a stderr reminder.
+- Doesn't block Claude — just nudges.
+- Net effect: session logs get updated. Cross-session continuity becomes habit, not afterthought.
+:::
+
+## Another: pre-commit gates {.compact}
+
+`/commit` Step 0b runs `scripts/check-surface-sync.sh` + `check-skill-integrity.py` BEFORE writing the commit.
+
+::: {.incremental}
+- Surface-sync: count assertions across 6 documents must match disk
+- Skill-integrity: 4 mechanical parity classes (frontmatter ↔ body, etc.)
+- Either fails → commit halts, user fixes, retries
+:::
+
+. . .
+
+This isn't AI judgment. It's a Python script. **The same gate runs whether I'm tired or rested.**
+
+## Mini demo: critic-fixer loop {.compact}
+
+::: {.callout-tip}
+## Live demo (~3 min)
+
+Switch to terminal. Run `/qa-quarto` on a Quarto slide with a known content drift from its Beamer counterpart (a typo in a formula). Audience watches:
+
+1. Critic reads both files, flags the drift, hands findings to fixer.
+2. Fixer applies the fix.
+3. Critic re-audits. APPROVED.
+
+Then run a `git commit` with no message; watch `check-skill-integrity.py` block.
+
+Choreography: `demos/03-orchestration/README.md`.
+:::
+
+## What you saw {.compact}
+
+::: {.incremental}
+- **Two agents, one task, one approval.** That's the shape.
+- The fixer can't approve itself — different role, different context.
+- **The hook caught a real issue at commit time** that no agent would have caught — count drift across documentation.
+:::
+
+## Coming in Parts 5 + 6 {.compact}
+
+::: {.incremental}
+- **Part 5 (45 min, after lunch)**: orchestration applied to **replication audit** — the headline demo for finance/accounting.
+- **Part 6 (45 min)**: orchestration applied to **simulated peer review** — Editor + 2 referees + editorial decision.
+:::
+
+. . .
+
+Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fresh-context). Same primitives, bigger scope.
 
 ---
 

@@ -1194,20 +1194,264 @@ Pedro H. C. Sant’Anna
 <h1>Part 4 — Orchestration + Multi-Agent</h1>
 
 </section>
-<section id="coming-in-part-4" class="slide level2">
-<h2>Coming in Part 4</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="the-honest-framing" class="slide level2 compact">
+<h2>The honest framing</h2>
+<ul>
+<li class="fragment">Most “AI for research” demos online ship <strong>the first agent output</strong>.</li>
+<li class="fragment">That’s not a workflow — it’s a draft.</li>
+<li class="fragment">The leverage comes from running the loop: <strong>implement → verify → review → fix → re-verify → score</strong>.</li>
+</ul>
+<div class="fragment">
+<p>A model alone is impressive. <strong>A model in a loop is useful.</strong></p>
+</div>
+</section>
+<section id="the-6-step-orchestrator-loop" class="slide level2 compact">
+<h2>The 6-step orchestrator loop</h2>
+<pre><code>1. IMPLEMENT   — agent does the work
+2. VERIFY      — does it compile / render / parse?
+3. REVIEW      — what does a focused critic think?
+4. FIX         — apply review findings
+5. RE-VERIFY   — did fixes break anything?
+6. SCORE       — numerical quality threshold
+       │
+       ├── Score ≥ threshold → ship
+       └── Score &lt; threshold → loop back to step 3 (max 5 rounds)</code></pre>
+<div class="fragment">
+<p>The point isn’t the specific 6 steps. It’s that <strong>steps 2 and 5 have to be deterministic</strong>.</p>
+</div>
+</section>
+<section id="where-this-lives-in-the-template" class="slide level2 compact">
+<h2>Where this lives in the template</h2>
+<ul>
+<li class="fragment">The orchestrator is a <strong>pattern</strong>, not a daemon. There’s no background process running it.</li>
+<li class="fragment">Specific skills implement it: <code>/commit</code>, <code>/qa-quarto</code>, <code>/review-paper --adversarial</code>, <code>/slide-excellence</code>, <code>/create-lecture</code>, <code>/data-analysis</code>, <code>/review-paper --peer</code>.</li>
+<li class="fragment">Plan approval does NOT auto-trigger the loop. <strong>You invoke a skill; the skill runs the pattern within its own scope.</strong></li>
+</ul>
+<div class="fragment">
+<p>Honesty matters: this is a contract that skills implement, not a magic background service.</p>
+</div>
+</section></section>
+<section>
+<section id="when-agents-help" class="title-slide slide level1 claudeorange center">
+<h1>When agents help</h1>
+
+</section>
+<section id="three-patterns-where-multi-agent-earns-its-keep" class="slide level2 compact">
+<h2>Three patterns where multi-agent earns its keep</h2>
+<ol type="1">
+<li class="fragment"><strong>Parallel independent work</strong> — three papers to summarize, ten regression specs to estimate, six sections to proofread. No coordination needed; each agent reads its file and reports back.</li>
+<li class="fragment"><strong>Critic + fixer pairs</strong> — one agent finds problems (read-only); a different agent applies fixes. They alternate until the critic says “approved.” Eliminates the “I just wrote this code, it looks fine to me” trap.</li>
+<li class="fragment"><strong>Fresh-context verification</strong> — a verifier agent that has never seen your draft answers verification questions from the source material alone. It can’t self-confirm a hallucinated claim because it doesn’t know the claim was made.</li>
+</ol>
+</section>
+<section id="pattern-1-parallel-independent-work" class="slide level2 compact">
+<h2>Pattern 1: parallel independent work</h2>
+<ul>
+<li class="fragment">Three referee reports come in. You spawn three agents in parallel: one per report.</li>
+<li class="fragment">Each reads its assigned report + the manuscript. Returns a structured response sketch.</li>
+<li class="fragment">You synthesize.</li>
+</ul>
+<div class="fragment">
+<p><strong>When it works:</strong> the tasks are genuinely independent. <strong>When it breaks:</strong> the tasks need to share context (then it’s serial, not parallel).</p>
+</div>
+</section>
+<section id="pattern-2-critic-fixer-loop" class="slide level2 compact">
+<h2>Pattern 2: critic-fixer loop</h2>
+<ul>
+<li class="fragment">The <strong>critic</strong> reads the artifact (Beamer source, Quarto target, manuscript section). Read-only — it cannot edit.</li>
+<li class="fragment">The <strong>fixer</strong> receives the critic’s findings and applies them.</li>
+<li class="fragment">They alternate. Critic re-audits after each fixer pass. Loop until APPROVED (or max 5 rounds).</li>
+</ul>
+<div class="fragment">
+<p><strong>Why two agents and not one:</strong> the agent that <em>wrote</em> the fix shouldn’t be the one judging it. Role separation = honest review.</p>
+</div>
+</section>
+<section id="pattern-3-fresh-context-verification-cove" class="slide level2 compact">
+<h2>Pattern 3: fresh-context verification (CoVe)</h2>
+<ul>
+<li class="fragment">The verifier never sees the draft. It only sees: claims, verification questions, source material.</li>
+<li class="fragment">Architecturally enforced via context forking — the verifier <em>cannot</em> know what was originally written.</li>
+<li class="fragment">Adapted from Dhuliawala et al.&nbsp;2023, <em>Chain-of-Verification Reduces Hallucination in LLMs</em> (<a href="https://arxiv.org/abs/2309.11495">arXiv:2309.11495</a>).</li>
+</ul>
+<div class="fragment">
+<p><strong>Why this matters for B-school work:</strong> referee reports cite specific papers. CoVe catches misattributions BEFORE you submit.</p>
+</div>
+</section>
+<section id="three-patterns-three-failure-modes" class="slide level2 compact">
+<h2>Three patterns, three failure modes</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 30%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pattern</th>
+<th>Best for</th>
+<th>Failure mode</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Parallel</td>
+<td>Genuinely independent tasks</td>
+<td>Tasks need to share context — coordination chaos</td>
+</tr>
+<tr class="even">
+<td>Critic-fixer</td>
+<td>Surface-level + structural review</td>
+<td>Critic and fixer are the same agent — “self-confirmation”</td>
+</tr>
+<tr class="odd">
+<td>Fresh-context CoVe</td>
+<td>Factual claims (citations, numerical facts)</td>
+<td>Forgetting to fork the verifier’s context — verifier confirms what it just generated</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="when-multi-agent-doesnt-help" class="title-slide slide level1 claudeorange center">
+<h1>When multi-agent doesn’t help</h1>
+
+</section>
+<section id="the-decomposition-trap" class="slide level2 compact">
+<h2>The decomposition trap</h2>
+<ul>
+<li class="fragment">“Spawn 5 agents to refactor this codebase” — sounds good, fails badly.</li>
+<li class="fragment">Each agent works on a slice; slices interact; no agent has the whole picture.</li>
+<li class="fragment">You get 5 partial fixes that conflict and an integration nightmare.</li>
+</ul>
+<div class="fragment">
+<p><strong>Rule:</strong> multi-agent is for tasks where the <em>decomposition is clear</em>. If you can’t write the decomposition in 2 sentences, don’t fan out.</p>
+</div>
+</section>
+<section id="a-concrete-failure-mode" class="slide level2 compact">
+<h2>A concrete failure mode</h2>
+<ul>
+<li class="fragment">I once asked: “spawn 3 agents to add fixed effects to my regression in three different ways.”</li>
+<li class="fragment">Agent 1: firm FE. Agent 2: industry × year FE. Agent 3: matched-sample.</li>
+<li class="fragment">Each rewrote the script in its own image. Three branches. Two days reconciling.</li>
+<li class="fragment">I should have run them <strong>serially</strong> — one branch, one decision per round.</li>
+</ul>
+<div class="fragment">
+<p><strong>The lesson:</strong> parallel ≠ better. Parallel = right for <em>independent</em> work; serial = right for <em>interacting</em> work.</p>
+</div>
+</section>
+<section id="when-one-agent-is-enough" class="slide level2 compact">
+<h2>When ONE agent is enough</h2>
+<ul>
+<li class="fragment">Most editing tasks. <strong>One agent + the orchestrator loop is fine.</strong></li>
+<li class="fragment">Most analysis tasks. Multi-agent on a regression script is over-engineering.</li>
+<li class="fragment">Quick fixes. The cost of fanning out exceeds the benefit if the task takes &lt; 5 minutes.</li>
+</ul>
+<div class="fragment">
+<p><strong>Heuristic:</strong> add a second agent only when you can articulate exactly what <em>that agent</em> sees that the first one couldn’t.</p>
+</div>
+</section></section>
+<section>
+<section id="the-role-of-hooks" class="title-slide slide level1 claudeorange center">
+<h1>The role of hooks</h1>
+
+</section>
+<section id="hooks-vs-claude.md-vs-rules" class="slide level2 compact">
+<h2>Hooks vs CLAUDE.md vs rules</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 36%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mechanism</th>
+<th>What it does</th>
+<th>Determinism</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>CLAUDE.md</code></td>
+<td>Tells Claude what your project is</td>
+<td>Advisory (Claude reads + usually follows)</td>
+</tr>
+<tr class="even">
+<td><code>.claude/rules/*.md</code></td>
+<td>Tells Claude what’s required for <em>specific files</em></td>
+<td>Advisory + path-scoped</td>
+</tr>
+<tr class="odd">
+<td><code>.claude/hooks/*.py</code></td>
+<td>Runs a Python script at lifecycle events</td>
+<td><strong>Deterministic — runs every time, no exceptions</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Hooks are how you turn “Claude is supposed to…” into “this thing actually happens.”</p>
+</div>
+</section>
+<section id="a-real-hook-in-this-template" class="slide level2 compact">
+<h2>A real hook in this template</h2>
+<p><code>.claude/hooks/log-reminder.py</code> — fires on every Stop event.</p>
+<ul>
+<li class="fragment">If the session log under <code>quality_reports/session_logs/</code> hasn’t been touched in N response cycles, prints a stderr reminder.</li>
+<li class="fragment">Doesn’t block Claude — just nudges.</li>
+<li class="fragment">Net effect: session logs get updated. Cross-session continuity becomes habit, not afterthought.</li>
+</ul>
+</section>
+<section id="another-pre-commit-gates" class="slide level2 compact">
+<h2>Another: pre-commit gates</h2>
+<p><code>/commit</code> Step 0b runs <code>scripts/check-surface-sync.sh</code> + <code>check-skill-integrity.py</code> BEFORE writing the commit.</p>
+<ul>
+<li class="fragment">Surface-sync: count assertions across 6 documents must match disk</li>
+<li class="fragment">Skill-integrity: 4 mechanical parity classes (frontmatter ↔︎ body, etc.)</li>
+<li class="fragment">Either fails → commit halts, user fixes, retries</li>
+</ul>
+<div class="fragment">
+<p>This isn’t AI judgment. It’s a Python script. <strong>The same gate runs whether I’m tired or rested.</strong></p>
+</div>
+</section>
+<section id="mini-demo-critic-fixer-loop" class="slide level2 compact">
+<h2>Mini demo: critic-fixer loop</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Placeholder</strong></p>
+<p><strong>Live demo (~3 min)</strong></p>
 </div>
 <div class="callout-content">
-<p>Why orchestration → when agents help (parallel / critic-fixer / fresh-context) → when they don’t → mini-demo of <code>/qa-quarto</code> + hooks.</p>
+<p>Switch to terminal. Run <code>/qa-quarto</code> on a Quarto slide with a known content drift from its Beamer counterpart (a typo in a formula). Audience watches:</p>
+<ol type="1">
+<li>Critic reads both files, flags the drift, hands findings to fixer.</li>
+<li>Fixer applies the fix.</li>
+<li>Critic re-audits. APPROVED.</li>
+</ol>
+<p>Then run a <code>git commit</code> with no message; watch <code>check-skill-integrity.py</code> block.</p>
+<p>Choreography: <code>demos/03-orchestration/README.md</code>.</p>
 </div>
 </div>
+</div>
+</section>
+<section id="what-you-saw" class="slide level2 compact">
+<h2>What you saw</h2>
+<ul>
+<li class="fragment"><strong>Two agents, one task, one approval.</strong> That’s the shape.</li>
+<li class="fragment">The fixer can’t approve itself — different role, different context.</li>
+<li class="fragment"><strong>The hook caught a real issue at commit time</strong> that no agent would have caught — count drift across documentation.</li>
+</ul>
+</section>
+<section id="coming-in-parts-5-6" class="slide level2 compact">
+<h2>Coming in Parts 5 + 6</h2>
+<ul>
+<li class="fragment"><strong>Part 5 (45 min, after lunch)</strong>: orchestration applied to <strong>replication audit</strong> — the headline demo for finance/accounting.</li>
+<li class="fragment"><strong>Part 6 (45 min)</strong>: orchestration applied to <strong>simulated peer review</strong> — Editor + 2 referees + editorial decision.</li>
+</ul>
+<div class="fragment">
+<p>Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fresh-context). Same primitives, bigger scope.</p>
 </div>
 </section>
 <section class="slide level2">
