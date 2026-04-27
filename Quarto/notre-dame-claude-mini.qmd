@@ -463,12 +463,113 @@ Take a 30-second stretch. We're going to a live demo.
 
 # Part 2 — End-to-End Demo {.emoryblue #part-2}
 
-## Coming in Part 2
+## What you're about to see {.compact}
 
-::: {.callout-note}
-## Placeholder
+::: {.incremental}
+- A real working-paper introduction. ~3 paragraphs. Has known issues (one citation misattribution, one awkward sentence, one missing covariate mention).
+- I ask Claude: *"Improve the introduction of this paper."*
+- We watch the **full lifecycle** — plan → spec → approve → implement → multi-agent review → fix → verify → score.
+:::
 
-The centerpiece. **Live demo:** improve a manuscript section. Choreography in `demos/01-end-to-end/README.md`.
+## What to watch for, not what to listen to {.compact}
+
+The next 25 minutes is **infrastructure**, not prose.
+
+::: {.incremental}
+- I'll narrate at three checkpoints: **plan appears**, **review fans out**, **score reports**.
+- The agent's edit suggestions matter less than **how the agent arrived at them**.
+- If Claude gets one of the edits wrong, that's *good* — you'll see the review loop catch it.
+:::
+
+## The full lifecycle (preview) {.compact}
+
+| Step | What happens | Time mark |
+|------|-------------|-----------|
+| 1 | I paste the prompt. Claude enters plan mode. | T+0 |
+| 2 | Plan appears. I narrate. | T+3 |
+| 3 | I approve. Implementation begins. | T+5 |
+| 4 | Agent reads, edits, self-verifies. | T+6 |
+| 5 | **Multi-agent review fans out** (proofreader + domain-reviewer + claim-verifier). | T+12 |
+| 6 | Review reports surface. | T+18 |
+| 7 | Fixes applied. | T+21 |
+| 8 | Quality score, summary, done. | T+25 |
+
+## What I want you to notice {.compact}
+
+::: {.incremental}
+1. **Plan mode is read-only.** Claude can't edit until I approve. This is the safety boundary.
+2. **The review fanout is parallel.** Three agents in three contexts — no cross-contamination.
+3. **The verifier never sees my prompt.** It checks the work in a fresh context (Chain-of-Verification, Dhuliawala et al. 2023).
+4. **The score is from a deterministic Python script**, not the agent's self-evaluation. Numerical, reproducible.
+:::
+
+## To the editor {auto-animate=true}
+
+::: {.callout-tip}
+## Live demo
+
+Switching to the IDE + terminal. Watch the screen, not the slides.
+
+Demo script: `demos/01-end-to-end/README.md`. Pre-recorded fallback at `demos/01-end-to-end/pre-recorded.mp4` (5 min, edited).
+
+Abort trigger: if **review fanout** hasn't fired by T+15, kill the live demo and play the recording.
+:::
+
+> [Pedro switches to the IDE. Live demo runs ~25 min.]
+
+## Coming back from the demo {.compact}
+
+. . .
+
+What you just saw — in one sentence:
+
+> **A 3-paragraph edit task became a 7-step structured workflow that produced an audit trail.**
+
+## What got produced {.compact}
+
+::: {.incremental}
+- A **plan** (saved to `quality_reports/plans/`)
+- A **spec** with MUST/SHOULD/MAY annotations (saved to `quality_reports/specs/`)
+- The **edited manuscript section**
+- **Three review reports** (one per agent), saved to `quality_reports/`
+- A **quality score** (numerical, reproducible)
+- A **session log** (what was done, by whom — useful for collaborators)
+:::
+
+. . .
+
+Six artifacts from one prompt.
+
+## Why this matters for B-school work {.compact}
+
+::: {.incremental}
+- **R&R round 2 = "what did I change since round 1?"** This audit trail answers it automatically.
+- **Co-author collaboration**: the next person opens the spec + session log and resumes without a 30-min sync call.
+- **Replication packages**: the same lifecycle generates them on the analysis side (Part 5).
+:::
+
+## What this didn't do {.compact}
+
+Honesty matters here.
+
+::: {.incremental}
+- ❌ **It didn't write a better paper than I would have.** The agent's edits are *suggestions*, not authority.
+- ❌ **It didn't catch every issue.** One subtle error is best caught by a reading mind, not a fast one.
+- ✅ **It caught most of the surface stuff in 25 minutes**, freeing me to spend the next hour on *substance*.
+:::
+
+. . .
+
+The point isn't replacement. It's **leverage on the boring 70%**.
+
+## What we cover next {.compact}
+
+We just saw the full lifecycle.
+
+::: {.incremental}
+- **Part 3 (next, 30 min):** what's a *skill*? How do you write your own? You'll sketch one.
+- **Part 4 (after break, 25 min):** the orchestration story — when does multi-agent help, when does it hurt?
+- **Part 5 + 6 (after lunch):** the two headline demos — replication audit + simulated peer review.
 :::
 
 ---

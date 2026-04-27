@@ -774,21 +774,163 @@ Pedro H. C. Sant’Anna
 <h1>Part 2 — End-to-End Demo</h1>
 
 </section>
-<section id="coming-in-part-2" class="slide level2">
-<h2>Coming in Part 2</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="what-youre-about-to-see" class="slide level2 compact">
+<h2>What you’re about to see</h2>
+<ul>
+<li class="fragment">A real working-paper introduction. ~3 paragraphs. Has known issues (one citation misattribution, one awkward sentence, one missing covariate mention).</li>
+<li class="fragment">I ask Claude: <em>“Improve the introduction of this paper.”</em></li>
+<li class="fragment">We watch the <strong>full lifecycle</strong> — plan → spec → approve → implement → multi-agent review → fix → verify → score.</li>
+</ul>
+</section>
+<section id="what-to-watch-for-not-what-to-listen-to" class="slide level2 compact">
+<h2>What to watch for, not what to listen to</h2>
+<p>The next 25 minutes is <strong>infrastructure</strong>, not prose.</p>
+<ul>
+<li class="fragment">I’ll narrate at three checkpoints: <strong>plan appears</strong>, <strong>review fans out</strong>, <strong>score reports</strong>.</li>
+<li class="fragment">The agent’s edit suggestions matter less than <strong>how the agent arrived at them</strong>.</li>
+<li class="fragment">If Claude gets one of the edits wrong, that’s <em>good</em> — you’ll see the review loop catch it.</li>
+</ul>
+</section>
+<section id="the-full-lifecycle-preview" class="slide level2 compact">
+<h2>The full lifecycle (preview)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 43%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>What happens</th>
+<th>Time mark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>I paste the prompt. Claude enters plan mode.</td>
+<td>T+0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Plan appears. I narrate.</td>
+<td>T+3</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>I approve. Implementation begins.</td>
+<td>T+5</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Agent reads, edits, self-verifies.</td>
+<td>T+6</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><strong>Multi-agent review fans out</strong> (proofreader + domain-reviewer + claim-verifier).</td>
+<td>T+12</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Review reports surface.</td>
+<td>T+18</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Fixes applied.</td>
+<td>T+21</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Quality score, summary, done.</td>
+<td>T+25</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="what-i-want-you-to-notice" class="slide level2 compact">
+<h2>What I want you to notice</h2>
+<ol type="1">
+<li class="fragment"><strong>Plan mode is read-only.</strong> Claude can’t edit until I approve. This is the safety boundary.</li>
+<li class="fragment"><strong>The review fanout is parallel.</strong> Three agents in three contexts — no cross-contamination.</li>
+<li class="fragment"><strong>The verifier never sees my prompt.</strong> It checks the work in a fresh context (Chain-of-Verification, Dhuliawala et al.&nbsp;2023).</li>
+<li class="fragment"><strong>The score is from a deterministic Python script</strong>, not the agent’s self-evaluation. Numerical, reproducible.</li>
+</ol>
+</section>
+<section id="to-the-editor" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">To the editor</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Placeholder</strong></p>
+<p><strong>Live demo</strong></p>
 </div>
 <div class="callout-content">
-<p>The centerpiece. <strong>Live demo:</strong> improve a manuscript section. Choreography in <code>demos/01-end-to-end/README.md</code>.</p>
+<p>Switching to the IDE + terminal. Watch the screen, not the slides.</p>
+<p>Demo script: <code>demos/01-end-to-end/README.md</code>. Pre-recorded fallback at <code>demos/01-end-to-end/pre-recorded.mp4</code> (5 min, edited).</p>
+<p>Abort trigger: if <strong>review fanout</strong> hasn’t fired by T+15, kill the live demo and play the recording.</p>
 </div>
 </div>
 </div>
+<blockquote>
+<p>[Pedro switches to the IDE. Live demo runs ~25 min.]</p>
+</blockquote>
+</section>
+<section id="coming-back-from-the-demo" class="slide level2 compact">
+<h2>Coming back from the demo</h2>
+<div class="fragment">
+<p>What you just saw — in one sentence:</p>
+<blockquote>
+<p><strong>A 3-paragraph edit task became a 7-step structured workflow that produced an audit trail.</strong></p>
+</blockquote>
+</div>
+</section>
+<section id="what-got-produced" class="slide level2 compact">
+<h2>What got produced</h2>
+<ul>
+<li class="fragment">A <strong>plan</strong> (saved to <code>quality_reports/plans/</code>)</li>
+<li class="fragment">A <strong>spec</strong> with MUST/SHOULD/MAY annotations (saved to <code>quality_reports/specs/</code>)</li>
+<li class="fragment">The <strong>edited manuscript section</strong></li>
+<li class="fragment"><strong>Three review reports</strong> (one per agent), saved to <code>quality_reports/</code></li>
+<li class="fragment">A <strong>quality score</strong> (numerical, reproducible)</li>
+<li class="fragment">A <strong>session log</strong> (what was done, by whom — useful for collaborators)</li>
+</ul>
+<div class="fragment">
+<p>Six artifacts from one prompt.</p>
+</div>
+</section>
+<section id="why-this-matters-for-b-school-work" class="slide level2 compact">
+<h2>Why this matters for B-school work</h2>
+<ul>
+<li class="fragment"><strong>R&amp;R round 2 = “what did I change since round 1?”</strong> This audit trail answers it automatically.</li>
+<li class="fragment"><strong>Co-author collaboration</strong>: the next person opens the spec + session log and resumes without a 30-min sync call.</li>
+<li class="fragment"><strong>Replication packages</strong>: the same lifecycle generates them on the analysis side (Part 5).</li>
+</ul>
+</section>
+<section id="what-this-didnt-do" class="slide level2 compact">
+<h2>What this didn’t do</h2>
+<p>Honesty matters here.</p>
+<ul>
+<li class="fragment">❌ <strong>It didn’t write a better paper than I would have.</strong> The agent’s edits are <em>suggestions</em>, not authority.</li>
+<li class="fragment">❌ <strong>It didn’t catch every issue.</strong> One subtle error is best caught by a reading mind, not a fast one.</li>
+<li class="fragment">✅ <strong>It caught most of the surface stuff in 25 minutes</strong>, freeing me to spend the next hour on <em>substance</em>.</li>
+</ul>
+<div class="fragment">
+<p>The point isn’t replacement. It’s <strong>leverage on the boring 70%</strong>.</p>
+</div>
+</section>
+<section id="what-we-cover-next" class="slide level2 compact">
+<h2>What we cover next</h2>
+<p>We just saw the full lifecycle.</p>
+<ul>
+<li class="fragment"><strong>Part 3 (next, 30 min):</strong> what’s a <em>skill</em>? How do you write your own? You’ll sketch one.</li>
+<li class="fragment"><strong>Part 4 (after break, 25 min):</strong> the orchestration story — when does multi-agent help, when does it hurt?</li>
+<li class="fragment"><strong>Part 5 + 6 (after lunch):</strong> the two headline demos — replication audit + simulated peer review.</li>
+</ul>
 </section>
 <section class="slide level2">
 
