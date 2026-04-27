@@ -940,20 +940,250 @@ Pedro H. C. Sant’Anna
 <h1>Part 3 — Building Reusable Skills</h1>
 
 </section>
-<section id="coming-in-part-3" class="slide level2">
-<h2>Coming in Part 3</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="what-is-a-skill-really" class="slide level2 compact">
+<h2>What is a skill, really?</h2>
+<ul>
+<li class="fragment">A <strong>skill</strong> is a Markdown file at <code>.claude/skills/&lt;name&gt;/SKILL.md</code>.</li>
+<li class="fragment">It has YAML frontmatter (when does Claude trigger it?) and a body (what to do).</li>
+<li class="fragment">It auto-loads when a relevant prompt is detected — or you invoke it explicitly with <code>/&lt;name&gt;</code>.</li>
+<li class="fragment">That’s it. <strong>No code, no installation, no plugin system.</strong></li>
+</ul>
+<div class="fragment">
+<p>A skill is just a written instruction — but a <em>triggerable, version-controlled, reusable</em> one.</p>
+</div>
+</section>
+<section id="what-a-skill-is-not" class="slide level2 compact">
+<h2>What a skill is NOT</h2>
+<ul>
+<li class="fragment">❌ A plugin (no compilation, no extension API)</li>
+<li class="fragment">❌ A chat template (skills can read files, run code, call other skills)</li>
+<li class="fragment">❌ A prompt library entry (those are static; skills run <em>workflows</em>)</li>
+<li class="fragment">❌ Magic (you’ll see exactly what’s in one in 90 seconds)</li>
+</ul>
+</section>
+<section id="anatomy-of-a-skill" class="slide level2 compact">
+<h2>Anatomy of a skill</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href=""></a><span class="pp">---</span></span>
+<span id="cb7-2"><a href=""></a><span class="fu">name</span><span class="kw">:</span><span class="at"> my-skill-name</span></span>
+<span id="cb7-3"><a href=""></a><span class="fu">description</span><span class="kw">:</span><span class="at"> One-sentence description with trigger keywords. "Use when user says X, Y, Z."</span></span>
+<span id="cb7-4"><a href=""></a><span class="fu">argument-hint</span><span class="kw">:</span><span class="at"> </span><span class="st">"[optional flags / inputs]"</span></span>
+<span id="cb7-5"><a href=""></a><span class="fu">allowed-tools</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"Read"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Write"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Bash"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Grep"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Glob"</span><span class="kw">]</span></span>
+<span id="cb7-6"><a href=""></a><span class="fu">disable-model-invocation</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">   # set true if this skill must be user-explicit only</span></span>
+<span id="cb7-7"><a href=""></a><span class="pp">---</span></span>
+<span id="cb7-8"><a href=""></a></span>
+<span id="cb7-9"><a href=""></a><span class="co"># My Skill Name</span></span>
+<span id="cb7-10"><a href=""></a></span>
+<span id="cb7-11"><a href=""></a><span class="co">## Workflow</span></span>
+<span id="cb7-12"><a href=""></a></span>
+<span id="cb7-13"><a href=""></a><span class="co">### Phase 1 — Inputs</span></span>
+<span id="cb7-14"><a href=""></a><span class="at">Read the spec, validate inputs, refuse if results are present.</span></span>
+<span id="cb7-15"><a href=""></a></span>
+<span id="cb7-16"><a href=""></a><span class="co">### Phase 2 — Generate</span></span>
+<span id="cb7-17"><a href=""></a><span class="at">Produce the output, MUST/SHOULD/MAY annotated.</span></span>
+<span id="cb7-18"><a href=""></a></span>
+<span id="cb7-19"><a href=""></a><span class="co">### Phase 3 — Verify</span></span>
+<span id="cb7-20"><a href=""></a><span class="at">Cross-check against domain rules.</span></span>
+<span id="cb7-21"><a href=""></a></span>
+<span id="cb7-22"><a href=""></a><span class="co">### Phase 4 — Output</span></span>
+<span id="cb7-23"><a href=""></a><span class="at">Write to disk. Report to user.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>That’s a real skill template. Frontmatter ≤ 6 fields. Body = numbered phases.</p>
+</div>
+</section>
+<section id="why-this-beats-writing-the-workflow-into-your-prompts" class="slide level2 compact">
+<h2>Why this beats writing the workflow into your prompts</h2>
+<ul>
+<li class="fragment"><strong>Reusable</strong> — write once, invoke anytime, share with co-authors</li>
+<li class="fragment"><strong>Versionable</strong> — <code>git diff</code> your skill the way you <code>git diff</code> your code</li>
+<li class="fragment"><strong>Auditable</strong> — anyone reading your repo sees the workflow as text</li>
+<li class="fragment"><strong>Composable</strong> — a skill can invoke another skill (e.g., <code>/preregister</code> calls <code>/verify-claims</code>)</li>
+</ul>
+</section></section>
+<section>
+<section id="walk-through-preregister" class="title-slide slide level1 claudeorange center">
+<h1>Walk-through: <code>/preregister</code></h1>
+
+</section>
+<section id="what-it-does-one-slide" class="slide level2 compact">
+<h2>What it does (one slide)</h2>
+<p><code>/preregister</code> drafts a registry-ready preregistration document in your choice of style:</p>
+<ul>
+<li><strong>OSF</strong> (default) — full template, social-science default</li>
+<li><strong>AsPredicted</strong> — 9-question short form</li>
+<li><strong>AEA RCT Registry</strong> — required for AEA-journal field experiments since 2018</li>
+</ul>
+<div class="fragment">
+<p>It refuses to draft if your description contains <em>results</em> — preregistration is forward-looking by definition.</p>
+</div>
+</section>
+<section id="live-walkthrough-the-actual-skill.md" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Live walkthrough: the actual SKILL.md</h2>
+<blockquote>
+<p>[Pedro opens <code>~/Documents/GitHub/claude-code-my-workflow/.claude/skills/preregister/SKILL.md</code>. Walks the frontmatter (description, argument-hint, allowed-tools), then the 6 phases. Then INVOKES it on a fake study description. Audience sees: input → output, end to end, ~3 minutes.]</p>
+</blockquote>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Placeholder</strong></p>
+<p><strong>Demo prompt (verbatim)</strong></p>
 </div>
 <div class="callout-content">
-<p>What skills are → walk through <code>/preregister</code> → <strong>paper exercise</strong> (faculty draft a skill for their own use case) → design principles. Handout: <code>exercises/skill-template.md</code>.</p>
+<blockquote>
+<p><em>I’m planning a 2x2 between-subjects survey experiment on N=800 US adults via Prolific. Manipulating message-source partisanship × policy framing on attitudes toward climate policy. Primary DV is a 4-item attitude index. Hypothesis: in-party + gain framing produces highest support. Pre-registered analysis: two-way ANOVA. Run /preregister –style aspredicted on this.</em></p>
+</blockquote>
 </div>
 </div>
+</div>
+</section>
+<section id="why-this-skill-for-this-audience" class="slide level2 compact">
+<h2>Why this skill, for this audience</h2>
+<ul>
+<li class="fragment"><strong>Pre-registration is the #1 referee ask</strong> in finance experiments (JF, RFS) and accounting field/lab work (TAR, JAR, JAE).</li>
+<li class="fragment"><strong>AEA RCT Registry</strong> is mandatory for AEA-journal field interventions; many B-school field studies don’t realize they qualify.</li>
+<li class="fragment"><strong>The MUST/SHOULD/MAY annotation discipline</strong> is exactly the framing reviewers expect — directional hypothesis, named estimator, ex-ante exclusions, sample-size stopping rule.</li>
+</ul>
+</section>
+<section id="three-things-to-notice-in-the-skill.md" class="slide level2 compact">
+<h2>Three things to notice in the SKILL.md</h2>
+<ol type="1">
+<li class="fragment"><strong>Trigger phrases in the description</strong> — “preregister”, “OSF”, “AsPredicted”, “AEA RCT”, “PAP”, “preanalysis plan”. Why so many? See <em>Effective triggers</em> below.</li>
+<li class="fragment"><strong><code>disable-model-invocation: true</code></strong> — this skill writes a <em>commitment document</em>; it must be user-intent.</li>
+<li class="fragment"><strong>Cross-check phase</strong> — refuses to mark “ready” if hypothesis isn’t directional, estimator isn’t named, exclusions aren’t ex-ante.</li>
+</ol>
+</section>
+<section id="effective-trigger-descriptions" class="slide level2 compact">
+<h2>Effective trigger descriptions</h2>
+<p>A skill triggers when its <code>description</code> matches the user’s prompt. So the description must contain the words your future self / your co-author would actually use.</p>
+<ul>
+<li class="fragment">❌ <code>description: A preregistration tool.</code> — too generic; never triggers</li>
+<li class="fragment">❌ <code>description: Pre-registers a study.</code> — singular, formal; misses real usage</li>
+<li class="fragment">✅ <code>description: Draft a preregistration document (OSF, AsPredicted, AEA RCT Registry style). Use when user says "preregister", "draft a preregistration", "OSF preregistration", "AsPredicted", "AEA RCT registry", "PAP", "preanalysis plan".</code></li>
+</ul>
+<div class="fragment">
+<p>The description IS the trigger. Pack it with the actual phrases people use.</p>
+</div>
+</section></section>
+<section>
+<section id="hands-on-sketch-your-own-skill" class="title-slide slide level1 claudeorange center">
+<h1>Hands-on: sketch your own skill</h1>
+
+</section>
+<section id="your-turn-10-minutes" class="slide level2 compact">
+<h2>Your turn (10 minutes)</h2>
+<ul>
+<li class="fragment">Each handout has a 1-page <strong>skill template</strong> + 6 sample use cases (finance, accounting, econ, teaching, admin).</li>
+<li class="fragment">Pick <strong>one</strong> use case (or your own).</li>
+<li class="fragment">Fill in: name, description (with trigger phrases!), 3-step workflow.</li>
+<li class="fragment">Don’t try to make it run. Just draft.</li>
+<li class="fragment">We’ll workshop 1-2 volunteers’ sketches at the end.</li>
+</ul>
+<div class="fragment">
+<p><strong>You have until [time].</strong> Go.</p>
+</div>
+</section>
+<section id="sample-use-cases-pick-one" class="slide level2 compact">
+<h2>Sample use cases (pick one)</h2>
+<ol type="1">
+<li class="fragment"><strong>Finance — JF submission formatter.</strong> Standardize tables: clustered SE, sig stars per JF style, 3-decimal coefficients, observation count, R².</li>
+<li class="fragment"><strong>Accounting — restatement matcher.</strong> Given an Audit Analytics export, produce a sample-construction memo with exclusion-by-exclusion counts.</li>
+<li class="fragment"><strong>Econ — referee-letter parser.</strong> Map each numbered concern in a referee report to a specific revision file/line.</li>
+<li class="fragment"><strong>Teaching — grading rubric applier.</strong> Apply a fixed rubric to a student submission; produce a per-criterion score + comment.</li>
+<li class="fragment"><strong>Admin — letter-of-support template.</strong> Given a student name + program + my prior knowledge of them, draft a structured recommendation letter.</li>
+<li class="fragment"><strong>Your own.</strong> Anything you do at least 3 times a year.</li>
+</ol>
+</section>
+<section id="what-makes-a-good-first-skill" class="slide level2 compact">
+<h2>What makes a good first skill</h2>
+<ul>
+<li class="fragment"><strong>Repetitive task</strong> — you do it more than 3 times a year</li>
+<li class="fragment"><strong>Has a structure</strong> — there’s a “right way” you can specify</li>
+<li class="fragment"><strong>Has a verifiable output</strong> — you’ll know if the agent got it wrong</li>
+<li class="fragment"><strong>Is small</strong> — 1-3 phases. The first skill is the smallest skill that’s useful.</li>
+</ul>
+<div class="fragment">
+<p>Most failures: trying to cram too much into skill #1. Aim small.</p>
+</div>
+</section>
+<section id="workshop-5-minutes" class="slide level2 compact">
+<h2>Workshop (5 minutes)</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Volunteers</strong></p>
+</div>
+<div class="callout-content">
+<p>Two volunteers share their sketches. I read aloud + react in real time. We type one of them up live as a real <code>SKILL.md</code> to demonstrate the sketch → working-skill translation.</p>
+<p>If no volunteers: I have two pre-drafted I can walk through (one finance, one accounting).</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="design-principles" class="title-slide slide level1 claudeorange center">
+<h1>Design principles</h1>
+
+</section>
+<section id="reusability" class="slide level2">
+<h2>Reusability</h2>
+<ul>
+<li class="fragment"><strong>Specific enough to do something useful</strong>, <strong>general enough to apply more than once</strong>.</li>
+<li class="fragment">Trap: writing a skill that only solves <em>this paper’s</em> problem. Re-frame to the <em>class of problems</em>.</li>
+<li class="fragment">Test: would your co-author / next-year-you actually invoke this?</li>
+</ul>
+</section>
+<section id="specificity-in-the-description-and-the-body" class="slide level2 compact">
+<h2>Specificity (in the description AND the body)</h2>
+<ul>
+<li class="fragment"><strong>In the description</strong>: trigger phrases people actually say, examples of when to use it, when <em>not</em> to use it.</li>
+<li class="fragment"><strong>In the body</strong>: literal commands, exact filenames, named estimators. “Run an analysis” → no. “Run <code>Rscript scripts/02_main.R</code> and read the output of <code>Sys.time()</code>” → yes.</li>
+</ul>
+</section>
+<section id="built-in-verification" class="slide level2 compact">
+<h2>Built-in verification</h2>
+<p>The best skills don’t just <em>do</em> — they <em>check</em>.</p>
+<ul>
+<li class="fragment"><code>/preregister</code> refuses to mark MUST sections complete if hypothesis isn’t directional.</li>
+<li class="fragment"><code>/audit-reproducibility</code> (Part 5) compares numerical claims to script outputs with tolerance thresholds.</li>
+<li class="fragment"><code>/checkpoint</code> reads <code>git status</code> to verify state before writing the snapshot.</li>
+</ul>
+<div class="fragment">
+<p>A skill without a verification step is a fancy macro. A skill <em>with</em> one is a workflow.</p>
+</div>
+</section>
+<section id="cost-of-creation-honestly" class="slide level2 compact">
+<h2>Cost-of-creation, honestly</h2>
+<ul>
+<li class="fragment">A first skill: <strong>30-60 minutes</strong> to draft, test, iterate.</li>
+<li class="fragment">A polished skill: <strong>2-4 hours</strong> including verification, examples, edge-case handling.</li>
+<li class="fragment">A production skill (used by colleagues): <strong>half a day</strong> for full doc + tests.</li>
+</ul>
+<div class="fragment">
+<p>If you’re spending less than 30 min, you’re under-investing in the description. If more than 4 hours on draft #1, you’re over-engineering.</p>
+</div>
+</section>
+<section id="cumulative-leverage" class="slide level2 compact">
+<h2>Cumulative leverage</h2>
+<ul>
+<li class="fragment">Year 1: 5 skills. Each saves 1 hour/month. Net: 60 hours/year freed.</li>
+<li class="fragment">Year 2: 12 skills. Each saves 1-2 hours/month. Net: 200+ hours.</li>
+<li class="fragment">Year 3: 20+. Skills start <em>invoking each other</em>. Net: hard to measure — your default workflow becomes “Claude + my repo of skills”.</li>
+</ul>
+<div class="fragment">
+<p>The leverage compounds because <strong>each skill is a written commitment</strong> to <em>how you do this kind of work</em>. Future-you can read it.</p>
+</div>
+</section>
+<section id="take-a-10-minute-break" class="slide level2 emoryblue">
+<h2>Take a 10-minute break</h2>
+<div class="fragment">
+<p>Back at [time]. Bathroom + coffee + check email.</p>
+</div>
+<div class="fragment">
+<p>After the break: <strong>orchestration</strong> — when does multi-agent help, when does it hurt?</p>
 </div>
 </section>
 <section class="slide level2">

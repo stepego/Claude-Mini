@@ -576,13 +576,240 @@ We just saw the full lifecycle.
 
 # Part 3 — Building Reusable Skills {.claudeorange #part-3}
 
-## Coming in Part 3
+## What is a skill, really? {.compact}
 
-::: {.callout-note}
-## Placeholder
-
-What skills are → walk through `/preregister` → **paper exercise** (faculty draft a skill for their own use case) → design principles. Handout: `exercises/skill-template.md`.
+::: {.incremental}
+- A **skill** is a Markdown file at `.claude/skills/<name>/SKILL.md`.
+- It has YAML frontmatter (when does Claude trigger it?) and a body (what to do).
+- It auto-loads when a relevant prompt is detected — or you invoke it explicitly with `/<name>`.
+- That's it. **No code, no installation, no plugin system.**
 :::
+
+. . .
+
+A skill is just a written instruction — but a *triggerable, version-controlled, reusable* one.
+
+## What a skill is NOT {.compact}
+
+::: {.incremental}
+- ❌ A plugin (no compilation, no extension API)
+- ❌ A chat template (skills can read files, run code, call other skills)
+- ❌ A prompt library entry (those are static; skills run *workflows*)
+- ❌ Magic (you'll see exactly what's in one in 90 seconds)
+:::
+
+## Anatomy of a skill {.compact}
+
+```yaml
+---
+name: my-skill-name
+description: One-sentence description with trigger keywords. "Use when user says X, Y, Z."
+argument-hint: "[optional flags / inputs]"
+allowed-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
+disable-model-invocation: false   # set true if this skill must be user-explicit only
+---
+
+# My Skill Name
+
+## Workflow
+
+### Phase 1 — Inputs
+Read the spec, validate inputs, refuse if results are present.
+
+### Phase 2 — Generate
+Produce the output, MUST/SHOULD/MAY annotated.
+
+### Phase 3 — Verify
+Cross-check against domain rules.
+
+### Phase 4 — Output
+Write to disk. Report to user.
+```
+
+. . .
+
+That's a real skill template. Frontmatter ≤ 6 fields. Body = numbered phases.
+
+## Why this beats writing the workflow into your prompts {.compact}
+
+::: {.incremental}
+- **Reusable** — write once, invoke anytime, share with co-authors
+- **Versionable** — `git diff` your skill the way you `git diff` your code
+- **Auditable** — anyone reading your repo sees the workflow as text
+- **Composable** — a skill can invoke another skill (e.g., `/preregister` calls `/verify-claims`)
+:::
+
+# Walk-through: `/preregister` {.claudeorange}
+
+## What it does (one slide) {.compact}
+
+`/preregister` drafts a registry-ready preregistration document in your choice of style:
+
+- **OSF** (default) — full template, social-science default
+- **AsPredicted** — 9-question short form
+- **AEA RCT Registry** — required for AEA-journal field experiments since 2018
+
+. . .
+
+It refuses to draft if your description contains *results* — preregistration is forward-looking by definition.
+
+## Live walkthrough: the actual SKILL.md {auto-animate=true}
+
+> [Pedro opens `~/Documents/GitHub/claude-code-my-workflow/.claude/skills/preregister/SKILL.md`.
+> Walks the frontmatter (description, argument-hint, allowed-tools), then the 6 phases.
+> Then INVOKES it on a fake study description.
+> Audience sees: input → output, end to end, ~3 minutes.]
+
+::: {.callout-tip}
+## Demo prompt (verbatim)
+
+> *I'm planning a 2x2 between-subjects survey experiment on N=800 US adults via Prolific. Manipulating message-source partisanship × policy framing on attitudes toward climate policy. Primary DV is a 4-item attitude index. Hypothesis: in-party + gain framing produces highest support. Pre-registered analysis: two-way ANOVA. Run /preregister --style aspredicted on this.*
+:::
+
+## Why this skill, for this audience {.compact}
+
+::: {.incremental}
+- **Pre-registration is the #1 referee ask** in finance experiments (JF, RFS) and accounting field/lab work (TAR, JAR, JAE).
+- **AEA RCT Registry** is mandatory for AEA-journal field interventions; many B-school field studies don't realize they qualify.
+- **The MUST/SHOULD/MAY annotation discipline** is exactly the framing reviewers expect — directional hypothesis, named estimator, ex-ante exclusions, sample-size stopping rule.
+:::
+
+## Three things to notice in the SKILL.md {.compact}
+
+::: {.incremental}
+1. **Trigger phrases in the description** — "preregister", "OSF", "AsPredicted", "AEA RCT", "PAP", "preanalysis plan". Why so many? See *Effective triggers* below.
+2. **`disable-model-invocation: true`** — this skill writes a *commitment document*; it must be user-intent.
+3. **Cross-check phase** — refuses to mark "ready" if hypothesis isn't directional, estimator isn't named, exclusions aren't ex-ante.
+:::
+
+## Effective trigger descriptions {.compact}
+
+A skill triggers when its `description` matches the user's prompt. So the description must contain the words your future self / your co-author would actually use.
+
+::: {.incremental}
+- ❌ `description: A preregistration tool.` — too generic; never triggers
+- ❌ `description: Pre-registers a study.` — singular, formal; misses real usage
+- ✅ `description: Draft a preregistration document (OSF, AsPredicted, AEA RCT Registry style). Use when user says "preregister", "draft a preregistration", "OSF preregistration", "AsPredicted", "AEA RCT registry", "PAP", "preanalysis plan".`
+:::
+
+. . .
+
+The description IS the trigger. Pack it with the actual phrases people use.
+
+# Hands-on: sketch your own skill {.claudeorange}
+
+## Your turn (10 minutes) {.compact}
+
+::: {.incremental}
+- Each handout has a 1-page **skill template** + 6 sample use cases (finance, accounting, econ, teaching, admin).
+- Pick **one** use case (or your own).
+- Fill in: name, description (with trigger phrases!), 3-step workflow.
+- Don't try to make it run. Just draft.
+- We'll workshop 1-2 volunteers' sketches at the end.
+:::
+
+. . .
+
+**You have until [time].** Go.
+
+## Sample use cases (pick one) {.compact}
+
+::: {.incremental}
+1. **Finance — JF submission formatter.** Standardize tables: clustered SE, sig stars per JF style, 3-decimal coefficients, observation count, R².
+2. **Accounting — restatement matcher.** Given an Audit Analytics export, produce a sample-construction memo with exclusion-by-exclusion counts.
+3. **Econ — referee-letter parser.** Map each numbered concern in a referee report to a specific revision file/line.
+4. **Teaching — grading rubric applier.** Apply a fixed rubric to a student submission; produce a per-criterion score + comment.
+5. **Admin — letter-of-support template.** Given a student name + program + my prior knowledge of them, draft a structured recommendation letter.
+6. **Your own.** Anything you do at least 3 times a year.
+:::
+
+## What makes a good first skill {.compact}
+
+::: {.incremental}
+- **Repetitive task** — you do it more than 3 times a year
+- **Has a structure** — there's a "right way" you can specify
+- **Has a verifiable output** — you'll know if the agent got it wrong
+- **Is small** — 1-3 phases. The first skill is the smallest skill that's useful.
+:::
+
+. . .
+
+Most failures: trying to cram too much into skill #1. Aim small.
+
+## Workshop (5 minutes) {.compact}
+
+::: {.callout-tip}
+## Volunteers
+
+Two volunteers share their sketches. I read aloud + react in real time. We type one of them up live as a real `SKILL.md` to demonstrate the sketch → working-skill translation.
+
+If no volunteers: I have two pre-drafted I can walk through (one finance, one accounting).
+:::
+
+# Design principles {.claudeorange}
+
+## Reusability
+
+::: {.incremental}
+- **Specific enough to do something useful**, **general enough to apply more than once**.
+- Trap: writing a skill that only solves *this paper's* problem. Re-frame to the *class of problems*.
+- Test: would your co-author / next-year-you actually invoke this?
+:::
+
+## Specificity (in the description AND the body) {.compact}
+
+::: {.incremental}
+- **In the description**: trigger phrases people actually say, examples of when to use it, when *not* to use it.
+- **In the body**: literal commands, exact filenames, named estimators. "Run an analysis" → no. "Run `Rscript scripts/02_main.R` and read the output of `Sys.time()`" → yes.
+:::
+
+## Built-in verification {.compact}
+
+The best skills don't just *do* — they *check*.
+
+::: {.incremental}
+- `/preregister` refuses to mark MUST sections complete if hypothesis isn't directional.
+- `/audit-reproducibility` (Part 5) compares numerical claims to script outputs with tolerance thresholds.
+- `/checkpoint` reads `git status` to verify state before writing the snapshot.
+:::
+
+. . .
+
+A skill without a verification step is a fancy macro. A skill *with* one is a workflow.
+
+## Cost-of-creation, honestly {.compact}
+
+::: {.incremental}
+- A first skill: **30-60 minutes** to draft, test, iterate.
+- A polished skill: **2-4 hours** including verification, examples, edge-case handling.
+- A production skill (used by colleagues): **half a day** for full doc + tests.
+:::
+
+. . .
+
+If you're spending less than 30 min, you're under-investing in the description. If more than 4 hours on draft #1, you're over-engineering.
+
+## Cumulative leverage {.compact}
+
+::: {.incremental}
+- Year 1: 5 skills. Each saves 1 hour/month. Net: 60 hours/year freed.
+- Year 2: 12 skills. Each saves 1-2 hours/month. Net: 200+ hours.
+- Year 3: 20+. Skills start *invoking each other*. Net: hard to measure — your default workflow becomes "Claude + my repo of skills".
+:::
+
+. . .
+
+The leverage compounds because **each skill is a written commitment** to *how you do this kind of work*. Future-you can read it.
+
+## Take a 10-minute break {.emoryblue}
+
+. . .
+
+Back at [time]. Bathroom + coffee + check email.
+
+. . .
+
+After the break: **orchestration** — when does multi-agent help, when does it hurt?
 
 ---
 
