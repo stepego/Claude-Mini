@@ -67,7 +67,7 @@ These are the source of truth. If a claim in the talk seemed surprising, check t
 ## Replication-policy references (Part 5)
 
 - **[AEA Data and Code Availability Policy](https://www.aeaweb.org/journals/data/data-code-policy)** — official policy + Data Editor process.
-- **[AEA Data Editor](https://aeadataeditor.org)** — what they do, what they check, examples.
+- **[AEA Data Editor (LDI replication lab)](https://aeadataeditor.github.io/)** — what they do, what they check, examples.
 - **[AEA RCT Registry](https://www.socialscienceregistry.org)** — required since 2018 for AEA-journal field-experimental work.
 - **[OSF (Open Science Framework)](https://osf.io/registries)** — preregistration default for survey experiments.
 - **[AsPredicted](https://aspredicted.org)** — 9-question short-form preregistration.

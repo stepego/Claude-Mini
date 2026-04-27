@@ -15,7 +15,7 @@ Print this. Carry it. Run through every checkpoint.
 - [ ] Anthropic plan tier still grants auto mode (test with `claude --permission-mode auto`)
 
 ### Content
-- [ ] CHANGELOG of `claude-code-my-workflow` shows v1.8.1 with JF + JAR profiles merged
+- [ ] CHANGELOG of `claude-code-my-workflow` shows v1.8.0 (no v1.8.1 prerequisite for this talk; AER profile already ships)
 - [ ] Deck final renders cleanly with `quarto render` — no warnings
 - [ ] All 6 demo READMEs reflect actual choreography (post-rehearsal)
 - [ ] Speaker-notes `full-script.md` written from what worked in dry-runs

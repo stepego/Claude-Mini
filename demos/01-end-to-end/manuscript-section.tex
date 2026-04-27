@@ -1,0 +1,47 @@
+% manuscript-section.tex
+% Stripped-down working-paper INTRODUCTION substrate for Demo 1 (Part 2 end-to-end).
+% Sanitized; ~3 paragraphs; contains 3 planted issues for the multi-agent review
+% to surface (one citation misattribution, one awkward sentence, one missing
+% covariate mention).
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+
+\title{The Effect of Minimum Wage Increases on Small-Business Formation: \\
+       Evidence from State-Level Adoptions}
+\author{[Author 1] \and [Author 2]}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+A foundational question in labor economics asks whether minimum-wage increases
+suppress small-business formation by raising the cost of low-skill labor. The
+classical theoretical prediction \citep{Card1994} suggests that minimum wage
+increases reduce employment and entrepreneurship. \emph{[PLANTED ISSUE 1: Card
+\& Krueger (1994) found minimal employment effects, NOT a reduction. This is
+the kind of misattribution that referee reports catch — and that the
+claim-verifier agent should flag.]}
+
+We use the staggered timing of state minimum-wage increases between 2014 and
+2022 to estimate the effect on the rate of new small-business formation,
+exploiting variation across counties along the borders of states with
+differing minimum-wage trajectories. \emph{[PLANTED ISSUE 2: This sentence is
+needlessly tangled — "exploiting variation along the borders" mixes design
+with mechanism. The proofreader agent should propose a tighter rewrite.]}
+
+Our analysis controls for county-year fixed effects, time-varying state
+unemployment rates, and demographic composition. \emph{[PLANTED ISSUE 3: The
+manuscript fails to mention controls for STATE-LEVEL ECONOMIC CYCLES, which
+the domain-reviewer agent (causal-inference lens) should flag as a missing
+covariate that biases the staggered-DiD design.]}
+
+We find that a 10\% minimum-wage increase reduces the small-business formation
+rate by approximately 1.8 percentage points over the subsequent five years,
+with the strongest effects concentrated in retail and food-services sectors.
+The point estimate is robust to alternative comparison-group constructions
+and to the Callaway-Sant'Anna (2021) heterogeneity-robust ATT(g,t) estimator.
+
+\end{document}

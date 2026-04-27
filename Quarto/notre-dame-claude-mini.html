@@ -1066,7 +1066,7 @@ Pedro H. C. Sant’Anna
 <li class="fragment">✅ <code>description: Draft a preregistration document (OSF, AsPredicted, AEA RCT Registry style). Use when user says "preregister", "draft a preregistration", "OSF preregistration", "AsPredicted", "AEA RCT registry", "PAP", "preanalysis plan".</code></li>
 </ul>
 <div class="fragment">
-<p>The description IS the trigger. Pack it with the actual phrases people use.</p>
+<p>I learned this the hard way: <strong>my first version of <code>/preregister</code> never triggered</strong>, because I called it “a preregistration tool.” Now I just pack the description with <strong>the words I’d actually type into Claude</strong>.</p>
 </div>
 </section>
 <section id="skills-vs-mcps-a-quick-aside" class="slide level2 compact">
@@ -1234,13 +1234,14 @@ Pedro H. C. Sant’Anna
 </section>
 <section id="cumulative-leverage" class="slide level2 compact">
 <h2>Cumulative leverage</h2>
-<ul>
-<li class="fragment">Year 1: 5 skills. Each saves 1 hour/month. Net: 60 hours/year freed.</li>
-<li class="fragment">Year 2: 12 skills. Each saves 1-2 hours/month. Net: 200+ hours.</li>
-<li class="fragment">Year 3: 20+. Skills start <em>invoking each other</em>. Net: hard to measure — your default workflow becomes “Claude + my repo of skills”.</li>
-</ul>
+<blockquote>
+<p><strong>After a year, you stop <em>writing</em> skills and start <em>composing</em> them.</strong></p>
+</blockquote>
 <div class="fragment">
-<p>The leverage compounds because <strong>each skill is a written commitment</strong> to <em>how you do this kind of work</em>. Future-you can read it.</p>
+<p>That’s the moment the leverage compounds. A skill that invokes another skill that invokes a third — your “default workflow” becomes Claude + your own repo of skills, and writing the next paper becomes choosing which skills to chain.</p>
+</div>
+<div class="fragment">
+<p>I’m there now. It took a year. <strong>Each skill is a written commitment to how you do this kind of work</strong> — future-you can read it.</p>
 </div>
 </section>
 <section id="take-a-10-minute-break" class="slide level2 emoryblue">
@@ -1523,7 +1524,10 @@ Pedro H. C. Sant’Anna
 <section id="back-to-the-paper-i-lost" class="slide level2 compact">
 <h2>Back to the paper I lost</h2>
 <blockquote>
-<p><em>Remember the rejected REStud paper from this morning? Single-number mismatch, 8 hours of debugging.</em></p>
+<p><em>(Reminder from the cold open: I had a paper rejected at REStud because <strong>a single number</strong> in Table 3 didn’t match the .csv I shipped. <strong>Eight hours of debugging.</strong> That’s the story.)</em></p>
+</blockquote>
+<blockquote>
+<p><em>Now here’s the skill that would have caught it.</em></p>
 </blockquote>
 <div class="fragment">
 <p>Here’s the skill. It would have caught it in 90 seconds.</p>
@@ -1535,7 +1539,7 @@ Pedro H. C. Sant’Anna
 <section id="why-this-part-lands-hardest-for-applied-causal-work" class="slide level2 compact">
 <h2>Why this part lands hardest for applied-causal work</h2>
 <ul>
-<li class="fragment"><strong>AEA Data Editor</strong> has been operational since 2019. Every accepted AEA paper (AER / AEJs / P&amp;P) goes through a numerical reproduction check.</li>
+<li class="fragment"><strong>AEA Data Editor</strong> position created 2018; operational replication-package verification since 2019. Every accepted AEA paper (AER / AEJs / P&amp;P) goes through a numerical reproduction check.</li>
 <li class="fragment"><strong>AEA Data and Code Availability Policy</strong> is strict — a single non-reproducing number is grounds for revision.</li>
 <li class="fragment"><strong>Top-5 econ + REStud + EJ</strong> all run formal verification at acceptance.</li>
 <li class="fragment">The trend extends: more journals, tighter tolerances, faster cycles.</li>
@@ -1608,7 +1612,7 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <span id="cb10-7"><a href=""></a><span class="fu">### Critical cross-artifact issues</span></span>
 <span id="cb10-8"><a href=""></a><span class="pp">|</span> Paper claim <span class="pp">|</span> Code location <span class="pp">|</span> Issue <span class="pp">|</span></span>
 <span id="cb10-9"><a href=""></a><span class="pp">|---|---|---|</span></span>
-<span id="cb10-10"><a href=""></a><span class="pp">|</span> Table 2, ATT = -0.247 <span class="pp">|</span> scripts/R/03_analyze.R:142 <span class="pp">|</span> Script output: ATT = -0.218 (diff &gt; 4 decimals) <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-10"><a href=""></a><span class="pp">|</span> Table 2, N = 14,562 <span class="pp">|</span> scripts/R/03_analyze.R:18 <span class="pp">|</span> Script output: N = 14,489 (silent year &lt; 2020 filter) <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <p>This block goes at the <strong>top of the review report</strong>. The paper-side findings come after — because if the numbers don’t reproduce, paper-side polish is moot.</p>
 </div>
@@ -1698,7 +1702,7 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <span id="cb12-2"><a href=""></a></span>
 <span id="cb12-3"><a href=""></a><span class="pp">|</span> ID <span class="pp">|</span> Claim <span class="pp">|</span> Source <span class="pp">|</span></span>
 <span id="cb12-4"><a href=""></a><span class="pp">|----|-------|--------|</span></span>
-<span id="cb12-5"><a href=""></a><span class="pp">|</span> C1 <span class="pp">|</span> ATT = -0.247 (SE 0.083) <span class="pp">|</span> Table 2, col (3) <span class="pp">|</span></span>
+<span id="cb12-5"><a href=""></a><span class="pp">|</span> C1 <span class="pp">|</span> ATT = 3.2 pp (SE 0.083) <span class="pp">|</span> Table 2, col (3) <span class="pp">|</span></span>
 <span id="cb12-6"><a href=""></a><span class="pp">|</span> C2 <span class="pp">|</span> N = 14,562 <span class="pp">|</span> Table 2, col (3) <span class="pp">|</span></span>
 <span id="cb12-7"><a href=""></a><span class="pp">|</span> C3 <span class="pp">|</span> R² = 0.31 <span class="pp">|</span> Table 2, col (3) <span class="pp">|</span></span>
 <span id="cb12-8"><a href=""></a><span class="pp">|</span> C4 <span class="pp">|</span> First-stage F-stat &gt; 25 <span class="pp">|</span> Section 4.2 narrative <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2390,7 +2394,7 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h2>Anthropic-shipped utilities</h2>
 <p>Built into Claude Code itself, no fork needed:</p>
 <ul>
-<li class="fragment"><strong><code>/team-onboarding</code></strong> (<a href="https://code.claude.com/docs/en/team-onboarding">docs</a>) — package your local setup into a replayable guide for collaborators. <strong>Recommend for lab groups.</strong></li>
+<li class="fragment"><strong><code>/team-onboarding</code></strong> (<a href="https://code.claude.com/docs/en/whats-new/2026-w15">Week 15 digest</a>) — package your local setup into a replayable guide for collaborators. <strong>Recommend for lab groups.</strong></li>
 <li class="fragment"><strong><code>/autofix-pr</code></strong> — runs Claude Code on a GitHub PR, applying CI-style fixes</li>
 <li class="fragment"><strong><code>/powerup</code></strong> — interactive lessons (Anthropic’s tutorial system)</li>
 <li class="fragment"><strong>Ultraplan</strong> (<a href="https://code.claude.com/docs/en/ultraplan">docs</a>) — cloud-based plan editing, sync to local</li>
@@ -2424,13 +2428,26 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <p>(Logistics: clone <a href="https://github.com/pedrohcgs/Claude-Mini"><code>Claude-Mini</code></a> for slides + demos; fork <a href="https://github.com/pedrohcgs/claude-code-my-workflow"><code>claude-code-my-workflow</code></a> when you’re ready for the full template. But neither of those is the thing that changes a paper.)</p>
 </div>
 </section>
-<section id="three-things-to-do-this-month" class="slide level2 compact">
-<h2>Three things to do this month</h2>
+<section id="when-youre-ready-three-places-to-extend" class="slide level2 compact">
+<h2>When you’re ready, three places to extend</h2>
+<p>When the CLAUDE.md habit is in place — these are next, in priority order:</p>
 <ol type="1">
 <li class="fragment"><strong>Pick one repetitive task you do 3+ times a year. Write it as a skill.</strong> (Sample use cases on the handout.)</li>
-<li class="fragment"><strong>Run <code>/audit-reproducibility</code></strong> on your most recent submitted paper. Find the issue. Fix it.</li>
-<li class="fragment"><strong>Try <code>/review-paper --peer &lt;your-target-journal&gt;</code></strong> on a current draft. Treat the simulated review as a dress rehearsal.</li>
+<li class="fragment"><strong>Run <code>/audit-reproducibility</code></strong> on your most recent submitted paper. Find the issue. Fix it before someone else does.</li>
+<li class="fragment"><strong>Try <code>/review-paper --peer AER</code></strong> (or your target journal) on a current draft. Treat the simulated review as a dress rehearsal.</li>
 </ol>
+<div class="fragment">
+<p>These are <em>menu</em>, not assignments. Pick one when it’s the right week.</p>
+</div>
+</section>
+<section id="honest-closing" class="slide level2 compact">
+<h2>Honest closing</h2>
+<ul>
+<li class="fragment">This workflow has saved me <strong>probably 100+ hours</strong> in the last year.</li>
+<li class="fragment">It’s also occasionally <strong>infuriating</strong> — agents misunderstanding, hooks firing inconveniently, demos failing live.</li>
+<li class="fragment">The leverage is real. The friction is also real. <strong>You’ll calibrate by doing.</strong></li>
+<li class="fragment">The community of academics adopting this is small but growing fast. <strong>You’re early.</strong></li>
+</ul>
 </section>
 <section id="resources-for-going-deeper" class="slide level2 compact">
 <h2>Resources for going deeper</h2>
@@ -2450,15 +2467,6 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <li class="fragment"><strong>Hugo Sant’Anna’s <code>clo-author</code>:</strong> <a href="https://github.com/hugosantanna/clo-author">github.com/hugosantanna/clo-author</a> — paper-authoring-focused fork</li>
 <li class="fragment"><strong>AI MBA tutorials:</strong> <a href="https://ai-mba.io">ai-mba.io</a> — B-school audience materials</li>
 <li class="fragment"><strong>Take-home <code>Claude-Mini/handouts/resources.md</code></strong> — every link from this talk in one file</li>
-</ul>
-</section>
-<section id="honest-closing" class="slide level2 compact">
-<h2>Honest closing</h2>
-<ul>
-<li class="fragment">This workflow has saved me <strong>probably 100+ hours</strong> in the last year.</li>
-<li class="fragment">It’s also occasionally <strong>infuriating</strong> — agents misunderstanding, hooks firing inconveniently, demos failing live.</li>
-<li class="fragment">The leverage is real. The friction is also real. <strong>You’ll calibrate by doing.</strong></li>
-<li class="fragment">The community of academics adopting this is small but growing fast. <strong>You’re early.</strong></li>
 </ul>
 </section>
 <section id="thank-you" class="slide level2 emoryblue">

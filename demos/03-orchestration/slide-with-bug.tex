@@ -1,0 +1,22 @@
+% slide-with-bug.tex — Beamer source for Demo 3 (Part 4)
+% Used to demonstrate the critic-fixer loop on a Beamer ↔ Quarto parity drift.
+
+\documentclass[11pt]{beamer}
+\usetheme{default}
+
+\begin{document}
+
+\begin{frame}
+\frametitle{Hajek Weights for ATT Estimation}
+
+The Hajek-weighted ATT estimator under conditional parallel trends:
+
+\[ \hat{\tau}^{\text{Hajek}} = \frac{1}{N_{\text{treated}}}
+   \sum_{i: D_i = 1}
+   \left[ Y_i(1) - \frac{\hat{p}(X_i)}{1-\hat{p}(X_i)} Y_i(0) \right] \]
+
+where $\hat{p}(X_i)$ is the propensity score and $D_i$ is the treatment indicator.
+
+\end{frame}
+
+\end{document}

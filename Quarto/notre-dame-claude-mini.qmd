@@ -786,7 +786,7 @@ A skill triggers when its `description` matches the user's prompt. So the descri
 
 . . .
 
-The description IS the trigger. Pack it with the actual phrases people use.
+I learned this the hard way: **my first version of `/preregister` never triggered**, because I called it "a preregistration tool." Now I just pack the description with **the words I'd actually type into Claude**.
 
 ## Skills vs MCPs (a quick aside) {.compact}
 
@@ -920,15 +920,15 @@ If you're spending less than 30 min, you're under-investing in the description. 
 
 ## Cumulative leverage {.compact}
 
-::: {.incremental}
-- Year 1: 5 skills. Each saves 1 hour/month. Net: 60 hours/year freed.
-- Year 2: 12 skills. Each saves 1-2 hours/month. Net: 200+ hours.
-- Year 3: 20+. Skills start *invoking each other*. Net: hard to measure — your default workflow becomes "Claude + my repo of skills".
-:::
+> **After a year, you stop *writing* skills and start *composing* them.**
 
 . . .
 
-The leverage compounds because **each skill is a written commitment** to *how you do this kind of work*. Future-you can read it.
+That's the moment the leverage compounds. A skill that invokes another skill that invokes a third — your "default workflow" becomes Claude + your own repo of skills, and writing the next paper becomes choosing which skills to chain.
+
+. . .
+
+I'm there now. It took a year. **Each skill is a written commitment to how you do this kind of work** — future-you can read it.
 
 ## Take a 10-minute break {.emoryblue}
 
@@ -1160,7 +1160,9 @@ Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fres
 
 ## Back to the paper I lost {.compact}
 
-> *Remember the rejected REStud paper from this morning? Single-number mismatch, 8 hours of debugging.*
+> *(Reminder from the cold open: I had a paper rejected at REStud because **a single number** in Table 3 didn't match the .csv I shipped. **Eight hours of debugging.** That's the story.)*
+
+> *Now here's the skill that would have caught it.*
 
 . . .
 
@@ -1173,7 +1175,7 @@ Watch.
 ## Why this part lands hardest for applied-causal work {.compact}
 
 ::: {.incremental}
-- **AEA Data Editor** has been operational since 2019. Every accepted AEA paper (AER / AEJs / P&P) goes through a numerical reproduction check.
+- **AEA Data Editor** position created 2018; operational replication-package verification since 2019. Every accepted AEA paper (AER / AEJs / P&P) goes through a numerical reproduction check.
 - **AEA Data and Code Availability Policy** is strict — a single non-reproducing number is grounds for revision.
 - **Top-5 econ + REStud + EJ** all run formal verification at acceptance.
 - The trend extends: more journals, tighter tolerances, faster cycles.
@@ -1251,7 +1253,7 @@ This isn't a feature you trigger. It's the **default for `/review-paper`** when 
 ### Critical cross-artifact issues
 | Paper claim | Code location | Issue |
 |---|---|---|
-| Table 2, ATT = -0.247 | scripts/R/03_analyze.R:142 | Script output: ATT = -0.218 (diff > 4 decimals) |
+| Table 2, N = 14,562 | scripts/R/03_analyze.R:18 | Script output: N = 14,489 (silent year < 2020 filter) |
 ```
 
 . . .
@@ -1342,7 +1344,7 @@ These are the kinds of bugs that produce "the script ran but the numbers are sli
 
 | ID | Claim | Source |
 |----|-------|--------|
-| C1 | ATT = -0.247 (SE 0.083) | Table 2, col (3) |
+| C1 | ATT = 3.2 pp (SE 0.083) | Table 2, col (3) |
 | C2 | N = 14,562 | Table 2, col (3) |
 | C3 | R² = 0.31 | Table 2, col (3) |
 | C4 | First-stage F-stat > 25 | Section 4.2 narrative |
@@ -1903,7 +1905,7 @@ Six more high-quality projects (clo-author, strategic-revision, crossref, claude
 Built into Claude Code itself, no fork needed:
 
 ::: {.incremental}
-- **`/team-onboarding`** ([docs](https://code.claude.com/docs/en/team-onboarding)) — package your local setup into a replayable guide for collaborators. **Recommend for lab groups.**
+- **`/team-onboarding`** ([Week 15 digest](https://code.claude.com/docs/en/whats-new/2026-w15)) — package your local setup into a replayable guide for collaborators. **Recommend for lab groups.**
 - **`/autofix-pr`** — runs Claude Code on a GitHub PR, applying CI-style fixes
 - **`/powerup`** — interactive lessons (Anthropic's tutorial system)
 - **Ultraplan** ([docs](https://code.claude.com/docs/en/ultraplan)) — cloud-based plan editing, sync to local
@@ -1935,12 +1937,27 @@ That's it. The single highest-leverage action from these 4 hours. Once `CLAUDE.m
 
 (Logistics: clone [`Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini) for slides + demos; fork [`claude-code-my-workflow`](https://github.com/pedrohcgs/claude-code-my-workflow) when you're ready for the full template. But neither of those is the thing that changes a paper.)
 
-## Three things to do this month {.compact}
+## When you're ready, three places to extend {.compact}
+
+When the CLAUDE.md habit is in place — these are next, in priority order:
 
 ::: {.incremental}
 1. **Pick one repetitive task you do 3+ times a year. Write it as a skill.** (Sample use cases on the handout.)
-2. **Run `/audit-reproducibility`** on your most recent submitted paper. Find the issue. Fix it.
-3. **Try `/review-paper --peer <your-target-journal>`** on a current draft. Treat the simulated review as a dress rehearsal.
+2. **Run `/audit-reproducibility`** on your most recent submitted paper. Find the issue. Fix it before someone else does.
+3. **Try `/review-paper --peer AER`** (or your target journal) on a current draft. Treat the simulated review as a dress rehearsal.
+:::
+
+. . .
+
+These are *menu*, not assignments. Pick one when it's the right week.
+
+## Honest closing {.compact}
+
+::: {.incremental}
+- This workflow has saved me **probably 100+ hours** in the last year.
+- It's also occasionally **infuriating** — agents misunderstanding, hooks firing inconveniently, demos failing live.
+- The leverage is real. The friction is also real. **You'll calibrate by doing.**
+- The community of academics adopting this is small but growing fast. **You're early.**
 :::
 
 ## Resources for going deeper {.compact}
@@ -1962,15 +1979,6 @@ That's it. The single highest-leverage action from these 4 hours. Once `CLAUDE.m
 - **Hugo Sant'Anna's `clo-author`:** [github.com/hugosantanna/clo-author](https://github.com/hugosantanna/clo-author) — paper-authoring-focused fork
 - **AI MBA tutorials:** [ai-mba.io](https://ai-mba.io) — B-school audience materials
 - **Take-home `Claude-Mini/handouts/resources.md`** — every link from this talk in one file
-:::
-
-## Honest closing {.compact}
-
-::: {.incremental}
-- This workflow has saved me **probably 100+ hours** in the last year.
-- It's also occasionally **infuriating** — agents misunderstanding, hooks firing inconveniently, demos failing live.
-- The leverage is real. The friction is also real. **You'll calibrate by doing.**
-- The community of academics adopting this is small but growing fast. **You're early.**
 :::
 
 ## Thank you {.emoryblue}

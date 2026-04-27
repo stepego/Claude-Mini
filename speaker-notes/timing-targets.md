@@ -74,7 +74,7 @@ Track your real-clock against these targets during dry-runs. If you're off by > 
 ### Part 6 (45 min) — minute markers from start (03:10)
 
 - 03:10 — 03:15 — Referee-perspective framing
-- 03:15 — 03:35 — Live demo 5a: `/review-paper --peer JF` (20 min)
+- 03:15 — 03:35 — Live demo 5a: `/review-paper --peer AER` (20 min)
 - 03:35 — 03:45 — Drafting referee responses framing
 - 03:45 — 03:53 — Live demo 5b: `/respond-to-referees` (8 min)
 - 03:53 — 03:55 — Wrap

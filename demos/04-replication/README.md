@@ -33,7 +33,7 @@ This is the headline demo for finance + accounting. The audience leaves understa
 ### `manuscript-claims.md`
 
 Four numerical claims:
-- C1: ATT = -0.247 (SE 0.083) — Table 2, col (3)
+- C1: ATT = 3.2 pp (SE 0.083) — Table 2, col (3)
 - C2: N = 14,562 — Table 2, col (3)
 - C3: R² = 0.31 — Table 2, col (3)
 - C4: First-stage F-stat > 25 — Section 4.2 narrative
@@ -103,7 +103,7 @@ Output (target):
 
 | ID | Claim | Source value | Script output | Tolerance | Status |
 |----|-------|--------------|---------------|-----------|--------|
-| C1 | ATT = -0.247 (SE 0.083) | -0.247 | -0.247 (SE 0.083) | 4 decimals | ✓ PASS |
+| C1 | ATT = 3.2 pp (SE 0.083) | 3.200 | 3.198 (SE 0.083) | 4 decimals | ✓ PASS |
 | C2 | N = 14,562 | 14,562 | 14,489 | exact | ✗ FAIL |
 | C3 | R² = 0.31 | 0.31 | 0.31 | 2 decimals | ✓ PASS |
 | C4 | First-stage F > 25 | "> 25" | F = 32.1 | numeric > 25 | ✓ PASS |

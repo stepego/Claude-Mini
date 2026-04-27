@@ -1,0 +1,16 @@
+---
+title: "Demo 3 — Quarto counterpart with planted drift"
+format: clean-revealjs
+---
+
+## Hajek Weights for ATT Estimation
+
+The Hajek-weighted ATT estimator under conditional parallel trends:
+
+$$ \hat{\tau}^{\text{Hajek}} = \frac{1}{N_{\text{treated}}} \sum_{i: D_i = 1} \cdots $$
+
+where $\hat{p}(X_i)$ is the propensity score and $D_i$ is the treatment indicator.
+
+<!-- PLANTED DRIFT: the Beamer source has the FULL Hajek weight formula; this Quarto
+     copy has \cdots placeholder. The /qa-quarto critic should flag this; the fixer
+     should sync the formula across both files. -->
