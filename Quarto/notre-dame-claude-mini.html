@@ -213,9 +213,18 @@ Pedro H. C. Sant’Anna
   <p class="date">April 2026</p>
 </section>
 <section>
-<section id="welcome" class="title-slide slide level1 emoryblue center">
-<h1>Welcome</h1>
+<section id="agentic-ai-for-academic-research" class="title-slide slide level1 emoryblue center">
+<h1>Agentic AI for Academic Research</h1>
 
+</section>
+<section id="a-4-hour-watch-along-notre-dame-mendoza-spring-2026" class="slide level2 compact" data-background-color="#012169">
+<h2>A 4-hour Watch-Along · Notre Dame Mendoza · Spring 2026</h2>
+<blockquote>
+<p>Pedro H. C. Sant’Anna · Emory University</p>
+</blockquote>
+<div class="fragment">
+<p>Three live demos. One repo to clone tonight.</p>
+</div>
 </section>
 <section id="i-lost-a-paper-to-one-number" class="slide level2 compact">
 <h2>I lost a paper to one number</h2>
@@ -512,18 +521,15 @@ Pedro H. C. Sant’Anna
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a><span class="fu">## Core Principles</span></span>
 <span id="cb1-4"><a href=""></a><span class="ss">- </span>Plan first; verify after.</span>
-<span id="cb1-5"><a href=""></a><span class="ss">- </span>Single source of truth: Beamer .tex is authoritative.</span>
-<span id="cb1-6"><a href=""></a><span class="ss">- </span>Quality gates: nothing ships below 80/100.</span>
-<span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a><span class="fu">## Folder Structure</span></span>
-<span id="cb1-9"><a href=""></a><span class="ss">- </span>Slides/ — Beamer .tex</span>
-<span id="cb1-10"><a href=""></a><span class="ss">- </span>Quarto/ — RevealJS .qmd</span>
-<span id="cb1-11"><a href=""></a><span class="ss">- </span>scripts/R/ — analysis pipeline</span>
-<span id="cb1-12"><a href=""></a><span class="ss">- </span>Bibliography_base.bib — centralized citations</span>
-<span id="cb1-13"><a href=""></a></span>
-<span id="cb1-14"><a href=""></a><span class="fu">## Commands</span></span>
-<span id="cb1-15"><a href=""></a>TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex</span>
-<span id="cb1-16"><a href=""></a>quarto render file.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href=""></a><span class="ss">- </span>Quality gates: nothing ships below 80/100.</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a><span class="fu">## Folder Structure</span></span>
+<span id="cb1-8"><a href=""></a><span class="ss">- </span>Slides/ — Beamer .tex</span>
+<span id="cb1-9"><a href=""></a><span class="ss">- </span>scripts/R/ — analysis pipeline</span>
+<span id="cb1-10"><a href=""></a></span>
+<span id="cb1-11"><a href=""></a><span class="fu">## Commands</span></span>
+<span id="cb1-12"><a href=""></a>TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex</span>
+<span id="cb1-13"><a href=""></a>quarto render file.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
 <p>I’ll open the actual file in a moment.</p>
 </div>
@@ -891,18 +897,32 @@ Pedro H. C. Sant’Anna
 </blockquote>
 </div>
 </section>
-<section id="what-got-produced" class="slide level2 compact">
-<h2>What got produced</h2>
-<ul>
-<li class="fragment">A <strong>plan</strong> (saved to <code>quality_reports/plans/</code>)</li>
-<li class="fragment">A <strong>spec</strong> with MUST/SHOULD/MAY annotations (saved to <code>quality_reports/specs/</code>)</li>
-<li class="fragment">The <strong>edited manuscript section</strong></li>
-<li class="fragment"><strong>Three review reports</strong> (one per agent), saved to <code>quality_reports/</code></li>
-<li class="fragment">A <strong>quality score</strong> (numerical, reproducible)</li>
-<li class="fragment">A <strong>session log</strong> (what was done, by whom — useful for collaborators)</li>
-</ul>
+<section id="what-got-produced-six-artifacts-one-prompt" class="slide level2 compact">
+<h2>What got produced — six artifacts, one prompt</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<h3 id="plan">📋 Plan</h3>
+<p>saved to <code>quality_reports/plans/</code></p>
+</div><div class="column" style="width:33%;">
+<h3 id="spec">📝 Spec</h3>
+<p>MUST / SHOULD / MAY annotated; <code>quality_reports/specs/</code></p>
+</div><div class="column" style="width:33%;">
+<h3 id="edits">✏️ Edits</h3>
+<p>The actual manuscript-section changes</p>
+</div></div>
+<div class="columns">
+<div class="column" style="width:33%;">
+<h3 id="review-reports">🔍 Review reports</h3>
+<p>3 reports (one per agent), <code>quality_reports/</code></p>
+</div><div class="column" style="width:33%;">
+<h3 id="quality-score">📊 Quality score</h3>
+<p>numerical, reproducible (<code>quality_score.py</code>)</p>
+</div><div class="column" style="width:33%;">
+<h3 id="session-log">📓 Session log</h3>
+<p>who did what, when — for collaborators</p>
+</div></div>
 <div class="fragment">
-<p>Six artifacts from one prompt.</p>
+<p><strong>Six artifacts from one prompt.</strong> None of them existed when I typed it.</p>
 </div>
 </section>
 <section id="why-this-matters-for-b-school-work" class="slide level2 compact">
@@ -986,10 +1006,10 @@ Pedro H. C. Sant’Anna
 <section id="why-this-beats-writing-the-workflow-into-your-prompts" class="slide level2 compact">
 <h2>Why this beats writing the workflow into your prompts</h2>
 <ul>
-<li class="fragment"><strong>Reusable</strong> — write once, invoke anytime, share with co-authors</li>
-<li class="fragment"><strong>Versionable</strong> — <code>git diff</code> your skill the way you <code>git diff</code> your code</li>
-<li class="fragment"><strong>Auditable</strong> — anyone reading your repo sees the workflow as text</li>
-<li class="fragment"><strong>Composable</strong> — a skill can invoke another skill (e.g., <code>/preregister</code> calls <code>/verify-claims</code>)</li>
+<li><strong>Reusable</strong> — write once, invoke anytime, share with co-authors</li>
+<li><strong>Versionable</strong> — <code>git diff</code> your skill the way you <code>git diff</code> your code</li>
+<li><strong>Auditable</strong> — anyone reading your repo sees the workflow as text</li>
+<li><strong>Composable</strong> — a skill can invoke another skill (e.g., <code>/preregister</code> calls <code>/verify-claims</code>)</li>
 </ul>
 </section></section>
 <section>
@@ -2047,6 +2067,18 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <li class="fragment">The editor’s synthesis classified concerns: <strong>FATAL</strong> (rejection unless mind-changed) / <strong>ADDRESSABLE</strong> (revise+resubmit territory) / <strong>TASTE</strong> (referee preference, not the paper’s fault).</li>
 <li class="fragment">The decision wasn’t “accept” or “reject” — it was a <strong>revision plan</strong>.</li>
 </ul>
+</section>
+<section id="a-30-second-pause" class="slide level2 compact">
+<h2>A 30-second pause</h2>
+<blockquote>
+<p><em>I just got an editorial decision on a paper I haven’t published yet. From a simulated <strong>AER</strong> editor. With two referee reports. In ~20 minutes.</em></p>
+</blockquote>
+<div class="fragment">
+<p>That’s the demo. <strong>The next demo is what you do next</strong> — turning that editorial decision into a structured revision plan.</p>
+</div>
+<div class="fragment">
+<p>Let’s go.</p>
+</div>
 </section></section>
 <section>
 <section id="drafting-referee-responses" class="title-slide slide level1 claudeorange center">
@@ -2075,26 +2107,34 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <section id="why-classification-matters-for-rr" class="slide level2 compact">
 <h2>Why classification matters for R&amp;R</h2>
 <ul>
-<li class="fragment"><strong>Addressed</strong> — you did the thing. Cite where.</li>
-<li class="fragment"><strong>Partial</strong> — you did some of the thing. Cite where; explain what’s missing and why.</li>
-<li class="fragment"><strong>Deferred</strong> — you didn’t do the thing this round. Explain <em>why deferred</em> (out of scope, future work, infeasible).</li>
-<li class="fragment"><strong>Disagreement</strong> — you don’t think the thing should be done. <strong>Explain courteously and substantively.</strong></li>
+<li><strong>Addressed</strong> — you did the thing. Cite where.</li>
+<li><strong>Partial</strong> — you did some of the thing. Cite where; explain what’s missing and why.</li>
+<li><strong>Deferred</strong> — you didn’t do the thing this round. Explain <em>why deferred</em> (out of scope, future work, infeasible).</li>
+<li><strong>Disagreement</strong> — you don’t think the thing should be done. <strong>Explain courteously and substantively.</strong></li>
 </ul>
 <div class="fragment">
 <p>Top journal editors want to see all four categories used appropriately. <strong>Avoiding “Disagreement” looks evasive.</strong></p>
 </div>
 </section>
-<section id="a-concrete-example" class="slide level2 compact">
-<h2>A concrete example</h2>
+<section id="a-concrete-example-the-referees-concern" class="slide level2 compact">
+<h2>A concrete example — the referee’s concern</h2>
 <p>A referee writes:</p>
 <blockquote>
-<p><em>“The first-stage F-statistic of 9 is well below the conventional weak-instrument threshold. The IV results should not be interpreted causally.”</em></p>
+<p><em>“The first-stage F-statistic of 9 is well below the conventional weak-instrument threshold (Stock &amp; Yogo 2005). The IV results should not be interpreted causally.”</em></p>
 </blockquote>
 <div class="fragment">
-<p><code>/respond-to-referees</code> produces:</p>
+<p>A real concern. The kind of concern that, on a bad day, you spend three hours drafting a response to.</p>
+</div>
+</section>
+<section id="a-concrete-example-what-respond-to-referees-produces" class="slide level2 compact">
+<h2>A concrete example — what <code>/respond-to-referees</code> produces</h2>
 <blockquote>
-<p><strong>Classification:</strong> Addressed. <strong>Where:</strong> Manuscript p.&nbsp;14, footnote 22; Online Appendix B.3. <strong>Response:</strong> “We thank the referee for raising the weak-instrument concern. We now report Anderson-Rubin confidence intervals (Online Appendix B.3) which are robust to weak instruments; the result is qualitatively similar with much wider intervals. We have added a footnote on p.&nbsp;14 noting the limitation explicitly.”</p>
+<p><strong>Classification:</strong> Addressed.</p>
+<p><strong>Where:</strong> Manuscript p.&nbsp;14, footnote 22; Online Appendix B.3.</p>
+<p><strong>Drafted response:</strong> “We thank the referee for raising the weak-instrument concern. We now report Anderson-Rubin confidence intervals (Online Appendix B.3) which are robust to weak instruments; the result is qualitatively similar with much wider intervals. We have added a footnote on p.&nbsp;14 noting the limitation explicitly.”</p>
 </blockquote>
+<div class="fragment">
+<p><strong>Three hours → ten seconds.</strong> You still review and edit. But the scaffolding is done.</p>
 </div>
 </section>
 <section id="alternative-strategic-revision-jusi-aalto" class="slide level2 compact">
