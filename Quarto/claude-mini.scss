@@ -1,0 +1,939 @@
+/*-- scss:defaults --*/
+
+// Emory University Colors (matching CausalPanel beamer theme)
+$emoryblue: #012169;    // Official Emory Blue (darker, more refined)
+$emorygold: #B9975B;    // Emory Gold - emphasis, accents
+$emoryyellow: #F2A900;  // Emory Yellow - highlights
+$emoryblue-light: #E8EDF5; // Light blue for subtle backgrounds
+
+// Map to clean theme variables
+$jet: #1a1a1a;          // Slightly softer black for body text
+$accent: $emoryblue;
+$accent2: $emorygold;
+$right-arrow: "\2192";
+
+// Fonts - use system sans-serif for reliability
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+
+$font-family-sans-serif: "Source Sans Pro", "Helvetica Neue", sans-serif !default;
+$presentation-heading-font: "Source Sans Pro", "Helvetica Neue", sans-serif !default;
+
+$presentation-heading-color: $emoryblue !default;
+$presentation-heading-font-weight: 600;
+$presentation-font-size-root: 30px;  // Slightly smaller base for more content
+
+// Refined spacing
+$presentation-block-margin: 12px;
+$presentation-h2-font-size: 1.4em;
+
+// Colors
+$body-color: $jet !default;
+$link-color: $emoryblue !default;
+$selection-bg: $emorygold !default;
+
+
+/*-- scss:rules --*/
+
+// Slide layout - top-aligned content with breathing room
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  padding: 0.5em 1em;
+  top: 0 !important;
+}
+
+.reveal a {
+  line-height: 1.3em;
+  text-decoration: none;
+  border-bottom: 1px dotted $emorygold;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-bottom-color: $emoryblue;
+  }
+}
+
+.reveal p {
+  font-weight: 300;
+  margin-top: 0.5em;
+  margin-bottom: 0.35em;
+  line-height: 1.45;  // Balanced line height for readability
+}
+
+// Reduce space between bold headers and following lists
+.reveal p + ul,
+.reveal p + ol {
+  margin-top: 0.3em;
+}
+
+// Title slide styling - centered, elegant layout
+#title-slide {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  background: linear-gradient(180deg, white 0%, $emoryblue-light 100%);
+
+  .title {
+    color: $emoryblue;
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 0.2em;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    color: $emorygold;
+    font-style: italic;
+    margin-top: 0.3em;
+    margin-bottom: 1.2em;
+    font-weight: 400;
+    font-size: 1.3em;
+  }
+
+  .author,
+  .quarto-title-author-name {
+    color: $emoryblue;
+    font-weight: 600;
+    font-size: 1.2em;
+    margin-top: 0.5em;
+  }
+
+  .institute,
+  .quarto-title-affiliation,
+  .quarto-title-author-email {
+    font-style: italic;
+    color: #555;
+    margin-top: 0.4em;
+    font-size: 1.05em;
+  }
+
+  .date,
+  .quarto-title-meta-contents {
+    color: $emorygold;
+    font-weight: 600;
+    margin-top: 1.5em;
+    font-size: 1.1em;
+  }
+
+  .quarto-title-authors {
+    display: block;
+    text-align: center;
+
+    .quarto-title-author {
+      padding: 0;
+      width: 100%;
+    }
+  }
+}
+
+// Headings - refined typography with visual hierarchy
+.reveal h2 {
+  color: $emoryblue;
+  font-weight: 600;
+  font-size: 1.5em;
+  margin-bottom: 0.7em;
+  padding-bottom: 0.2em;
+  border-bottom: 2px solid rgba($emorygold, 0.3);
+}
+
+.reveal h3 {
+  color: $emorygold;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1em;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.reveal h4 {
+  color: $emoryyellow;
+  font-weight: 600;
+  font-size: 0.95em;
+  margin-top: 0.8em;
+  margin-bottom: 0.3em;
+}
+
+// Alerts and emphasis
+.alert {
+  color: $emorygold;
+}
+
+.emoryblue {
+  color: $emoryblue;
+}
+
+.emorygold {
+  color: $emorygold;
+}
+
+.emoryyellow {
+  color: $emoryyellow;
+}
+
+.fg {
+  color: var(--col, $jet);
+}
+
+.bg {
+  background-color: var(--col, #fff);
+  padding: 0.1em;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+// Lists - balanced spacing for readability without overflow
+.reveal ul {
+  font-weight: 300;
+  padding-left: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+
+  li {
+    margin-bottom: 0.35em;  // Tighter spacing to prevent overflow
+    line-height: 1.4;
+    padding-left: 0.3em;
+  }
+
+  li::marker {
+    color: $emoryblue;
+    font-size: 0.9em;
+  }
+}
+
+.reveal ul ul {
+  list-style: none;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+  padding-left: 1.2em;
+
+  li {
+    margin-bottom: 0.25em;
+    position: relative;
+    padding-left: 0.2em;
+  }
+
+  li:before {
+    content: $right-arrow;
+    color: $emorygold;
+    position: absolute;
+    left: -1.1em;
+    font-size: 0.9em;
+  }
+}
+
+.reveal ol {
+  font-weight: 300;
+  padding-left: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+
+  li {
+    margin-bottom: 0.35em;
+    line-height: 1.4;
+    padding-left: 0.3em;
+  }
+
+  li::marker {
+    color: $emoryyellow;
+    font-weight: 700;
+  }
+}
+
+// Menu and navigation
+.reveal .slide-menu-button {
+  position: fixed;
+  top: 6px;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.reveal .slide-menu-button > * {
+  pointer-events: auto;
+}
+
+.reveal .slide-chalkboard-buttons {
+  position: fixed;
+  top: 12px;
+  right: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.reveal .slide-chalkboard-buttons > * {
+  pointer-events: auto;
+}
+
+// Logo positioning
+.slide-logo {
+  display: block !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 10px !important;
+  max-width: 150px;
+  max-height: 50px;
+  width: auto !important;
+  color: $body-color !important;
+}
+
+.slide-number, .reveal.has-logo .slide-number {
+  bottom: 6px !important;
+  right: 10px !important;
+  top: unset !important;
+  color: #777777 !important;
+}
+
+// Button styling with Emory colors
+.button {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: $emoryblue;
+  border: 1px solid $emoryblue;
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: darken($emoryblue, 10%);
+  border-color: darken($emoryblue, 10%);
+}
+
+.button::before {
+  content: "▶";
+  margin-right: 5px;
+}
+
+// Custom box environments - refined with subtle shadows
+.keybox {
+  background-color: rgba($emorygold, 0.12);
+  border-left: 4px solid $emorygold;
+  padding: 0.8em 1.2em;
+  margin: 1.2em 0;
+  border-radius: 6px;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.highlightbox {
+  background-color: rgba($emoryyellow, 0.08);
+  border-left: 4px solid $emoryyellow;
+  padding: 0.8em 1.2em;
+  margin: 1.2em 0;
+  border-radius: 6px;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.methodbox {
+  background-color: rgba($emoryblue, 0.06);
+  border-left: 4px solid $emoryblue;
+  padding: 0.8em 1.2em;
+  margin: 1.2em 0;
+  border-radius: 6px;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.assumptionbox {
+  background-color: rgba($emorygold, 0.08);
+  border: 2px solid $emorygold;
+  padding: 0.8em 1.2em;
+  margin: 1.2em 0;
+  border-radius: 6px;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+// Tables
+.reveal table {
+  margin: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 0.8em;
+}
+
+.reveal table th,
+.reveal table td {
+  border: none;
+  padding: .23em;
+  text-align: left;
+  font-weight: 300;
+}
+
+.reveal table thead th,
+.reveal .slides table tr:last-child td,
+.reveal .slides table {
+  border-bottom: 2px solid $emoryblue;
+}
+
+.reveal table thead th {
+  font-weight: 600;
+  color: $emoryblue;
+}
+
+.reveal table caption {
+  color: #666666;
+  font-variant: small-caps;
+}
+
+// Section title slides (h1 headers like "# Welcome to Econ 730")
+.reveal .slide-background-content {
+  background-color: white;
+}
+
+.reveal section h1 {
+  color: $emoryblue;
+  text-align: center;
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  border-bottom: none;  // Override default border
+}
+
+// Section slides - center them vertically and horizontally
+// These are slides that have h1 headers (section dividers)
+.reveal .slides section.level1 {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  text-align: center !important;
+  top: 0 !important;
+  padding: 0 !important;
+  background: linear-gradient(135deg, white 0%, $emoryblue-light 100%);
+}
+
+// Also target by has-dark-background or section-id patterns
+.reveal .slides section:has(> h1:only-child),
+.reveal .slides section:has(> h1:first-child:last-of-type) {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  text-align: center !important;
+  background: linear-gradient(135deg, white 0%, $emoryblue-light 100%);
+}
+
+.reveal section.title-slide h2 {
+  color: $emoryblue;
+}
+
+// Standout/dark slides - more dramatic
+.standout {
+  background: linear-gradient(135deg, $emoryblue 0%, darken($emoryblue, 8%) 100%) !important;
+  color: white !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  height: 100% !important;
+
+  p {
+    font-size: 1.6em;
+    margin: 0.4em 0;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 80%;
+    color: white !important;
+  }
+
+  // Subtitle styling for standout slides
+  .emoryblue {
+    color: $emorygold !important;  // Use gold instead of blue on dark bg
+    font-size: 0.85em;
+    font-weight: 300;
+    margin-top: 0.8em;
+  }
+}
+
+.standout h2 {
+  color: white !important;
+  border-bottom: none !important;
+}
+
+// ============================================================================
+// UTILITY CLASSES (adapted from emory-colors.css)
+// ============================================================================
+
+// Highlight classes
+.hi {
+  font-weight: 600;
+  color: $emoryblue !important;
+}
+
+.hi-gold {
+  font-weight: 600;
+  color: $emorygold !important;
+}
+
+.hi-yellow {
+  font-weight: 600;
+  color: $emoryyellow !important;
+}
+
+.hi-slate {
+  font-weight: 600;
+  color: #314f4f !important;
+}
+
+.hi-green {
+  font-weight: 600;
+  color: #2E8B57 !important;
+}
+
+.hi-red {
+  font-weight: 600;
+  color: #C41E3A !important;
+}
+
+// Font size utilities (without shrinking base - just for special cases)
+.bigger {
+  font-size: 115%;
+}
+
+.smaller {
+  font-size: 85%;
+
+  // Tighter spacing for smaller slides
+  p {
+    margin-top: 0.35em;
+    margin-bottom: 0.3em;
+    line-height: 1.35;
+  }
+
+  ul, ol {
+    margin-top: 0.35em;
+    margin-bottom: 0.35em;
+
+    li {
+      margin-bottom: 0.25em;
+      line-height: 1.35;
+    }
+  }
+
+  ul ul li {
+    margin-bottom: 0.2em;
+  }
+
+  .highlightbox, .methodbox, .keybox, .assumptionbox {
+    padding: 0.5em 0.9em;
+    margin: 0.6em 0;
+    line-height: 1.35;
+  }
+}
+
+.smallest {
+  font-size: 80%;
+
+  p {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+  }
+}
+
+// Wide table - centered and expanded
+.wide-table {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  table {
+    width: 90%;
+    margin: 0 auto;
+
+    th, td {
+      padding: 0.5em 1em;
+    }
+  }
+}
+
+// Compact spacing for dense slides
+.compact {
+  p {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+  }
+
+  ul, ol {
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+
+    li {
+      margin-bottom: 0.25em;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Text formatting
+.mono {
+  font-family: monospace;
+}
+
+.ul {
+  text-decoration: underline;
+}
+
+// Column layouts
+.col-left {
+  float: left;
+  width: 47%;
+  margin-top: 0;
+}
+
+.col-right {
+  float: right;
+  width: 47%;
+  margin-top: 0;
+}
+
+.col-left-wide {
+  float: left;
+  width: 63%;
+}
+
+.col-right-narrow {
+  float: right;
+  width: 33%;
+}
+
+// Clear floats
+.clear {
+  clear: both;
+}
+
+// Footnote styling
+.footnote {
+  position: absolute;
+  bottom: 1em;
+  font-size: 70%;
+  color: #7f7f7f;
+}
+
+// Note/aside styling
+.note {
+  font-style: italic;
+  color: #666666;
+}
+
+// Question styling
+.qa {
+  font-weight: 600;
+  color: $emoryblue;
+}
+
+// References slide styling - single column for readability
+#refs {
+  font-size: 0.5em;
+  line-height: 1.4;
+  column-count: 1;  // Single column for better readability
+
+  div {
+    margin-bottom: 0.5em;
+    break-inside: avoid;
+  }
+
+  p {
+    margin: 0.2em 0;
+  }
+}
+
+.references {
+  font-size: 0.5em;
+  line-height: 1.4;
+}
+
+// Spaced list - extra spacing between list items
+.reveal .spaced-list ul li,
+.reveal .spaced-list ol li {
+  margin-bottom: 1.5em !important;  // Override default 0.35em
+}
+
+// ============================================================================
+// FIGURES AND IMAGES - Clean presentation
+// ============================================================================
+
+.reveal figure {
+  margin: 0.8em 0;
+}
+
+.reveal img {
+  max-height: 70vh;  // Prevent images from overflowing
+  // No shadows or borders - clean integration with slides
+}
+
+// Center figures by default
+.reveal p:has(> img) {
+  text-align: center;
+}
+
+// Image captions
+.reveal figcaption {
+  font-size: 0.75em;
+  color: #666;
+  font-style: italic;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+// ============================================================================
+// MATH DISPLAY - Better spacing
+// ============================================================================
+
+.reveal .math {
+  font-size: 0.95em;
+}
+
+// Display math blocks
+.reveal .math.display {
+  margin: 0.8em 0;
+}
+
+// ============================================================================
+// COLUMNS - Better balanced layouts
+// ============================================================================
+
+.reveal .columns {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 2em;
+}
+
+.reveal .column {
+  flex: 1;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// ============================================================================
+// BLOCKQUOTES - Elegant styling
+// ============================================================================
+
+.reveal blockquote {
+  background-color: rgba($emoryblue, 0.04);
+  border-left: 4px solid $emorygold;
+  padding: 1em 1.5em;
+  margin: 1em 0;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  color: #444;
+
+  p {
+    margin: 0.3em 0;
+  }
+}
+
+// ============================================================================
+// CODE BLOCKS - Clean monospace
+// ============================================================================
+
+.reveal code {
+  background-color: rgba($emoryblue, 0.06);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.85em;
+}
+
+.reveal pre {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1em;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+// ============================================================================
+// TRANSITIONS AND POLISH
+// ============================================================================
+
+// Smooth transitions for interactive elements
+.reveal a,
+.reveal .button {
+  transition: all 0.2s ease;
+}
+
+// Focus states for accessibility
+.reveal a:focus,
+.reveal button:focus {
+  outline: 2px solid $emorygold;
+  outline-offset: 2px;
+}
+
+// ============================================================================
+// RESPONSIVE ADJUSTMENTS
+// ============================================================================
+
+// ============================================================================
+// SEMANTIC COLORS for diagrams and annotations
+// ============================================================================
+
+.positive {
+  color: #15803d !important;  // Green - good/observed/identified
+  font-weight: 600;
+}
+
+.negative {
+  color: #b91c1c !important;  // Red - bad/problematic/bias
+  font-weight: 600;
+}
+
+.neutral {
+  color: #525252 !important;  // Gray - reference/context
+}
+
+// ============================================================================
+// QUOTEBOX - Philosophical/motivational quotes
+// ============================================================================
+
+.quotebox {
+  background-color: rgba($emorygold, 0.08);
+  border-left: 4px solid darken($emorygold, 10%);
+  padding: 0.8em 1.2em 0.8em 1.8em;
+  margin: 1em 0;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  line-height: 1.5;
+  position: relative;
+
+  &::before {
+    content: "\201C";  // Left double quotation mark
+    font-size: 2.5em;
+    color: rgba($emorygold, 0.4);
+    position: absolute;
+    left: 0.15em;
+    top: -0.1em;
+    font-style: normal;
+    line-height: 1;
+  }
+}
+
+// ============================================================================
+// RESULTBOX - Key findings with visual weight
+// ============================================================================
+
+.resultbox {
+  background-color: rgba($emorygold, 0.15);
+  border: 2px solid $emorygold;
+  padding: 0.8em 1.2em;
+  margin: 1.2em 0;
+  border-radius: 6px;
+  line-height: 1.6;
+  box-shadow: 1px -1px 4px rgba(0, 0, 0, 0.12);
+}
+
+// ============================================================================
+// EQBOX - Subtle blue tint for displayed equations (borderless)
+// Matches Beamer: colback=emoryblue!4!white, no border, no arc
+// ============================================================================
+
+.eqbox {
+  background-color: rgba($emoryblue, 0.04);
+  padding: 0.6em 1.2em;
+  margin: 0.8em 0;
+  border-radius: 0;
+  line-height: 1.6;
+}
+
+// ============================================================================
+// SOFTBOX - Subtle gold tint for transitional remarks (borderless)
+// Matches Beamer: colback=emorygold!6!white, no border, no arc
+// ============================================================================
+
+.softbox {
+  background-color: rgba($emorygold, 0.06);
+  padding: 0.6em 1.2em;
+  margin: 0.8em 0;
+  border-radius: 0;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+// ============================================================================
+// QUESTION SLIDES - Centered Socratic/pivot questions
+// ============================================================================
+
+.reveal .slides section.question-slide {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  text-align: center !important;
+  top: 0 !important;
+  padding: 0 !important;
+
+  p {
+    font-style: italic;
+    font-size: 1.3em;
+    color: #525252;
+    max-width: 80%;
+    margin: 0.3em auto;
+  }
+
+  .emoryblue {
+    font-style: normal;
+    font-size: 1.1em;
+    margin-top: 0.5em;
+  }
+}
+
+// Slightly smaller text for dense slides
+.reveal section.smaller {
+  font-size: 0.88em;
+
+  h2 {
+    font-size: 1.3em;
+  }
+
+  ul li, ol li {
+    margin-bottom: 0.35em;
+    line-height: 1.4;
+  }
+}
+
+// ============================================================
+// Claude-Mini additions (2026-04-27)
+// Anthropic-orange accent for slides about the agent itself.
+// ============================================================
+
+$claudeorange: #cc785c;  // Anthropic / Claude brand accent
+
+.claudeorange {
+  color: $claudeorange;
+}
+
+// Section divider styling — used on `# Section Title {.claudeorange}` slides
+section.claudeorange {
+  background: linear-gradient(135deg, rgba($claudeorange, 0.04) 0%, rgba($claudeorange, 0.12) 100%);
+
+  h1, h2 {
+    color: $claudeorange;
+    border-bottom: 2px solid rgba($claudeorange, 0.3);
+    padding-bottom: 0.2em;
+  }
+}

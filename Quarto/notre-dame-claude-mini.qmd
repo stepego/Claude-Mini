@@ -1,0 +1,186 @@
+---
+title: "Agentic AI for Academic Research"
+subtitle: "A Watch-Along Seminar for Business-School Faculty"
+author: "Pedro H. C. Sant'Anna"
+institute: "Emory University · Visiting Notre Dame Mendoza"
+date: 2026-04-27
+date-format: "MMMM YYYY"
+format:
+  clean-revealjs:
+    theme: claude-mini.scss
+    logo: ../Figures/emory.png
+    footer: "Claude-Mini · Notre Dame Watch-Along · Pedro H. C. Sant'Anna"
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    transition: fade
+    transition-speed: fast
+    width: 1600
+    height: 900
+    margin: 0.05
+bibliography: ../Bibliography.bib
+---
+
+```{r}
+#| include: false
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Brand colors — Emory primary, Anthropic accent
+emoryblue   <- "#002B7F"
+emorygold   <- "#B9975B"
+emoryyellow <- "#F2A900"
+claudeorange <- "#cc785c"   # Anthropic / Claude brand accent — used for "agent" callouts
+
+# Theme for plots
+theme_claude_mini <- theme_minimal(base_size = 14) +
+  theme(
+    plot.title    = element_text(color = emoryblue, face = "bold", size = 16),
+    plot.subtitle = element_text(color = "gray40", size = 12),
+    axis.title    = element_text(color = emoryblue),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+```
+
+# Welcome {.emoryblue}
+
+## A 4-hour Watch-Along
+
+::: {.incremental}
+- **Goal**: by the end, you'll know whether to adopt this for your next paper, class, or RA workflow.
+- **Format**: I demonstrate; you observe. Two 10-minute breaks. Q&A throughout.
+- **Take-home**: a curated repo (`Claude-Mini`) you can clone tonight, and a working starter template (`claude-code-my-workflow`) you can fork.
+:::
+
+## What this is *not*
+
+- Not a sales pitch.
+- Not a tutorial on writing Python or installing software.
+- Not "AI will write your paper." (Claude won't, and shouldn't.)
+
+## What it *is*
+
+A demonstration of how a research workflow built on top of agentic AI:
+
+1. Plans before it acts.
+2. Reviews its own work with multiple specialized agents.
+3. Verifies its output before shipping.
+4. Survives across sessions and across collaborators.
+
+## Roadmap (4 hours, watch-along)
+
+| Part | Topic | Time |
+|------|-------|------|
+| 1 | Agentic AI + the CLAUDE.md control center | 40 min |
+| 2 | End-to-end demo: improve a manuscript section | 30 min |
+| 3 | Building reusable skills (paper exercise) | 30 min |
+| — | **Break** | 10 min |
+| 4 | Orchestration + multi-agent systems | 25 min |
+| 5 | Research + replication (live demo) | 45 min |
+| — | **Break** | 10 min |
+| 6 | Refereeing + review simulation (live demo) | 45 min |
+| 7 | Closing + cross-tool strategies | 25 min |
+
+---
+
+# Part 1 — Agentic AI + CLAUDE.md {.claudeorange #part-1}
+
+## Coming in Part 1
+
+::: {.callout-note}
+## Placeholder
+
+Slide content drafted in Week 2 (per `quality_reports/plans/piped-frolicking-turing.md`). Section anchor: `#part-1`.
+
+**Outline:** opening framing → tool landscape (Claude/Codex/Gemini) → CLAUDE.md as control center (live walkthrough) → effective CLAUDE.md (write well) → rules + hooks tour.
+:::
+
+---
+
+# Part 2 — End-to-End Demo {.emoryblue #part-2}
+
+## Coming in Part 2
+
+::: {.callout-note}
+## Placeholder
+
+The centerpiece. **Live demo:** improve a manuscript section. Choreography in `demos/01-end-to-end/README.md`.
+:::
+
+---
+
+# Part 3 — Building Reusable Skills {.claudeorange #part-3}
+
+## Coming in Part 3
+
+::: {.callout-note}
+## Placeholder
+
+What skills are → walk through `/preregister` → **paper exercise** (faculty draft a skill for their own use case) → design principles. Handout: `exercises/skill-template.md`.
+:::
+
+---
+
+# Part 4 — Orchestration + Multi-Agent {.claudeorange #part-4}
+
+## Coming in Part 4
+
+::: {.callout-note}
+## Placeholder
+
+Why orchestration → when agents help (parallel / critic-fixer / fresh-context) → when they don't → mini-demo of `/qa-quarto` + hooks.
+:::
+
+---
+
+# Part 5 — Research + Replication {.emoryblue #part-5}
+
+## Coming in Part 5
+
+::: {.callout-note}
+## Placeholder
+
+**Finance/Accounting headline.** Replication-first framing → code inventory + comparison → AEA-style packaging → **live demo:** replication audit. Choreography in `demos/04-replication/README.md`.
+:::
+
+---
+
+# Part 6 — Writing, Refereeing, Review Simulation {.emoryblue #part-6}
+
+## Coming in Part 6
+
+::: {.callout-note}
+## Placeholder
+
+**The headliner demo.** Referee perspectives → **live demo:** `/review-paper --peer JF` → drafting referee responses → **live demo:** `/respond-to-referees`. Choreography in `demos/05-peer-review/README.md`.
+:::
+
+---
+
+# Part 7 — Closing {.claudeorange #part-7}
+
+## Coming in Part 7
+
+::: {.callout-note}
+## Placeholder
+
+The full stack visual recap → cross-tool strategies (Claude vs Codex audit) → ecosystem tour → 3 take-home actions.
+:::
+
+---
+
+# Thank You {.emoryblue}
+
+## Three things to do next week
+
+1. **Clone `Claude-Mini`** ([github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini)) — these slides plus all demo materials.
+2. **Fork `claude-code-my-workflow`** ([github.com/pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow)) — the full template I built this on.
+3. **Write a CLAUDE.md** for your next paper. 30 minutes, biggest leverage.
+
+## Stay in touch
+
+- Email: pedro.santanna@emory.edu
+- GitHub: [pedrohcgs](https://github.com/pedrohcgs)
+- Web: [psantanna.com](https://psantanna.com)

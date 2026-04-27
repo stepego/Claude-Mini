@@ -1,0 +1,16 @@
+project:
+  type: default
+
+format:
+  clean-revealjs:
+    theme: claude-mini.scss
+    logo: ../Figures/emory.png
+    footer: "Claude-Mini · Notre Dame Watch-Along · Pedro H. C. Sant'Anna"
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    transition: fade
+    transition-speed: fast
+    width: 1600
+    height: 900
+    margin: 0.05

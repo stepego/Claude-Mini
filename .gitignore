@@ -1,0 +1,39 @@
+# LaTeX artifacts (Quarto may produce some)
+*.aux
+*.bbl
+*.blg
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.synctex.gz
+
+# Quarto
+.quarto/
+*_files/
+*_cache/
+
+# Node / Quarto deps
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude local files
+.claude/settings.local.json
+.claude/state/
+CLAUDE.local.md
+
+# IDE — track .vscode/settings.json (carries Claude Code permission keys for forkers)
+.vscode/*
+!.vscode/settings.json
+.idea/
+*.swp
+*~
