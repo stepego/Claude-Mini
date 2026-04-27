@@ -1,0 +1,120 @@
+# Resources — Notre Dame Watch-Along Take-Home
+
+A consolidated list of every external link from the talk plus a few that didn't fit on slides. Print, save, or fork; the deck embeds these but this file is your reference card.
+
+**Last updated:** 2026-04-27
+
+---
+
+## Anthropic canonical (start here)
+
+These are the source of truth. If a claim in the talk seemed surprising, check these first.
+
+- **[Best Practices](https://code.claude.com/docs/en/best-practices)** — Short, current, very good. The single most useful page for new users.
+- **[What's New](https://code.claude.com/docs/en/whats-new)** — Weekly feature digest. Bookmark; check monthly.
+- **[Memory / CLAUDE.md](https://code.claude.com/docs/en/memory)** — The CLAUDE.md walkthrough source.
+- **[Skills](https://code.claude.com/docs/en/skills)** — Skill design, frontmatter, dynamic content.
+- **[Hooks Guide](https://code.claude.com/docs/en/hooks-guide)** — All lifecycle events, handler types.
+- **[Permission Modes](https://code.claude.com/docs/en/permission-modes)** — bypass, auto, plan, dontAsk; protected paths.
+- **[Sub-agents](https://code.claude.com/docs/en/sub-agents)** — `Task`, `context: fork`, agent definitions.
+- **[Plugins](https://code.claude.com/docs/en/plugins)** — `/plugin` marketplace, install/uninstall.
+
+---
+
+## The two repos from this talk
+
+- **[`pedrohcgs/Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini)** — *this repo*. Slides, demo bundles, exercises, speaker notes. **Clone tonight.**
+- **[`pedrohcgs/claude-code-my-workflow`](https://github.com/pedrohcgs/claude-code-my-workflow)** v1.8.1+ — full template (30 skills, 14 agents, 24 rules, 6 hooks). **Fork on Monday.**
+
+---
+
+## Other applied-academic Claude Code resources
+
+### Highest priority
+
+- **[Paul Goldsmith-Pinkham — Claude Code mini-series at Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** *(March 2026, Markus' Academy, 5 episodes)*. Applied-econ angle. Topics: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing & thinking. **The most authoritative public material on this topic for our field.**
+
+### Forks of `claude-code-my-workflow`
+
+- **[`hugosantanna/clo-author`](https://github.com/hugosantanna/clo-author)** — Hugo Sant'Anna's authoring-side fork. 30+ journal profiles, theorist agents, worker-critic pairs. **Source of `/checkpoint` and `/review-paper --peer` patterns** (used with permission).
+
+### Standalone community skills
+
+- **[`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision)** — DAG-based peer-review response planning. **Targets empirical accounting + finance R&R rounds.** Highly recommended for accounting faculty.
+- **[`jusi-aalto/crossref`](https://github.com/jusi-aalto/crossref)** — Bibliography validation against the Crossref REST API. Returns canonical APA citations + DOIs + match confidence.
+
+### Adjacent ecosystem
+
+- **[`chrisblattman/claudeblattman`](https://github.com/chrisblattman/claudeblattman)** — Chris Blattman's guide for non-technical academics. Less code-heavy, more workflow-heavy.
+- **[`scunning1975/MixtapeTools`](https://github.com/scunning1975/MixtapeTools)** — Scott Cunningham's TikZ + Rhetoric of Decks materials. **Source of our TikZ infrastructure.**
+- **[`karpathy/autoresearch`](https://github.com/karpathy/autoresearch)** — Andrej Karpathy's constraint-based autonomous-research experiment. Aspirational; different shape than ours.
+
+### B-school / MBA-specific
+
+- **[AI MBA](https://ai-mba.io)** — Curriculum + tutorials targeting business-school audiences. Specific recommendations:
+  - **[Skills vs MCPs tutorial](https://ai-mba.io/tutorials/skills-vs-mcps)** — Direct follow-up to Part 3.
+  - [Example curriculum (PDF)](https://ai-mba.io/example-curriculum.pdf) — Course-design reference for faculty teaching AI in B-school programs.
+
+---
+
+## Cross-tool
+
+- **[Codex plugin for Claude Code](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186)** *(OpenAI Developer Community, 2026)*. Built by VB Srivastav and the OpenAI team. Three use cases: standard Codex review, adversarial review, second-pass delegation. **Source of the `/codex:adversarial-review` pattern shown in Part 7.**
+
+---
+
+## Replication-policy references (Part 5)
+
+- **[AEA Data and Code Availability Policy](https://www.aeaweb.org/journals/data/data-code-policy)** — official policy + Data Editor process.
+- **[AEA Data Editor](https://aeadataeditor.org)** — what they do, what they check, examples.
+- **[AEA RCT Registry](https://www.socialscienceregistry.org)** — required since 2018 for AEA-journal field-experimental work.
+- **[OSF (Open Science Framework)](https://osf.io/registries)** — preregistration default for survey experiments.
+- **[AsPredicted](https://aspredicted.org)** — 9-question short-form preregistration.
+
+### Field-specific journal policies
+
+- **[Journal of Finance Disclosure Statement](https://onlinelibrary.wiley.com/page/journal/15406261/homepage/forauthors.html)** — JF data + code requirements (active since 2023).
+- **[Journal of Accounting Research replication archive](https://research.chicagobooth.edu/arc/journal-of-accounting-research)** — JAR's replication policy.
+
+---
+
+## Methodology references (cited inline in the deck)
+
+- **Dhuliawala, S. et al.** (2023). *Chain-of-Verification Reduces Hallucination in Large Language Models.* [arXiv:2309.11495](https://arxiv.org/abs/2309.11495). Source of the CoVe / `/verify-claims` pattern.
+- **Stock, J. & Yogo, M.** (2005). *Testing for Weak Instruments in Linear IV Regression.* In Andrews, D.W.K. (ed.), *Identification and Inference for Econometric Models*. Source of the F > 10 weak-instrument heuristic referenced in Part 6's demo.
+
+---
+
+## Tools used in the talk
+
+- **[Quarto](https://quarto.org)** — slide rendering. Specifically `clean-revealjs` extension by Grant McDermott: [github.com/grantmcdermott/quarto-revealjs-clean](https://github.com/grantmcdermott/quarto-revealjs-clean).
+- **[Claude Code](https://claude.ai/install)** — the agent runtime. Install: `claude.ai/install`.
+- **[`fixest`](https://lrberge.github.io/fixest/)** — R package for high-dimensional fixed effects. The R script in Demo 4 uses `feols`.
+- **[NetworkX](https://networkx.org)** — Python graph library. Used by `strategic-revision` for DAG validation.
+
+---
+
+## Three things to do, by priority
+
+If you're going to do *one* thing this week:
+
+> **Write a `CLAUDE.md` for your next paper.** 30 minutes. The whole rest of this stack pays off from there.
+
+If you have a free Saturday morning:
+
+> **Watch Goldsmith-Pinkham's [first 2 episodes](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/) and clone [`Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini).** Different teaching style, different angle — much faster to internalize the pattern with two takes.
+
+If you're an accounting or finance faculty member at R&R round 2:
+
+> **Try [`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision) before your next response letter.** Specifically built for our world; different approach than `/respond-to-referees` and complementary.
+
+---
+
+## Reach me
+
+- **Email:** pedro.santanna@emory.edu
+- **GitHub:** [github.com/pedrohcgs](https://github.com/pedrohcgs)
+- **Web:** [psantanna.com](https://psantanna.com)
+- **This talk's source:** [github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini)
+
+If you adopt this stack and write your own skill / fork or extension, send a link. The community section in `claude-code-my-workflow`'s README grows from emails.

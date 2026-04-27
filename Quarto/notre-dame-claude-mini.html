@@ -353,6 +353,34 @@ Pedro H. C. Sant’Anna
 <li class="fragment">Demonstrate it live on real materials — manuscript improvement, replication audit, simulated peer review.</li>
 <li class="fragment">Hand you a repo (<code>Claude-Mini</code>) you can clone tonight and a parent template (<code>claude-code-my-workflow</code>) you can fork on Monday.</li>
 </ol>
+</section>
+<section id="youre-not-the-first" class="slide level2 compact">
+<h2>You’re not the first</h2>
+<p>Other applied researchers have been building in this space:</p>
+<ul>
+<li class="fragment"><strong>Paul Goldsmith-Pinkham</strong> (Yale SOM): <a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">5-episode mini-series at Princeton’s Markus’ Academy</a> — “Claude Code for Applied Economists” (March 2026). Covers: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing &amp; thinking. Different angle, longer form.</li>
+<li class="fragment"><strong>Hugo Sant’Anna</strong> (UAB Birmingham): <a href="https://github.com/hugosantanna/clo-author"><code>clo-author</code></a> — fork of <code>claude-code-my-workflow</code> with paper-authoring extensions (theorist agents, 30+ journal profiles).</li>
+<li class="fragment"><strong>Jussi at Aalto University</strong>: <a href="https://github.com/jusi-aalto/crossref"><code>crossref</code></a> and <a href="https://github.com/jusi-aalto/strategic-revision"><code>strategic-revision</code></a> — community skills targeting accounting + finance R&amp;R workflows.</li>
+<li class="fragment"><strong>AI MBA</strong>: <a href="https://ai-mba.io"><code>ai-mba.io</code></a> — a structured curriculum with tutorials on skills vs MCPs and AI for business-school audiences.</li>
+</ul>
+<div class="fragment">
+<p>This talk pulls from all of them. Cited where relevant.</p>
+</div>
+</section>
+<section id="anthropics-own-materials" class="slide level2 compact">
+<h2>Anthropic’s own materials</h2>
+<p>If you want canonical references during or after this talk:</p>
+<ul>
+<li class="fragment"><a href="https://code.claude.com/docs/en/best-practices"><strong>Best Practices</strong></a> — short, direct, current. Read first.</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/whats-new"><strong>What’s New</strong></a> — weekly digest of feature changes</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/permission-modes"><strong>Permission modes</strong></a> — bypass / auto / plan / dontAsk modes</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/memory"><strong>CLAUDE.md / memory</strong></a> — the file we’re about to walk through</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/hooks-guide"><strong>Hooks</strong></a> — deterministic enforcement</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/skills"><strong>Skills</strong></a> — the topic of Part 3</li>
+</ul>
+<div class="fragment">
+<p>You don’t need to read these to follow the talk. But every claim I make is backed by one of these pages.</p>
+</div>
 </section></section>
 <section>
 <section id="tool-landscape" class="title-slide slide level1 claudeorange center">
@@ -1064,6 +1092,77 @@ Pedro H. C. Sant’Anna
 <div class="fragment">
 <p>The description IS the trigger. Pack it with the actual phrases people use.</p>
 </div>
+</section>
+<section id="skills-vs-mcps-a-quick-aside" class="slide level2 compact">
+<h2>Skills vs MCPs (a quick aside)</h2>
+<p>A common question: “How is a skill different from an MCP?”</p>
+<ul>
+<li class="fragment"><strong>A skill</strong> is a <strong>Markdown instruction</strong> Claude reads in-context. Triggered by user phrases. Lives in your repo as a <code>.md</code> file.</li>
+<li class="fragment"><strong>An MCP</strong> (Model Context Protocol) is a <strong>runtime tool integration</strong> — a separate process that connects Claude to external services (databases, APIs, file systems, Notion, JIRA, your home Postgres).</li>
+</ul>
+<div class="fragment">
+<p>Different layer of the stack. <strong>Skills tell Claude <em>how</em> to think; MCPs give Claude <em>more things</em> to talk to.</strong></p>
+</div>
+</section>
+<section id="when-to-reach-for-which" class="slide level2 compact">
+<h2>When to reach for which</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 38%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>Use a skill</th>
+<th>Use an MCP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>“Format my regression tables in JF style”</td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>“Pull our latest WRDS query into the analysis”</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>“Draft a preregistration document”</td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>“Update my Notion ‘papers under review’ page”</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+<tr class="odd">
+<td>“Audit reproducibility against the R script”</td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>“Query our shared Postgres database of working-paper revisions”</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Most academic workflows are <strong>skill-heavy</strong>. MCPs become valuable when you connect Claude to <strong>live external data</strong> you don’t already have in your repo. Further reading: <a href="https://ai-mba.io/tutorials/skills-vs-mcps"><code>ai-mba.io/tutorials/skills-vs-mcps</code></a>.</p>
+</div>
+</section>
+<section id="community-skills-worth-knowing-about" class="slide level2 compact">
+<h2>Community skills worth knowing about</h2>
+<p>Beyond <code>claude-code-my-workflow</code>’s 30 skills, two community skills are highly relevant for this audience:</p>
+<ul>
+<li class="fragment"><a href="https://github.com/jusi-aalto/crossref"><strong><code>jusi-aalto/crossref</code></strong></a> — validates bibliographic references against the Crossref REST API; returns canonical APA citations with DOIs + match-confidence + diff flags. <strong>Pairs naturally with <code>/verify-claims</code>.</strong></li>
+<li class="fragment"><a href="https://github.com/jusi-aalto/strategic-revision"><strong><code>jusi-aalto/strategic-revision</code></strong></a> — peer-review response planning specifically for empirical accounting + finance R&amp;R rounds. Models reviewer requests as a directed acyclic graph (NetworkX). We’ll see this again in Part 6.</li>
+</ul>
 </section></section>
 <section>
 <section id="hands-on-sketch-your-own-skill" class="title-slide slide level1 claudeorange center">
@@ -2038,6 +2137,18 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </blockquote>
 </div>
 </section>
+<section id="alternative-strategic-revision-jusi-aalto" class="slide level2 compact">
+<h2>Alternative: <code>strategic-revision</code> (jusi-aalto)</h2>
+<p>A community Claude skill built specifically for our audience. Different shape than ours.</p>
+<ul>
+<li class="fragment">Where <code>/respond-to-referees</code> produces concern-by-concern drafted responses, <a href="https://github.com/jusi-aalto/strategic-revision"><code>jusi-aalto/strategic-revision</code></a> treats reviewer requests as a <strong>directed acyclic graph</strong>.</li>
+<li class="fragment">It identifies dependencies (e.g., “Referee 2’s concern about the IV depends on resolving Referee 1’s concern about sample selection first”), validates the DAG with NetworkX, and sequences work into execution blocks with co-author assignments.</li>
+<li class="fragment">Stated audience: <strong>empirical accounting + finance papers</strong> — exactly this room.</li>
+</ul>
+<div class="fragment">
+<p><strong>Different tool for different sub-task:</strong> <code>/respond-to-referees</code> for the <em>prose</em>; <code>strategic-revision</code> for the <em>project plan</em>. Use both.</p>
+</div>
+</section>
 <section id="live-demo-response-letter" class="slide level2 compact">
 <h2>Live demo: response letter</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -2282,28 +2393,44 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h1>Ecosystem tour</h1>
 
 </section>
-<section id="what-others-have-built" class="slide level2 compact">
-<h2>What others have built</h2>
+<section id="what-others-have-built-academic-focused" class="slide level2 compact">
+<h2>What others have built (academic-focused)</h2>
 <ul>
-<li class="fragment"><strong><a href="https://github.com/hugosantanna/clo-author"><code>clo-author</code></a></strong> — Hugo Sant’Anna’s authoring-side fork. Has theorist agents (formal-theory section drafting), 30+ journal profiles, more aggressive multi-agent worker-critic pairs. <strong>The /checkpoint and /review-paper –peer skills in our template are adapted from clo-author with permission.</strong></li>
-<li class="fragment"><strong><a href="https://github.com/chrisblattman/claudeblattman"><code>claudeblattman</code></a></strong> — Chris Blattman’s guide for non-technical academics. Less code-heavy, more workflow-heavy. Good entry point if you don’t write code daily.</li>
-<li class="fragment"><strong><a href="https://github.com/scunning1975/MixtapeTools"><code>MixtapeTools</code></a></strong> — Scott Cunningham’s TikZ + Rhetoric of Decks materials. <strong>Our TikZ infrastructure is ported from here.</strong></li>
-<li class="fragment"><strong><a href="https://github.com/karpathy/autoresearch"><code>autoresearch</code></a></strong> — Andrej Karpathy’s experiment in constraint-based autonomous research. Aspirational; very different shape than ours.</li>
+<li class="fragment"><strong><a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">Goldsmith-Pinkham × Princeton</a></strong> — Yale finance professor; 5-episode video series on Claude Code for applied economists (March 2026 at Markus’ Academy). <strong>The most authoritative public material on this topic for our field.</strong></li>
+<li class="fragment"><strong><a href="https://github.com/hugosantanna/clo-author"><code>hugosantanna/clo-author</code></a></strong> — authoring-side fork of <code>claude-code-my-workflow</code>. Theorist agents, 30+ journal profiles, worker-critic pairs. <strong>Source of <code>/checkpoint</code> and <code>/review-paper --peer</code> (with permission).</strong></li>
+<li class="fragment"><strong><a href="https://github.com/jusi-aalto/strategic-revision"><code>jusi-aalto/strategic-revision</code></a></strong> — DAG-based peer-review response planning for empirical accounting + finance R&amp;R. <strong>Highly recommend for accounting faculty.</strong></li>
+<li class="fragment"><strong><a href="https://github.com/jusi-aalto/crossref"><code>jusi-aalto/crossref</code></a></strong> — bibliography validation against Crossref API.</li>
+<li class="fragment"><strong><a href="https://github.com/chrisblattman/claudeblattman"><code>chrisblattman/claudeblattman</code></a></strong> — guide for non-technical academics. Less code, more workflow.</li>
+</ul>
+</section>
+<section id="what-others-have-built-broader" class="slide level2 compact">
+<h2>What others have built (broader)</h2>
+<ul>
+<li class="fragment"><strong><a href="https://github.com/scunning1975/MixtapeTools"><code>scunning1975/MixtapeTools</code></a></strong> — Scott Cunningham’s TikZ + Rhetoric of Decks. <strong>Source of our TikZ infrastructure.</strong></li>
+<li class="fragment"><strong><a href="https://github.com/karpathy/autoresearch"><code>karpathy/autoresearch</code></a></strong> — Karpathy’s experiment in constraint-based autonomous research. Aspirational; different shape.</li>
+<li class="fragment"><strong><a href="https://ai-mba.io"><code>ai-mba.io</code></a></strong> — AI MBA curriculum and tutorials. Targets B-school audiences specifically. Their <a href="https://ai-mba.io/tutorials/skills-vs-mcps">skills vs MCPs tutorial</a> is a good follow-up to Part 3.</li>
 </ul>
 </section>
 <section id="anthropic-shipped-utilities" class="slide level2 compact">
 <h2>Anthropic-shipped utilities</h2>
 <p>Built into Claude Code itself, no fork needed:</p>
 <ul>
-<li class="fragment"><strong><code>/team-onboarding</code></strong> — package your local setup into a replayable guide for collaborators</li>
+<li class="fragment"><strong><code>/team-onboarding</code></strong> (<a href="https://code.claude.com/docs/en/team-onboarding">docs</a>) — package your local setup into a replayable guide for collaborators. <strong>Recommend for lab groups.</strong></li>
 <li class="fragment"><strong><code>/autofix-pr</code></strong> — runs Claude Code on a GitHub PR, applying CI-style fixes</li>
 <li class="fragment"><strong><code>/powerup</code></strong> — interactive lessons (Anthropic’s tutorial system)</li>
-<li class="fragment"><strong>Ultraplan</strong> — cloud-based plan editing, sync to local</li>
+<li class="fragment"><strong>Ultraplan</strong> (<a href="https://code.claude.com/docs/en/ultraplan">docs</a>) — cloud-based plan editing, sync to local</li>
 <li class="fragment"><strong><code>/loop</code> self-pacing</strong> — recurring or self-paced background tasks</li>
+<li class="fragment"><strong><code>/less-permission-prompts</code></strong> — diagnose permission-prompt fatigue</li>
 </ul>
-<div class="fragment">
-<p>I’d recommend <code>/team-onboarding</code> for any lab group — package once, share with all collaborators.</p>
-</div>
+</section>
+<section id="cross-tool-codex-plugin-part-7s-earlier-demo" class="slide level2 compact">
+<h2>Cross-tool: Codex plugin (Part 7’s earlier demo)</h2>
+<p>Built by OpenAI’s VB Srivastav and team. Source: <a href="https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186">OpenAI Developer Community announcement</a>.</p>
+<ul>
+<li class="fragment">“It is Codex, just invoked from inside Claude Code” — reuses local Codex CLI auth, config, MCP setup.</li>
+<li class="fragment">Three use cases: (1) standard Codex review, (2) adversarial / skeptical review, (3) second-pass delegation when you want a different agent’s eyes.</li>
+<li class="fragment">We saw use case 2 in the optional Part 7 demo (<code>/codex:adversarial-review</code>).</li>
+</ul>
 </section></section>
 <section>
 <section id="resources-start" class="title-slide slide level1 claudeorange center">
@@ -2331,11 +2458,22 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="resources-for-going-deeper" class="slide level2 compact">
 <h2>Resources for going deeper</h2>
+<p><strong>Anthropic canon (read first if pressed for time):</strong></p>
 <ul>
-<li class="fragment"><strong>The Claude Code docs:</strong> <a href="https://code.claude.com/docs">code.claude.com/docs</a></li>
-<li class="fragment"><strong>Anthropic’s “Best Practices” page:</strong> <a href="https://code.claude.com/docs/en/best-practices">code.claude.com/docs/en/best-practices</a> — short and very good</li>
-<li class="fragment"><strong>The <code>claude-code-my-workflow</code> guide:</strong> the full 250-section walkthrough at <a href="https://psantanna.com/claude-code-my-workflow">psantanna.com/claude-code-my-workflow</a></li>
-<li class="fragment"><strong>The TROUBLESHOOTING.md</strong> in the same repo — most issues you’ll hit are catalogued there</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/best-practices">Best Practices</a> — short, current, very good</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/whats-new">What’s New</a> — weekly feature digest</li>
+<li class="fragment"><a href="https://code.claude.com/docs/en/permission-modes">Permission modes</a>, <a href="https://code.claude.com/docs/en/hooks-guide">Hooks</a>, <a href="https://code.claude.com/docs/en/memory">Memory / CLAUDE.md</a>, <a href="https://code.claude.com/docs/en/skills">Skills</a></li>
+</ul>
+</section>
+<section id="resources-for-going-deeper-community-academic" class="slide level2 compact">
+<h2>Resources for going deeper (community + academic)</h2>
+<ul>
+<li class="fragment"><strong>Goldsmith-Pinkham mini-series:</strong> <a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">bcf.princeton.edu/events/paul-goldsmith-pinkham…</a> — 5 episodes, applied-econ angle</li>
+<li class="fragment"><strong>The <code>claude-code-my-workflow</code> guide:</strong> <a href="https://psantanna.com/claude-code-my-workflow">psantanna.com/claude-code-my-workflow</a> — full walkthrough</li>
+<li class="fragment"><strong>TROUBLESHOOTING.md</strong> in the same repo — most issues catalogued</li>
+<li class="fragment"><strong>Hugo Sant’Anna’s <code>clo-author</code>:</strong> <a href="https://github.com/hugosantanna/clo-author">github.com/hugosantanna/clo-author</a> — paper-authoring-focused fork</li>
+<li class="fragment"><strong>AI MBA tutorials:</strong> <a href="https://ai-mba.io">ai-mba.io</a> — B-school audience materials</li>
+<li class="fragment"><strong>Take-home <code>Claude-Mini/handouts/resources.md</code></strong> — every link from this talk in one file</li>
 </ul>
 </section>
 <section id="honest-closing" class="slide level2 compact">

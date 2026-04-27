@@ -130,6 +130,38 @@ The next 4 hours: see what's on that table.
 3. Hand you a repo (`Claude-Mini`) you can clone tonight and a parent template (`claude-code-my-workflow`) you can fork on Monday.
 :::
 
+## You're not the first {.compact}
+
+Other applied researchers have been building in this space:
+
+::: {.incremental}
+- **Paul Goldsmith-Pinkham** (Yale SOM): [5-episode mini-series at Princeton's Markus' Academy](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/) — "Claude Code for Applied Economists" (March 2026). Covers: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing & thinking. Different angle, longer form.
+- **Hugo Sant'Anna** (UAB Birmingham): [`clo-author`](https://github.com/hugosantanna/clo-author) — fork of `claude-code-my-workflow` with paper-authoring extensions (theorist agents, 30+ journal profiles).
+- **Jussi at Aalto University**: [`crossref`](https://github.com/jusi-aalto/crossref) and [`strategic-revision`](https://github.com/jusi-aalto/strategic-revision) — community skills targeting accounting + finance R&R workflows.
+- **AI MBA**: [`ai-mba.io`](https://ai-mba.io) — a structured curriculum with tutorials on skills vs MCPs and AI for business-school audiences.
+:::
+
+. . .
+
+This talk pulls from all of them. Cited where relevant.
+
+## Anthropic's own materials {.compact}
+
+If you want canonical references during or after this talk:
+
+::: {.incremental}
+- [**Best Practices**](https://code.claude.com/docs/en/best-practices) — short, direct, current. Read first.
+- [**What's New**](https://code.claude.com/docs/en/whats-new) — weekly digest of feature changes
+- [**Permission modes**](https://code.claude.com/docs/en/permission-modes) — bypass / auto / plan / dontAsk modes
+- [**CLAUDE.md / memory**](https://code.claude.com/docs/en/memory) — the file we're about to walk through
+- [**Hooks**](https://code.claude.com/docs/en/hooks-guide) — deterministic enforcement
+- [**Skills**](https://code.claude.com/docs/en/skills) — the topic of Part 3
+:::
+
+. . .
+
+You don't need to read these to follow the talk. But every claim I make is backed by one of these pages.
+
 # Tool landscape {.claudeorange}
 
 ## The three big players (April 2026) {.compact}
@@ -695,6 +727,43 @@ A skill triggers when its `description` matches the user's prompt. So the descri
 . . .
 
 The description IS the trigger. Pack it with the actual phrases people use.
+
+## Skills vs MCPs (a quick aside) {.compact}
+
+A common question: "How is a skill different from an MCP?"
+
+::: {.incremental}
+- **A skill** is a **Markdown instruction** Claude reads in-context. Triggered by user phrases. Lives in your repo as a `.md` file.
+- **An MCP** (Model Context Protocol) is a **runtime tool integration** — a separate process that connects Claude to external services (databases, APIs, file systems, Notion, JIRA, your home Postgres).
+:::
+
+. . .
+
+Different layer of the stack. **Skills tell Claude *how* to think; MCPs give Claude *more things* to talk to.**
+
+## When to reach for which {.compact}
+
+| Scenario | Use a skill | Use an MCP |
+|----------|-------------|-----------|
+| "Format my regression tables in JF style" | ✅ | — |
+| "Pull our latest WRDS query into the analysis" | — | ✅ |
+| "Draft a preregistration document" | ✅ | — |
+| "Update my Notion 'papers under review' page" | — | ✅ |
+| "Audit reproducibility against the R script" | ✅ | — |
+| "Query our shared Postgres database of working-paper revisions" | — | ✅ |
+
+. . .
+
+Most academic workflows are **skill-heavy**. MCPs become valuable when you connect Claude to **live external data** you don't already have in your repo. Further reading: [`ai-mba.io/tutorials/skills-vs-mcps`](https://ai-mba.io/tutorials/skills-vs-mcps).
+
+## Community skills worth knowing about {.compact}
+
+Beyond `claude-code-my-workflow`'s 30 skills, two community skills are highly relevant for this audience:
+
+::: {.incremental}
+- [**`jusi-aalto/crossref`**](https://github.com/jusi-aalto/crossref) — validates bibliographic references against the Crossref REST API; returns canonical APA citations with DOIs + match-confidence + diff flags. **Pairs naturally with `/verify-claims`.**
+- [**`jusi-aalto/strategic-revision`**](https://github.com/jusi-aalto/strategic-revision) — peer-review response planning specifically for empirical accounting + finance R&R rounds. Models reviewer requests as a directed acyclic graph (NetworkX). We'll see this again in Part 6.
+:::
 
 # Hands-on: sketch your own skill {.claudeorange}
 
@@ -1479,6 +1548,20 @@ A referee writes:
 > **Where:** Manuscript p. 14, footnote 22; Online Appendix B.3.
 > **Response:** "We thank the referee for raising the weak-instrument concern. We now report Anderson-Rubin confidence intervals (Online Appendix B.3) which are robust to weak instruments; the result is qualitatively similar with much wider intervals. We have added a footnote on p. 14 noting the limitation explicitly."
 
+## Alternative: `strategic-revision` (jusi-aalto) {.compact}
+
+A community Claude skill built specifically for our audience. Different shape than ours.
+
+::: {.incremental}
+- Where `/respond-to-referees` produces concern-by-concern drafted responses, [`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision) treats reviewer requests as a **directed acyclic graph**.
+- It identifies dependencies (e.g., "Referee 2's concern about the IV depends on resolving Referee 1's concern about sample selection first"), validates the DAG with NetworkX, and sequences work into execution blocks with co-author assignments.
+- Stated audience: **empirical accounting + finance papers** — exactly this room.
+:::
+
+. . .
+
+**Different tool for different sub-task:** `/respond-to-referees` for the *prose*; `strategic-revision` for the *project plan*. Use both.
+
 ## Live demo: response letter {.compact}
 
 ::: {.callout-tip}
@@ -1683,13 +1766,22 @@ Choreography: `demos/06-cross-tool/README.md`.
 
 # Ecosystem tour {.claudeorange}
 
-## What others have built {.compact}
+## What others have built (academic-focused) {.compact}
 
 ::: {.incremental}
-- **[`clo-author`](https://github.com/hugosantanna/clo-author)** — Hugo Sant'Anna's authoring-side fork. Has theorist agents (formal-theory section drafting), 30+ journal profiles, more aggressive multi-agent worker-critic pairs. **The /checkpoint and /review-paper --peer skills in our template are adapted from clo-author with permission.**
-- **[`claudeblattman`](https://github.com/chrisblattman/claudeblattman)** — Chris Blattman's guide for non-technical academics. Less code-heavy, more workflow-heavy. Good entry point if you don't write code daily.
-- **[`MixtapeTools`](https://github.com/scunning1975/MixtapeTools)** — Scott Cunningham's TikZ + Rhetoric of Decks materials. **Our TikZ infrastructure is ported from here.**
-- **[`autoresearch`](https://github.com/karpathy/autoresearch)** — Andrej Karpathy's experiment in constraint-based autonomous research. Aspirational; very different shape than ours.
+- **[Goldsmith-Pinkham × Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** — Yale finance professor; 5-episode video series on Claude Code for applied economists (March 2026 at Markus' Academy). **The most authoritative public material on this topic for our field.**
+- **[`hugosantanna/clo-author`](https://github.com/hugosantanna/clo-author)** — authoring-side fork of `claude-code-my-workflow`. Theorist agents, 30+ journal profiles, worker-critic pairs. **Source of `/checkpoint` and `/review-paper --peer` (with permission).**
+- **[`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision)** — DAG-based peer-review response planning for empirical accounting + finance R&R. **Highly recommend for accounting faculty.**
+- **[`jusi-aalto/crossref`](https://github.com/jusi-aalto/crossref)** — bibliography validation against Crossref API.
+- **[`chrisblattman/claudeblattman`](https://github.com/chrisblattman/claudeblattman)** — guide for non-technical academics. Less code, more workflow.
+:::
+
+## What others have built (broader) {.compact}
+
+::: {.incremental}
+- **[`scunning1975/MixtapeTools`](https://github.com/scunning1975/MixtapeTools)** — Scott Cunningham's TikZ + Rhetoric of Decks. **Source of our TikZ infrastructure.**
+- **[`karpathy/autoresearch`](https://github.com/karpathy/autoresearch)** — Karpathy's experiment in constraint-based autonomous research. Aspirational; different shape.
+- **[`ai-mba.io`](https://ai-mba.io)** — AI MBA curriculum and tutorials. Targets B-school audiences specifically. Their [skills vs MCPs tutorial](https://ai-mba.io/tutorials/skills-vs-mcps) is a good follow-up to Part 3.
 :::
 
 ## Anthropic-shipped utilities {.compact}
@@ -1697,16 +1789,23 @@ Choreography: `demos/06-cross-tool/README.md`.
 Built into Claude Code itself, no fork needed:
 
 ::: {.incremental}
-- **`/team-onboarding`** — package your local setup into a replayable guide for collaborators
+- **`/team-onboarding`** ([docs](https://code.claude.com/docs/en/team-onboarding)) — package your local setup into a replayable guide for collaborators. **Recommend for lab groups.**
 - **`/autofix-pr`** — runs Claude Code on a GitHub PR, applying CI-style fixes
 - **`/powerup`** — interactive lessons (Anthropic's tutorial system)
-- **Ultraplan** — cloud-based plan editing, sync to local
+- **Ultraplan** ([docs](https://code.claude.com/docs/en/ultraplan)) — cloud-based plan editing, sync to local
 - **`/loop` self-pacing** — recurring or self-paced background tasks
+- **`/less-permission-prompts`** — diagnose permission-prompt fatigue
 :::
 
-. . .
+## Cross-tool: Codex plugin (Part 7's earlier demo) {.compact}
 
-I'd recommend `/team-onboarding` for any lab group — package once, share with all collaborators.
+Built by OpenAI's VB Srivastav and team. Source: [OpenAI Developer Community announcement](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186).
+
+::: {.incremental}
+- "It is Codex, just invoked from inside Claude Code" — reuses local Codex CLI auth, config, MCP setup.
+- Three use cases: (1) standard Codex review, (2) adversarial / skeptical review, (3) second-pass delegation when you want a different agent's eyes.
+- We saw use case 2 in the optional Part 7 demo (`/codex:adversarial-review`).
+:::
 
 # Resources + start {.claudeorange}
 
@@ -1732,11 +1831,23 @@ If you do nothing else: **#3.** Open one paper directory, write 100 lines, and t
 
 ## Resources for going deeper {.compact}
 
+**Anthropic canon (read first if pressed for time):**
+
 ::: {.incremental}
-- **The Claude Code docs:** [code.claude.com/docs](https://code.claude.com/docs)
-- **Anthropic's "Best Practices" page:** [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices) — short and very good
-- **The `claude-code-my-workflow` guide:** the full 250-section walkthrough at [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow)
-- **The TROUBLESHOOTING.md** in the same repo — most issues you'll hit are catalogued there
+- [Best Practices](https://code.claude.com/docs/en/best-practices) — short, current, very good
+- [What's New](https://code.claude.com/docs/en/whats-new) — weekly feature digest
+- [Permission modes](https://code.claude.com/docs/en/permission-modes), [Hooks](https://code.claude.com/docs/en/hooks-guide), [Memory / CLAUDE.md](https://code.claude.com/docs/en/memory), [Skills](https://code.claude.com/docs/en/skills)
+:::
+
+## Resources for going deeper (community + academic) {.compact}
+
+::: {.incremental}
+- **Goldsmith-Pinkham mini-series:** [bcf.princeton.edu/events/paul-goldsmith-pinkham...](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/) — 5 episodes, applied-econ angle
+- **The `claude-code-my-workflow` guide:** [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow) — full walkthrough
+- **TROUBLESHOOTING.md** in the same repo — most issues catalogued
+- **Hugo Sant'Anna's `clo-author`:** [github.com/hugosantanna/clo-author](https://github.com/hugosantanna/clo-author) — paper-authoring-focused fork
+- **AI MBA tutorials:** [ai-mba.io](https://ai-mba.io) — B-school audience materials
+- **Take-home `Claude-Mini/handouts/resources.md`** — every link from this talk in one file
 :::
 
 ## Honest closing {.compact}
