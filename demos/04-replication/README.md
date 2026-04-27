@@ -40,11 +40,13 @@ Four numerical claims:
 
 ### `analyze.R` (~50 lines)
 
-Loads `data/clean.rds`, applies sample filters, runs the regression, prints the coefficient table.
+Loads `data/clean.rds`, applies sample filters, runs the staggered-DiD regression
+(Callaway-Sant'Anna 2021 ATT(g,t)), prints the coefficient table.
 
 **Planted bug:** an extra exclusion was added to the sample-construction step
-(`& industry != "financial"`) that was forgotten in the manuscript. So the
-script's actual N is 14,489 — three claims still pass, but C2 fails.
+(`filter(year < 2020)`, dropping COVID-era observations) that was forgotten in
+the manuscript. So the script's actual N is 14,489 — three claims still pass,
+but C2 fails.
 
 ---
 
@@ -137,8 +139,8 @@ Switch back to slides.
 
 ## Why the planted bug is good
 
-The bug (silent industry filter) is:
-- **Realistic** — happens to me 1-2x per year on real papers
+The bug (silent COVID-year exclusion) is:
+- **Realistic** — happens to me 1-2x per year on real papers; COVID exclusions are a *very* common forgotten-filter source post-2020
 - **Survivable** — three of four claims pass, so it's not catastrophic
 - **Catchable only by reproduction** — re-reading the manuscript wouldn't find it
 - **Fixable in either direction** — update text OR script; demo doesn't take a side

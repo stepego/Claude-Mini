@@ -18,9 +18,9 @@ The most memorable demo of the talk. Audience leaves understanding that:
 
 ## Two demos in one section
 
-### Demo 5a: `/review-paper --peer JF` (~20 min)
+### Demo 5a: `/review-paper --peer AER` (~20 min)
 
-Run on a real working paper snippet. Show the editor → 2 referees → synthesis flow.
+Run on a real (sanitized) working paper snippet — a staggered-DiD application paper. Show the editor → 2 referees → synthesis flow.
 
 ### Demo 5b: `/respond-to-referees` (~8 min)
 
@@ -31,9 +31,8 @@ Take the editorial output from Demo 5a. Show the response-mapping flow.
 ## Pre-conditions
 
 - [ ] `claude-code-my-workflow` cloned at `~/Documents/GitHub/claude-code-my-workflow`.
-- [ ] **JF profile shipped in v1.8.1** to `.claude/references/journal-profiles.md`. (Currently in v1.9 backlog; needs to land before talk.)
-- [ ] **JAR profile** also shipped in v1.8.1 — for fallback if JF demo doesn't surface enough discipline-specific findings.
-- [ ] `manuscript-snippet.tex` placed in this directory: a sanitized intro + identification section from a real Pedro working paper, ~3 pages.
+- [x] **AER profile** ships in v1.8.0 — already in `.claude/references/journal-profiles.md`. No v1.8.1 prerequisite needed for this demo.
+- [ ] `manuscript-snippet.tex` placed in this directory: a sanitized intro + identification section from a Pedro working paper (or a stylized DiD application paper), ~3 pages.
 - [ ] Pre-recorded fallback `pre-recorded.mp4` for both demos accessible offline.
 
 ---
@@ -49,25 +48,25 @@ Pedro opens `manuscript-snippet.tex`. Reads aloud the abstract + first paragraph
 ### T+1 to T+2 — Invoke the peer review
 
 ```
-/review-paper --peer JF demos/05-peer-review/manuscript-snippet.tex
+/review-paper --peer AER demos/05-peer-review/manuscript-snippet.tex
 ```
 
 ### T+2 to T+5 — Editor desk review + novelty probe
 
 Editor agent activates. Audience watches:
-- Calibration: "Calibrated to: Journal of Finance (JF), accept rate ~5%."
+- Calibration: "Calibrated to: American Economic Review (AER), accept rate ~7%."
 - Novelty probe: WebSearch on key contribution — surfaces the 3 most-related published papers.
 - Desk verdict: "PROCEED to peer review" (vs alternative "DESK REJECT — overlap with [paper]").
 
 ### T+5 to T+6 — Referee selection
 
-Editor selects two referees from the JF disposition pool with **different dispositions**. Visible in transcript:
+Editor selects two referees from the AER disposition pool with **different dispositions**. Visible in transcript:
 
-> "Selected: Referee 1 (CREDIBILITY); Referee 2 (POLICY). Pet-peeves seeded: 'instrument validity' / 'real-world implications'."
+> "Selected: Referee 1 (CREDIBILITY); Referee 2 (POLICY). Pet-peeves seeded: 'parallel trends robustness' / 'real-world magnitude interpretation'."
 
 Pedro narrates:
 
-> "Notice — the editor chose CREDIBILITY + POLICY. Different dispositions = non-overlapping concerns. We'll see two genuinely different reports."
+> "Notice — the editor chose CREDIBILITY + POLICY. Different dispositions = non-overlapping concerns. CREDIBILITY worries about identification; POLICY worries about real-world relevance. We'll see two genuinely different reports."
 
 ### T+6 to T+13 — Two referees in parallel
 

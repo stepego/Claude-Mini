@@ -41,7 +41,7 @@ These are the source of truth. If a claim in the talk seemed surprising, check t
 
 ### Standalone community skills
 
-- **[`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision)** — DAG-based peer-review response planning. **Targets empirical accounting + finance R&R rounds.** Highly recommended for accounting faculty.
+- **[`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision)** — DAG-based peer-review response planning. Different approach than `/respond-to-referees` (Part 6); worth knowing about as an alternative for complex R&R rounds.
 - **[`jusi-aalto/crossref`](https://github.com/jusi-aalto/crossref)** — Bibliography validation against the Crossref REST API. Returns canonical APA citations + DOIs + match confidence.
 
 ### Adjacent ecosystem
@@ -72,10 +72,13 @@ These are the source of truth. If a claim in the talk seemed surprising, check t
 - **[OSF (Open Science Framework)](https://osf.io/registries)** — preregistration default for survey experiments.
 - **[AsPredicted](https://aspredicted.org)** — 9-question short-form preregistration.
 
-### Field-specific journal policies
+### Selected field-specific journal policies
 
-- **[Journal of Finance Disclosure Statement](https://onlinelibrary.wiley.com/page/journal/15406261/homepage/forauthors.html)** — JF data + code requirements (active since 2023).
-- **[Journal of Accounting Research replication archive](https://research.chicagobooth.edu/arc/journal-of-accounting-research)** — JAR's replication policy.
+- **[Review of Economic Studies replication policy](https://academic.oup.com/restud/pages/general_instructions)** — REStud requires data + code at acceptance.
+- **[Quarterly Journal of Economics replication policy](https://academic.oup.com/qje/pages/general_instructions)** — QJE follows the AEA Code policy.
+- **[Journal of Political Economy replication policy](https://www.journals.uchicago.edu/journals/jpe/replication-policy)** — JPE's policy.
+
+For finance + accounting journal policies, refer to the journals' own author-instruction pages directly — those policies are evolving rapidly.
 
 ---
 
@@ -105,9 +108,9 @@ If you have a free Saturday morning:
 
 > **Watch Goldsmith-Pinkham's [first 2 episodes](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/) and clone [`Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini).** Different teaching style, different angle — much faster to internalize the pattern with two takes.
 
-If you're an accounting or finance faculty member at R&R round 2:
+If you have a complex R&R with many interlinked concerns:
 
-> **Try [`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision) before your next response letter.** Specifically built for our world; different approach than `/respond-to-referees` and complementary.
+> **Try [`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision) before your next response letter.** Different approach than `/respond-to-referees` — DAG-based dependency mapping that surfaces which concerns block which others.
 
 ---
 

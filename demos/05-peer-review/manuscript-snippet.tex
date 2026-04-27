@@ -1,13 +1,13 @@
 % manuscript-snippet.tex
-% Stripped-down working paper substrate for /review-paper --peer JF demo.
-% Approx 3 pages of LaTeX. Sanitized — no real names, no real findings.
+% Stripped-down working paper substrate for /review-paper --peer AER demo.
+% Approx 3 pages of LaTeX. Sanitized — staggered DiD on Medicaid expansion.
 
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{natbib}
 
-\title{Information Asymmetry and Cross-Border Capital Flows: \\
-       Evidence from a Quasi-Experimental Reform}
+\title{Public Health Insurance and Small Business Formation: \\
+       Evidence from Staggered Medicaid Expansion}
 \author{[Author 1] \and [Author 2]}
 \date{April 2026}
 
@@ -15,68 +15,85 @@
 \maketitle
 
 \begin{abstract}
-We examine how a 2018 disclosure-regime reform in [Country X] affected cross-border
-capital allocation. Using a difference-in-differences design with synthetic-control
-comparison units, we find that disclosure transparency increases foreign portfolio
-investment by roughly 22\% over a three-year horizon, with the strongest effects
-concentrated in mid-cap firms. Our estimates are robust to alternative event windows,
-control-group selection, and exclusion of financial firms. We interpret these results
-through the lens of \citet{Merton1987} and discuss implications for emerging-market
-disclosure standards.
+We examine how Medicaid expansion under the Affordable Care Act affected new
+small-business formation across US counties. Using a staggered difference-in-differences
+design that compares counties in expanding states to counties in never-expanding states,
+we estimate that Medicaid expansion increased the small-business formation rate by
+approximately 3.2 percentage points over a five-year horizon, with the strongest effects
+concentrated in counties with above-median uninsurance rates pre-expansion. Our estimates
+are robust to alternative comparison-group constructions, exclusion of border counties,
+and the Callaway-Sant'Anna (2021) heterogeneity-robust ATT(g,t) estimator. We interpret
+these results as evidence that public health insurance reduces a binding entrepreneurship
+constraint, with implications for the design of safety-net programs.
 \end{abstract}
 
 \section{Introduction}
 
-The relationship between corporate-information disclosure and cross-border capital
-flows has been a long-standing question in international finance. Theoretical work
-\citep{Merton1987, Easley2004} predicts that information asymmetry creates barriers
-to entry for non-domestic investors. Empirical work using cross-country variation
-has been suggestive but limited by confounding policy reforms.
+A long-standing question in labor economics asks whether the link between health
+insurance and employment in the US distorts entrepreneurship choices \citep{MaduraEtAl2014,
+GarthwaiteGrossNotowidigdo2014}. The theoretical mechanism — \emph{employment lock} —
+predicts that workers stay in salaried jobs to retain employer-sponsored insurance,
+suppressing transitions into self-employment.
 
-In this paper, we exploit a sharp regulatory reform in [Country X] in 2018 that
-mandated quarterly disclosure of beneficial-ownership structure for all listed firms.
-The reform was announced in 2017 and took effect on January 1, 2018, providing a
-clean before-after design.
+In this paper, we exploit the staggered timing of state Medicaid expansions under the
+2014 Affordable Care Act, which provided non-employer-tied health insurance to non-elderly
+adults below 138\% of the federal poverty line. We examine whether expansion increased
+the rate of new small-business formation in expanding counties relative to non-expanding
+counties.
 
-[More text here in the real paper, sanitized for length...]
+[Standard introduction discussion: relevance, contribution, related literature, roadmap.]
 
 \section{Empirical Strategy}
 
 \subsection{Sample Construction}
 
-Our analysis sample consists of [Country X]-listed firms in 2014--2022. We exclude
-financial firms (SIC 6000-6999) and firms with fewer than 8 quarters of pre-period data,
-yielding a final sample of 14,562 firm-year observations.
+Our analysis sample consists of US counties from 2009 to 2022. We restrict the sample to
+counties with at least five years of pre-period data and observable Census Business
+Formation Statistics (BFS) coverage, yielding a final sample of \textbf{14,562 county-year}
+observations across 2,891 counties.
 
 \subsection{Identification}
 
-We use a difference-in-differences design comparing affected firms to a synthetic-control
-unit constructed from neighboring [Region] markets without disclosure reforms in 2018.
-The identifying assumption is that, absent the reform, treated and synthetic-control
-firms would have followed parallel trends in foreign portfolio investment.
+We use a staggered difference-in-differences design comparing counties in expanding states
+to counties in never-expanding states. The identifying assumption is that, absent
+expansion, treated and control counties would have followed parallel trends in
+small-business formation rates.
 
-[Pre-trends discussion would go here in the real paper. Note: deliberately sparse
-in this teaching version to provide a planted concern for the methods referee.]
+[Pre-trends figure would go here in the real paper. We discuss event-study evidence
+in Section 4.1, but the figure itself is in the supplementary material.]
 
-\subsection{Estimation}
+\subsection{Estimator}
 
-Our preferred specification is:
-\[ Y_{it} = \alpha_i + \gamma_t + \beta \cdot \text{Treated}_i \cdot \text{Post}_t + \varepsilon_{it} \]
-where $Y_{it}$ is the log of foreign portfolio investment for firm $i$ at quarter $t$.
+Our preferred specification uses the Callaway-Sant'Anna (2021) heterogeneity-robust
+ATT(g,t) estimator with never-treated counties as the comparison group:
+\[ \text{ATT}(g,t) = E[Y_t(g) - Y_t(\infty) \mid G = g] \]
+where $G = g$ denotes treatment cohort year and $Y_t(\infty)$ is the never-treated
+counterfactual. We aggregate ATT(g,t) into an event-study at horizon $\tau = t - g$
+and report the average over post-treatment horizons.
+
+For comparison, we also report two-way fixed-effects (TWFE) estimates with state and
+year fixed effects, recognizing the now-well-known limitations under heterogeneous
+treatment effects \citep{deChaisemartin2020,Goodmanbacon2021}.
 
 \section{Main Results}
 
-[Table 2 from the paper would appear here. Effect = 0.247 SD units, SE = 0.083,
-N = 14,562, $R^2$ = 0.31. First-stage F-stat = 32.1 in robustness IV specification.]
+[Table 2 from the paper would appear here. Headline: a \textbf{3.2 percentage-point}
+increase in small-business formation rate over a five-year horizon
+(SE 0.083, $N$ = 14,562, $R^2$ = 0.31). The effect is statistically significant at
+conventional levels and robust across the alternative comparison groups discussed
+in Section 4.2.]
 
-[More text, robustness checks, mechanism discussion. Approx 1.5 pages here in real paper.]
+[Approx 1.5 pages of robustness, mechanism discussion, heterogeneity by pre-expansion
+uninsurance rate. Discussion of why the effect is largest in high-uninsurance counties.]
 
 \section{Conclusion}
 
-We provide quasi-experimental evidence that disclosure-regime reforms increase
-cross-border portfolio flows. The implications for emerging-market regulators are
-direct: even modest, well-targeted disclosure mandates can substantially shift
-the cost of capital for affected firms.
+We provide quasi-experimental evidence that Medicaid expansion increased small-business
+formation rates in expanding counties, particularly those with high pre-expansion
+uninsurance. The implications extend to broader debates over the design of social
+safety nets and their interaction with entrepreneurship. Our results suggest that the
+US system's tight coupling of health insurance and employment imposes real distortions
+on the small-business sector.
 
 \bibliographystyle{aer}
 \bibliography{Bibliography}

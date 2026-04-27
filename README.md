@@ -3,7 +3,7 @@
 > A 4-hour watch-along seminar for business-school faculty on agentic AI for academic research. Companion repo to [`claude-code-my-workflow`](https://github.com/pedrohcgs/claude-code-my-workflow).
 
 **Talk:** Notre Dame Mendoza College of Business
-**Audience:** Faculty in economics, finance, and accounting
+**Audience:** Faculty in economics, finance, and accounting (examples drawn from applied causal-inference / panel-data econometrics)
 **Date:** Spring 2026
 **Format:** Watch-along — Pedro demonstrates live; faculty observe. No participant install required to follow.
 
