@@ -18,7 +18,6 @@ format:
     width: 1600
     height: 900
     margin: 0.05
-bibliography: ../Bibliography.bib
 ---
 
 ```{r}
