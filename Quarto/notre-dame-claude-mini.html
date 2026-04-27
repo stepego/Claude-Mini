@@ -28,6 +28,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="notre-dame-claude-mini_files/libs/revealjs/dist/theme/quarto-7772829f4b03cff9980b33ded13a40a7.css">
   <link href="notre-dame-claude-mini_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -244,21 +310,460 @@ Pedro H. C. Sant’Anna
 <h1>Part 1 — Agentic AI + CLAUDE.md</h1>
 
 </section>
-<section id="coming-in-part-1" class="slide level2">
-<h2>Coming in Part 1</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="the-premise-of-this-part" class="slide level2 compact">
+<h2>The premise of this part</h2>
+<ul>
+<li class="fragment">The most useful thing a researcher writes in this stack is <strong>not code</strong>. It’s a one-page file called <code>CLAUDE.md</code>.</li>
+<li class="fragment">Everything else — skills, rules, hooks, multi-agent review — derives from it.</li>
+<li class="fragment">Forty minutes from now, you’ll know exactly what to put in yours.</li>
+</ul>
+</section>
+<section id="why-now" class="slide level2 compact">
+<h2>Why now?</h2>
+<p>Three things changed in the last 18 months:</p>
+<ul>
+<li class="fragment"><strong>Replication compliance is no longer optional.</strong> AEA Data Editor since 2019; JF Disclosure Statement since 2023; JAR full-data archive expected by 2027. Desk rejects on package failures are rising.</li>
+<li class="fragment"><strong>Referee reports got harder, not easier.</strong> Higher methods bar at <em>AER</em> / <em>JF</em> / <em>JAR</em>; pre-registration creep into observational work; “what would change my mind” becoming a referee-side norm.</li>
+<li class="fragment"><strong>Agentic AI matured fast.</strong> “Tool-using” went from research preview (2024) to production (2025). The gap between <em>chatbot</em> and <em>agent</em> is now the same as the gap between <em>spreadsheet</em> and <em>programming language</em>.</li>
+</ul>
+</section>
+<section id="why-this-audience" class="slide level2 compact">
+<h2>Why this audience</h2>
+<ul>
+<li class="fragment">B-school faculty in <strong>economics, finance, accounting</strong> sit at the intersection of these three pressures.</li>
+<li class="fragment">High-stakes papers, slow review cycles, replication-package compliance now part of the job, not a footnote.</li>
+<li class="fragment">Most faculty I talk to use AI tools as <strong>chat replacements</strong> — better Google. That leaves 80% of the value on the table.</li>
+</ul>
+<div class="fragment">
+<p>The next 4 hours: see what’s on that table.</p>
+</div>
+</section>
+<section id="what-im-not-going-to-do" class="slide level2 compact">
+<h2>What I’m not going to do</h2>
+<ul>
+<li>❌ Sell you on adopting this. (You’ll evaluate yourself.)</li>
+<li>❌ Teach you Python or Stata or R. (Use what you already use.)</li>
+<li>❌ Promise that “AI will write your paper.” (Claude won’t — and shouldn’t.)</li>
+</ul>
+</section>
+<section id="what-i-am-going-to-do" class="slide level2">
+<h2>What I am going to do</h2>
+<ol type="1">
+<li class="fragment">Show you a workflow built on top of agentic AI that <strong>plans before acting, reviews its own work, and verifies before shipping</strong>.</li>
+<li class="fragment">Demonstrate it live on real materials — manuscript improvement, replication audit, simulated peer review.</li>
+<li class="fragment">Hand you a repo (<code>Claude-Mini</code>) you can clone tonight and a parent template (<code>claude-code-my-workflow</code>) you can fork on Monday.</li>
+</ol>
+</section></section>
+<section>
+<section id="tool-landscape" class="title-slide slide level1 claudeorange center">
+<h1>Tool landscape</h1>
+
+</section>
+<section id="the-three-big-players-april-2026" class="slide level2 compact">
+<h2>The three big players (April 2026)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Claude Code</th>
+<th>Codex (OpenAI)</th>
+<th>Gemini CLI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Best for</strong></td>
+<td>Repo-context tasks, multi-file refactor, agent orchestration</td>
+<td>Structured completion, focused narrow tasks</td>
+<td>Multimodal (image / PDF heavy)</td>
+</tr>
+<tr class="even">
+<td><strong>File-system access</strong></td>
+<td>Native (read/write/run)</td>
+<td>Native</td>
+<td>Native (newer)</td>
+</tr>
+<tr class="odd">
+<td><strong>Subagent / multi-agent</strong></td>
+<td>First-class</td>
+<td>Via plugin</td>
+<td>Limited</td>
+</tr>
+<tr class="even">
+<td><strong>Hooks / lifecycle events</strong></td>
+<td>Yes (extensive)</td>
+<td>Limited</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td><strong>My experience</strong></td>
+<td>Daily driver</td>
+<td>Cross-tool audits</td>
+<td>Occasional, multimodal-only</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="what-this-talk-uses" class="slide level2 compact">
+<h2>What this talk uses</h2>
+<p>We’ll be in <strong>Claude Code</strong> for everything live. Two reasons:</p>
+<ol type="1">
+<li class="fragment">The infrastructure (skills, rules, agents, hooks) is the most mature here in April 2026.</li>
+<li class="fragment">The cross-tool pattern at the end (Part 7) uses <strong>Claude reviewing Codex output</strong> — same primitives generalize.</li>
+</ol>
+<div class="fragment">
+<p>If you’re already in another tool: most concepts port. The CLAUDE.md → instructions-file pattern works in Cursor (<code>.cursorrules</code>), Aider (<code>.aider.conf.yml</code>), and continue.dev (<code>.continue/config.json</code>). Nothing here is Claude-exclusive in <em>concept</em>.</p>
+</div>
+</section>
+<section id="what-agentic-actually-means" class="slide level2 compact">
+<h2>What “agentic” actually means</h2>
+<p>A chatbot:</p>
+<blockquote>
+<p><em>You</em>: “Edit the abstract to mention the panel-data dimension.” <em>Bot</em>: “Here’s a revision: [text]” <em>You</em>: copy → paste → save → repeat.</p>
+</blockquote>
+<div class="fragment">
+<p>An agent:</p>
+<blockquote>
+<p><em>You</em>: “Edit the abstract to mention the panel-data dimension.” <em>Agent</em>: opens the file, reads the abstract, writes the edit, saves, runs the bibliography check, opens the result, reports back.</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p>The difference isn’t intelligence. It’s <strong>the ability to act</strong> — and to verify it acted correctly.</p>
+</div>
+</section>
+<section id="the-four-agentic-primitives" class="slide level2 compact">
+<h2>The four agentic primitives</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Primitive</th>
+<th>What it gives you</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Tool use</strong></td>
+<td>Read files, run commands, edit on disk, call APIs</td>
+</tr>
+<tr class="even">
+<td><strong>Planning</strong></td>
+<td>Break a task into reviewable steps before acting</td>
+</tr>
+<tr class="odd">
+<td><strong>Sub-agents</strong></td>
+<td>Spawn focused workers (proofreader, code reviewer, fact-checker) in parallel</td>
+</tr>
+<tr class="even">
+<td><strong>Hooks</strong></td>
+<td>Deterministic enforcement at lifecycle events (pre-commit, post-edit)</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>The next four parts walk through these one at a time. Today’s lecture in one sentence: <strong>a workflow is the pattern that connects them</strong>.</p>
+</div>
+</section></section>
+<section>
+<section id="claude.md-as-control-center" class="title-slide slide level1 claudeorange center">
+<h1>CLAUDE.md as control center</h1>
+
+</section>
+<section id="the-single-most-important-file-in-this-stack" class="slide level2">
+<h2>The single most important file in this stack</h2>
+<p><code>CLAUDE.md</code> lives at your project root.</p>
+<div class="fragment">
+<p>It loads automatically at the start of every Claude session.</p>
+</div>
+<div class="fragment">
+<p>It tells the agent <strong>what your project is</strong>, <strong>what the rules are</strong>, and <strong>what good looks like</strong> — <em>before</em> the agent does anything.</p>
+</div>
+<div class="fragment">
+<p>It’s ~150 lines. It changes everything downstream.</p>
+</div>
+</section>
+<section id="whats-in-mine" class="slide level2 compact">
+<h2>What’s in mine</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href=""></a><span class="fu"># CLAUDE.MD — Causal Panel Data Course</span></span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a><span class="fu">## Core Principles</span></span>
+<span id="cb1-4"><a href=""></a><span class="ss">- </span>Plan first; verify after.</span>
+<span id="cb1-5"><a href=""></a><span class="ss">- </span>Single source of truth: Beamer .tex is authoritative.</span>
+<span id="cb1-6"><a href=""></a><span class="ss">- </span>Quality gates: nothing ships below 80/100.</span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a><span class="fu">## Folder Structure</span></span>
+<span id="cb1-9"><a href=""></a><span class="ss">- </span>Slides/ — Beamer .tex</span>
+<span id="cb1-10"><a href=""></a><span class="ss">- </span>Quarto/ — RevealJS .qmd</span>
+<span id="cb1-11"><a href=""></a><span class="ss">- </span>scripts/R/ — analysis pipeline</span>
+<span id="cb1-12"><a href=""></a><span class="ss">- </span>Bibliography_base.bib — centralized citations</span>
+<span id="cb1-13"><a href=""></a></span>
+<span id="cb1-14"><a href=""></a><span class="fu">## Commands</span></span>
+<span id="cb1-15"><a href=""></a>TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex</span>
+<span id="cb1-16"><a href=""></a>quarto render file.qmd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>I’ll open the actual file in a moment.</p>
+</div>
+</section>
+<section id="what-that-gives-claude" class="slide level2">
+<h2>What that gives Claude</h2>
+<ul>
+<li class="fragment"><strong>Folder structure</strong> → knows where to put things, what to read</li>
+<li class="fragment"><strong>Commands</strong> → knows the exact LaTeX flags, knows <code>quarto render</code> over <code>pandoc</code></li>
+<li class="fragment"><strong>Quality thresholds</strong> → won’t ship below 80/100 score; will halt and ask</li>
+<li class="fragment"><strong>Source-of-truth contract</strong> → won’t edit Quarto without syncing Beamer</li>
+</ul>
+</section>
+<section id="live-walkthrough-the-actual-claude.md" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Live walkthrough — the actual <code>CLAUDE.md</code></h2>
+<blockquote>
+<p>[In live demo: Pedro opens <code>claude-code-my-workflow/CLAUDE.md</code> in editor. Walks line by line. Audience sees that the file is <strong>short</strong>, <strong>specific</strong>, and <strong>prescriptive about what Claude can’t guess</strong>.]</p>
+</blockquote>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Placeholder</strong></p>
+<p><strong>Demo prompt</strong></p>
 </div>
 <div class="callout-content">
-<p>Slide content drafted in Week 2 (per <code>quality_reports/plans/piped-frolicking-turing.md</code>). Section anchor: <code>#part-1</code>.</p>
-<p><strong>Outline:</strong> opening framing → tool landscape (Claude/Codex/Gemini) → CLAUDE.md as control center (live walkthrough) → effective CLAUDE.md (write well) → rules + hooks tour.</p>
+<p>After the tour: delete the <code>## Commands</code> section. Re-open Claude. Ask: “render the slides.” Watch Claude guess <code>pandoc</code> (wrong tool). Restore the section. Ask again. Watch Claude pick <code>quarto render</code>. <strong>The file is the difference.</strong></p>
 </div>
 </div>
+</div>
+</section>
+<section id="three-sections-that-always-pull-weight" class="slide level2 compact">
+<h2>Three sections that always pull weight</h2>
+<ol type="1">
+<li class="fragment"><strong>Commands you’d type</strong> — exact CLI invocations Claude can’t infer (build flags, tool versions, environment variables).</li>
+<li class="fragment"><strong>Folder structure</strong> — where things live, with one-line “what’s here” notes per directory.</li>
+<li class="fragment"><strong>Quality thresholds + source-of-truth contracts</strong> — non-negotiables. “Never edit X without syncing Y.”</li>
+</ol>
+</section>
+<section id="three-sections-that-look-helpful-but-arent" class="slide level2 compact">
+<h2>Three sections that look helpful but aren’t</h2>
+<ul>
+<li class="fragment">❌ A list of every package you use. Claude knows R packages.</li>
+<li class="fragment">❌ “Write clean code.” Claude knows.</li>
+<li class="fragment">❌ A re-summary of files Claude can read. Skip — Claude reads them.</li>
+</ul>
+<div class="fragment">
+<p><strong>Test:</strong> if removing the line caused Claude to make a mistake, keep it. If not, cut it.</p>
+</div>
+</section>
+<section id="the-claude.md-test-formalized" class="slide level2 compact">
+<h2>The CLAUDE.md test, formalized</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href=""></a><span class="co"># 1. Open CLAUDE.md</span></span>
+<span id="cb2-2"><a href=""></a><span class="co"># 2. Comment out a line</span></span>
+<span id="cb2-3"><a href=""></a><span class="co"># 3. Restart Claude session</span></span>
+<span id="cb2-4"><a href=""></a><span class="co"># 4. Ask: "render the slides" / "run the analysis" / "fix this bug"</span></span>
+<span id="cb2-5"><a href=""></a><span class="co"># 5. Did Claude get it wrong?</span></span>
+<span id="cb2-6"><a href=""></a><span class="co">#    YES → keep the line</span></span>
+<span id="cb2-7"><a href=""></a><span class="co">#    NO  → delete it</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>This isn’t a metaphor — it’s a debugging method. Run it on your own CLAUDE.md once a quarter.</p>
+</div>
+</section></section>
+<section>
+<section id="effective-claude.md" class="title-slide slide level1 claudeorange center">
+<h1>Effective CLAUDE.md</h1>
+
+</section>
+<section id="include-exclude" class="slide level2 compact">
+<h2>✅ Include / ❌ Exclude</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>✅ Include</th>
+<th>❌ Exclude</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bash commands Claude can’t guess</td>
+<td>Standard language conventions</td>
+</tr>
+<tr class="even">
+<td>Code-style rules that differ from defaults</td>
+<td>Detailed API docs (link to source)</td>
+</tr>
+<tr class="odd">
+<td>Testing instructions + preferred runners</td>
+<td>Self-evident practices (“write good code”)</td>
+</tr>
+<tr class="even">
+<td>Repository etiquette (branch naming, PR conventions)</td>
+<td>File-by-file descriptions</td>
+</tr>
+<tr class="odd">
+<td>Architectural decisions specific to your project</td>
+<td>Information that changes frequently</td>
+</tr>
+<tr class="even">
+<td>Developer-environment quirks (env vars, paths)</td>
+<td>A summary of files Claude can already read</td>
+</tr>
+<tr class="odd">
+<td>Common gotchas / non-obvious behaviors</td>
+<td>Long explanations or tutorials</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="specificity-wins" class="slide level2 compact">
+<h2>Specificity wins</h2>
+<ul>
+<li class="fragment">❌ “Use good R code style.”</li>
+<li class="fragment">✅ “Use <code>fixest::feols</code>, not <code>lm</code>. Cluster SE at firm level. <code>set.seed(20260427)</code> once at top of <code>00_run_all.R</code>.”</li>
+</ul>
+<ul>
+<li class="fragment">❌ “Be careful with citations.”</li>
+<li class="fragment">✅ “Citations: <code>\citep{key}</code> for parenthetical, <code>\citet{key}</code> for narrative. All keys must exist in <code>Bibliography_base.bib</code> before commit.”</li>
+</ul>
+</section>
+<section id="specificity-wins-part-2" class="slide level2 compact">
+<h2>Specificity wins, part 2</h2>
+<ul>
+<li class="fragment">❌ “Write clean Python.”</li>
+<li class="fragment">✅ “Use <code>pandas</code> for data, <code>pyarrow</code> for serialization. Type hints required for public functions. Black formatter. <code>pytest -xvs</code> is the test runner.”</li>
+</ul>
+<ul>
+<li class="fragment">❌ “The folder structure is intuitive.”</li>
+<li class="fragment">✅ “data/raw/ — never modified after download. data/clean/ — outputs of <code>02_clean.R</code> only. results/ — read-only, regenerated by <code>00_run_all.R</code>.”</li>
+</ul>
+</section>
+<section id="a-finance-example-your-claude.md-draft-1" class="slide level2 compact">
+<h2>A finance example (your CLAUDE.md, draft 1)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href=""></a><span class="fu"># CLAUDE.MD — JF Submission</span></span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a><span class="fu">## Core Principles</span></span>
+<span id="cb3-4"><a href=""></a><span class="ss">- </span>Default journal: JF.</span>
+<span id="cb3-5"><a href=""></a><span class="ss">- </span>Replication policy: JF Disclosure Statement compliance.</span>
+<span id="cb3-6"><a href=""></a><span class="ss">- </span>Standard error convention: cluster by firm + month.</span>
+<span id="cb3-7"><a href=""></a></span>
+<span id="cb3-8"><a href=""></a><span class="fu">## Data Sources</span></span>
+<span id="cb3-9"><a href=""></a><span class="ss">- </span>WRDS: Compustat (2000-2023), CRSP (1990-2023)</span>
+<span id="cb3-10"><a href=""></a><span class="ss">- </span>WRDS connection: see scripts/setup-wrds.R</span>
+<span id="cb3-11"><a href=""></a><span class="ss">- </span>Sample restrictions: SIC 6000-6999 EXCLUDED (financials).</span>
+<span id="cb3-12"><a href=""></a></span>
+<span id="cb3-13"><a href=""></a><span class="fu">## Commands</span></span>
+<span id="cb3-14"><a href=""></a><span class="ss">- </span>Estimation: Rscript scripts/02_main_regression.R</span>
+<span id="cb3-15"><a href=""></a><span class="ss">- </span>Tables: scripts/03_format_tables.R writes to /tables/</span>
+<span id="cb3-16"><a href=""></a><span class="ss">- </span>Replication audit: /audit-reproducibility paper.tex scripts/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>That’s enough. Stop there.</p>
+</div>
+</section>
+<section id="an-accounting-example-your-claude.md-draft-1" class="slide level2 compact">
+<h2>An accounting example (your CLAUDE.md, draft 1)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href=""></a><span class="fu"># CLAUDE.MD — TAR Revision</span></span>
+<span id="cb4-2"><a href=""></a></span>
+<span id="cb4-3"><a href=""></a><span class="fu">## Core Principles</span></span>
+<span id="cb4-4"><a href=""></a><span class="ss">- </span>Target: TAR R&amp;R round 2.</span>
+<span id="cb4-5"><a href=""></a><span class="ss">- </span>Referee 1 wants robustness to alternative event windows.</span>
+<span id="cb4-6"><a href=""></a><span class="ss">- </span>Referee 2 wants placebo tests on non-event firms.</span>
+<span id="cb4-7"><a href=""></a></span>
+<span id="cb4-8"><a href=""></a><span class="fu">## Data</span></span>
+<span id="cb4-9"><a href=""></a><span class="ss">- </span>I/B/E/S analyst data at scripts/data/ibes_clean.rds</span>
+<span id="cb4-10"><a href=""></a><span class="ss">- </span>Audit Analytics restatements: data/aa_restate.rds</span>
+<span id="cb4-11"><a href=""></a><span class="ss">- </span>Sample: 2010-2022, US-listed, non-financial.</span>
+<span id="cb4-12"><a href=""></a></span>
+<span id="cb4-13"><a href=""></a><span class="fu">## Workflow</span></span>
+<span id="cb4-14"><a href=""></a><span class="ss">- </span>New analyses go to scripts/r2_response/ (NOT main scripts/).</span>
+<span id="cb4-15"><a href=""></a><span class="ss">- </span>Each analysis: ONE script that writes ONE table to tables/r2/.</span>
+<span id="cb4-16"><a href=""></a><span class="ss">- </span>Update response-letter.tex with mapping: analysis script -&gt; referee point.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="length-budget" class="slide level2 compact">
+<h2>Length budget</h2>
+<ul>
+<li class="fragment"><strong>Aim for 100-200 lines.</strong> That’s where most working CLAUDE.md files live.</li>
+<li class="fragment"><strong>Hard ceiling: ~300.</strong> Past that, important rules get lost.</li>
+<li class="fragment"><strong>If yours is over 300:</strong> something belongs in a <em>rule file</em> (path-scoped), not the universal CLAUDE.md.</li>
+</ul>
+<div class="fragment">
+<p>We’ll get to rule files in 5 minutes.</p>
+</div>
+</section></section>
+<section>
+<section id="rules-and-hooks-preview" class="title-slide slide level1 claudeorange center">
+<h1>Rules and hooks (preview)</h1>
+
+</section>
+<section id="when-claude.md-gets-too-long" class="slide level2 compact">
+<h2>When CLAUDE.md gets too long</h2>
+<p>The fix: <strong>path-scoped rule files</strong> under <code>.claude/rules/</code>.</p>
+<ul>
+<li class="fragment">A rule file is just like CLAUDE.md, but loads <strong>only</strong> when Claude touches a matching file.</li>
+<li class="fragment"><code>.claude/rules/r-code-conventions.md</code> with <code>paths: "*.R"</code> → loads only when an <code>.R</code> file is in play.</li>
+<li class="fragment">Keeps CLAUDE.md focused on universal stuff. Specialty knowledge waits for its moment.</li>
+</ul>
+</section>
+<section id="a-rule-example" class="slide level2 compact">
+<h2>A rule example</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href=""></a><span class="co"># .claude/rules/replication-protocol.md</span></span>
+<span id="cb5-2"><a href=""></a><span class="pp">---</span></span>
+<span id="cb5-3"><a href=""></a><span class="fu">paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"scripts/**/*.R"</span><span class="kw">,</span><span class="at"> </span><span class="st">"scripts/**/*.do"</span><span class="kw">,</span><span class="at"> </span><span class="st">"scripts/**/*.py"</span><span class="kw">]</span></span>
+<span id="cb5-4"><a href=""></a><span class="pp">---</span></span>
+<span id="cb5-5"><a href=""></a></span>
+<span id="cb5-6"><a href=""></a><span class="co"># Replication-First R Code</span></span>
+<span id="cb5-7"><a href=""></a></span>
+<span id="cb5-8"><a href=""></a><span class="fu">When asked to extend an analysis</span><span class="kw">:</span></span>
+<span id="cb5-9"><a href=""></a><span class="fu">1. FIRST</span><span class="kw">:</span><span class="at"> replicate the original numbers in the manuscript.</span></span>
+<span id="cb5-10"><a href=""></a><span class="fu">2. THEN</span><span class="kw">:</span><span class="at"> extend.</span></span>
+<span id="cb5-11"><a href=""></a><span class="fu">3. NEVER</span><span class="kw">:</span><span class="at"> ship a script that produces numbers that don't match the paper.</span></span>
+<span id="cb5-12"><a href=""></a></span>
+<span id="cb5-13"><a href=""></a><span class="at">If the original numbers don't replicate, STOP and report what differs.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>This rule auto-loads when Claude opens any <code>.R</code> / <code>.do</code> / <code>.py</code> file. Outside that scope, the rule isn’t in context — staying lean.</p>
+</div>
+</section>
+<section id="hooks-deterministic-enforcement" class="slide level2 compact">
+<h2>Hooks: deterministic enforcement</h2>
+<p>CLAUDE.md and rules are <strong>advisory</strong> — Claude reads them and (usually) follows them.</p>
+<div class="fragment">
+<p><strong>Hooks</strong> are scripts that fire deterministically at lifecycle events. They don’t ask Claude — they enforce.</p>
+<ul>
+<li class="fragment"><code>PreToolUse</code> — before any tool runs (block dangerous patterns)</li>
+<li class="fragment"><code>PostToolUse</code> — after tool completes (sanity check, log, notify)</li>
+<li class="fragment"><code>Stop</code> — when Claude is about to stop responding (verify, remind)</li>
+<li class="fragment"><code>PreCompact</code> — before context auto-compaction (save plan to disk)</li>
+</ul>
+</div>
+</section>
+<section id="a-hook-example" class="slide level2 compact">
+<h2>A hook example</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># .claude/hooks/log-reminder.py — Stop hook</span></span>
+<span id="cb6-2"><a href=""></a><span class="co"># Fires when Claude is about to stop responding.</span></span>
+<span id="cb6-3"><a href=""></a><span class="co"># If session log hasn't been updated in N responses, remind to update it.</span></span>
+<span id="cb6-4"><a href=""></a></span>
+<span id="cb6-5"><a href=""></a><span class="cf">if</span> responses_since_last_log_update <span class="op">&gt;</span> <span class="dv">50</span>:</span>
+<span id="cb6-6"><a href=""></a>    <span class="bu">print</span>(<span class="st">"Session log is stale. Update quality_reports/session_logs/"</span>, <span class="bu">file</span><span class="op">=</span>sys.stderr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>This isn’t AI judgment — it’s a Python script. Deterministic. Runs every Stop, no exceptions.</p>
+</div>
+</section>
+<section id="whats-coming-next" class="slide level2 compact">
+<h2>What’s coming next</h2>
+<ul>
+<li class="fragment"><strong>Part 2</strong> (next, 30 min): see all of the above run end-to-end on a real manuscript section.</li>
+<li class="fragment"><strong>Part 4</strong> (later, 25 min): when multi-agent helps, when it hurts.</li>
+<li class="fragment"><strong>Part 5 + 6</strong> (after lunch): the headline demos — replication audit + simulated peer review.</li>
+</ul>
+<div class="fragment">
+<p>Take a 30-second stretch. We’re going to a live demo.</p>
 </div>
 </section>
 <section class="slide level2">

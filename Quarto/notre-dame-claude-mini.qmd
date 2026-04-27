@@ -86,15 +86,378 @@ A demonstration of how a research workflow built on top of agentic AI:
 
 # Part 1 — Agentic AI + CLAUDE.md {.claudeorange #part-1}
 
-## Coming in Part 1
+## The premise of this part {.compact}
 
-::: {.callout-note}
-## Placeholder
-
-Slide content drafted in Week 2 (per `quality_reports/plans/piped-frolicking-turing.md`). Section anchor: `#part-1`.
-
-**Outline:** opening framing → tool landscape (Claude/Codex/Gemini) → CLAUDE.md as control center (live walkthrough) → effective CLAUDE.md (write well) → rules + hooks tour.
+::: {.incremental}
+- The most useful thing a researcher writes in this stack is **not code**. It's a one-page file called `CLAUDE.md`.
+- Everything else — skills, rules, hooks, multi-agent review — derives from it.
+- Forty minutes from now, you'll know exactly what to put in yours.
 :::
+
+## Why now? {.compact}
+
+Three things changed in the last 18 months:
+
+::: {.incremental}
+- **Replication compliance is no longer optional.** AEA Data Editor since 2019; JF Disclosure Statement since 2023; JAR full-data archive expected by 2027. Desk rejects on package failures are rising.
+- **Referee reports got harder, not easier.** Higher methods bar at *AER* / *JF* / *JAR*; pre-registration creep into observational work; "what would change my mind" becoming a referee-side norm.
+- **Agentic AI matured fast.** "Tool-using" went from research preview (2024) to production (2025). The gap between *chatbot* and *agent* is now the same as the gap between *spreadsheet* and *programming language*.
+:::
+
+## Why this audience {.compact}
+
+::: {.incremental}
+- B-school faculty in **economics, finance, accounting** sit at the intersection of these three pressures.
+- High-stakes papers, slow review cycles, replication-package compliance now part of the job, not a footnote.
+- Most faculty I talk to use AI tools as **chat replacements** — better Google. That leaves 80% of the value on the table.
+:::
+
+. . .
+
+The next 4 hours: see what's on that table.
+
+## What I'm not going to do {.compact}
+
+- ❌ Sell you on adopting this. (You'll evaluate yourself.)
+- ❌ Teach you Python or Stata or R. (Use what you already use.)
+- ❌ Promise that "AI will write your paper." (Claude won't — and shouldn't.)
+
+## What I am going to do
+
+::: {.incremental}
+1. Show you a workflow built on top of agentic AI that **plans before acting, reviews its own work, and verifies before shipping**.
+2. Demonstrate it live on real materials — manuscript improvement, replication audit, simulated peer review.
+3. Hand you a repo (`Claude-Mini`) you can clone tonight and a parent template (`claude-code-my-workflow`) you can fork on Monday.
+:::
+
+# Tool landscape {.claudeorange}
+
+## The three big players (April 2026) {.compact}
+
+| | Claude Code | Codex (OpenAI) | Gemini CLI |
+|---|---|---|---|
+| **Best for** | Repo-context tasks, multi-file refactor, agent orchestration | Structured completion, focused narrow tasks | Multimodal (image / PDF heavy) |
+| **File-system access** | Native (read/write/run) | Native | Native (newer) |
+| **Subagent / multi-agent** | First-class | Via plugin | Limited |
+| **Hooks / lifecycle events** | Yes (extensive) | Limited | No |
+| **My experience** | Daily driver | Cross-tool audits | Occasional, multimodal-only |
+
+## What this talk uses {.compact}
+
+We'll be in **Claude Code** for everything live. Two reasons:
+
+::: {.incremental}
+1. The infrastructure (skills, rules, agents, hooks) is the most mature here in April 2026.
+2. The cross-tool pattern at the end (Part 7) uses **Claude reviewing Codex output** — same primitives generalize.
+:::
+
+. . .
+
+If you're already in another tool: most concepts port. The CLAUDE.md → instructions-file pattern works in Cursor (`.cursorrules`), Aider (`.aider.conf.yml`), and continue.dev (`.continue/config.json`). Nothing here is Claude-exclusive in *concept*.
+
+## What "agentic" actually means {.compact}
+
+A chatbot:
+
+> *You*: "Edit the abstract to mention the panel-data dimension."
+> *Bot*: "Here's a revision: [text]"
+> *You*: copy → paste → save → repeat.
+
+. . .
+
+An agent:
+
+> *You*: "Edit the abstract to mention the panel-data dimension."
+> *Agent*: opens the file, reads the abstract, writes the edit, saves, runs the bibliography check, opens the result, reports back.
+
+. . .
+
+The difference isn't intelligence. It's **the ability to act** — and to verify it acted correctly.
+
+## The four agentic primitives {.compact}
+
+| Primitive | What it gives you |
+|-----------|-------------------|
+| **Tool use** | Read files, run commands, edit on disk, call APIs |
+| **Planning** | Break a task into reviewable steps before acting |
+| **Sub-agents** | Spawn focused workers (proofreader, code reviewer, fact-checker) in parallel |
+| **Hooks** | Deterministic enforcement at lifecycle events (pre-commit, post-edit) |
+
+. . .
+
+The next four parts walk through these one at a time. Today's lecture in one sentence: **a workflow is the pattern that connects them**.
+
+# CLAUDE.md as control center {.claudeorange}
+
+## The single most important file in this stack
+
+`CLAUDE.md` lives at your project root.
+
+. . .
+
+It loads automatically at the start of every Claude session.
+
+. . .
+
+It tells the agent **what your project is**, **what the rules are**, and **what good looks like** — *before* the agent does anything.
+
+. . .
+
+It's ~150 lines. It changes everything downstream.
+
+## What's in mine {.compact}
+
+```markdown
+# CLAUDE.MD — Causal Panel Data Course
+
+## Core Principles
+- Plan first; verify after.
+- Single source of truth: Beamer .tex is authoritative.
+- Quality gates: nothing ships below 80/100.
+
+## Folder Structure
+- Slides/ — Beamer .tex
+- Quarto/ — RevealJS .qmd
+- scripts/R/ — analysis pipeline
+- Bibliography_base.bib — centralized citations
+
+## Commands
+TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex
+quarto render file.qmd
+```
+
+. . .
+
+I'll open the actual file in a moment.
+
+## What that gives Claude
+
+::: {.incremental}
+- **Folder structure** → knows where to put things, what to read
+- **Commands** → knows the exact LaTeX flags, knows `quarto render` over `pandoc`
+- **Quality thresholds** → won't ship below 80/100 score; will halt and ask
+- **Source-of-truth contract** → won't edit Quarto without syncing Beamer
+:::
+
+## Live walkthrough — the actual `CLAUDE.md` {auto-animate=true}
+
+> [In live demo: Pedro opens `claude-code-my-workflow/CLAUDE.md` in editor.
+> Walks line by line. Audience sees that the file is **short**, **specific**,
+> and **prescriptive about what Claude can't guess**.]
+
+::: {.callout-tip}
+## Demo prompt
+
+After the tour: delete the `## Commands` section. Re-open Claude. Ask: "render the slides." Watch Claude guess `pandoc` (wrong tool). Restore the section. Ask again. Watch Claude pick `quarto render`. **The file is the difference.**
+:::
+
+## Three sections that always pull weight {.compact}
+
+::: {.incremental}
+1. **Commands you'd type** — exact CLI invocations Claude can't infer (build flags, tool versions, environment variables).
+2. **Folder structure** — where things live, with one-line "what's here" notes per directory.
+3. **Quality thresholds + source-of-truth contracts** — non-negotiables. "Never edit X without syncing Y."
+:::
+
+## Three sections that look helpful but aren't {.compact}
+
+::: {.incremental}
+- ❌ A list of every package you use. Claude knows R packages.
+- ❌ "Write clean code." Claude knows.
+- ❌ A re-summary of files Claude can read. Skip — Claude reads them.
+:::
+
+. . .
+
+**Test:** if removing the line caused Claude to make a mistake, keep it. If not, cut it.
+
+## The CLAUDE.md test, formalized {.compact}
+
+```bash
+# 1. Open CLAUDE.md
+# 2. Comment out a line
+# 3. Restart Claude session
+# 4. Ask: "render the slides" / "run the analysis" / "fix this bug"
+# 5. Did Claude get it wrong?
+#    YES → keep the line
+#    NO  → delete it
+```
+
+. . .
+
+This isn't a metaphor — it's a debugging method. Run it on your own CLAUDE.md once a quarter.
+
+# Effective CLAUDE.md {.claudeorange}
+
+## ✅ Include / ❌ Exclude {.compact}
+
+| ✅ Include | ❌ Exclude |
+|-----------|-----------|
+| Bash commands Claude can't guess | Standard language conventions |
+| Code-style rules that differ from defaults | Detailed API docs (link to source) |
+| Testing instructions + preferred runners | Self-evident practices ("write good code") |
+| Repository etiquette (branch naming, PR conventions) | File-by-file descriptions |
+| Architectural decisions specific to your project | Information that changes frequently |
+| Developer-environment quirks (env vars, paths) | A summary of files Claude can already read |
+| Common gotchas / non-obvious behaviors | Long explanations or tutorials |
+
+## Specificity wins {.compact}
+
+::: {.incremental}
+- ❌ "Use good R code style."
+- ✅ "Use `fixest::feols`, not `lm`. Cluster SE at firm level. `set.seed(20260427)` once at top of `00_run_all.R`."
+:::
+
+::: {.incremental}
+- ❌ "Be careful with citations."
+- ✅ "Citations: `\citep{key}` for parenthetical, `\citet{key}` for narrative. All keys must exist in `Bibliography_base.bib` before commit."
+:::
+
+## Specificity wins, part 2 {.compact}
+
+::: {.incremental}
+- ❌ "Write clean Python."
+- ✅ "Use `pandas` for data, `pyarrow` for serialization. Type hints required for public functions. Black formatter. `pytest -xvs` is the test runner."
+:::
+
+::: {.incremental}
+- ❌ "The folder structure is intuitive."
+- ✅ "data/raw/ — never modified after download. data/clean/ — outputs of `02_clean.R` only. results/ — read-only, regenerated by `00_run_all.R`."
+:::
+
+## A finance example (your CLAUDE.md, draft 1) {.compact}
+
+```markdown
+# CLAUDE.MD — JF Submission
+
+## Core Principles
+- Default journal: JF.
+- Replication policy: JF Disclosure Statement compliance.
+- Standard error convention: cluster by firm + month.
+
+## Data Sources
+- WRDS: Compustat (2000-2023), CRSP (1990-2023)
+- WRDS connection: see scripts/setup-wrds.R
+- Sample restrictions: SIC 6000-6999 EXCLUDED (financials).
+
+## Commands
+- Estimation: Rscript scripts/02_main_regression.R
+- Tables: scripts/03_format_tables.R writes to /tables/
+- Replication audit: /audit-reproducibility paper.tex scripts/
+```
+
+. . .
+
+That's enough. Stop there.
+
+## An accounting example (your CLAUDE.md, draft 1) {.compact}
+
+```markdown
+# CLAUDE.MD — TAR Revision
+
+## Core Principles
+- Target: TAR R&R round 2.
+- Referee 1 wants robustness to alternative event windows.
+- Referee 2 wants placebo tests on non-event firms.
+
+## Data
+- I/B/E/S analyst data at scripts/data/ibes_clean.rds
+- Audit Analytics restatements: data/aa_restate.rds
+- Sample: 2010-2022, US-listed, non-financial.
+
+## Workflow
+- New analyses go to scripts/r2_response/ (NOT main scripts/).
+- Each analysis: ONE script that writes ONE table to tables/r2/.
+- Update response-letter.tex with mapping: analysis script -> referee point.
+```
+
+## Length budget {.compact}
+
+::: {.incremental}
+- **Aim for 100-200 lines.** That's where most working CLAUDE.md files live.
+- **Hard ceiling: ~300.** Past that, important rules get lost.
+- **If yours is over 300:** something belongs in a *rule file* (path-scoped), not the universal CLAUDE.md.
+:::
+
+. . .
+
+We'll get to rule files in 5 minutes.
+
+# Rules and hooks (preview) {.claudeorange}
+
+## When CLAUDE.md gets too long {.compact}
+
+The fix: **path-scoped rule files** under `.claude/rules/`.
+
+::: {.incremental}
+- A rule file is just like CLAUDE.md, but loads **only** when Claude touches a matching file.
+- `.claude/rules/r-code-conventions.md` with `paths: "*.R"` → loads only when an `.R` file is in play.
+- Keeps CLAUDE.md focused on universal stuff. Specialty knowledge waits for its moment.
+:::
+
+## A rule example {.compact}
+
+```yaml
+# .claude/rules/replication-protocol.md
+---
+paths: ["scripts/**/*.R", "scripts/**/*.do", "scripts/**/*.py"]
+---
+
+# Replication-First R Code
+
+When asked to extend an analysis:
+1. FIRST: replicate the original numbers in the manuscript.
+2. THEN: extend.
+3. NEVER: ship a script that produces numbers that don't match the paper.
+
+If the original numbers don't replicate, STOP and report what differs.
+```
+
+. . .
+
+This rule auto-loads when Claude opens any `.R` / `.do` / `.py` file. Outside that scope, the rule isn't in context — staying lean.
+
+## Hooks: deterministic enforcement {.compact}
+
+CLAUDE.md and rules are **advisory** — Claude reads them and (usually) follows them.
+
+. . .
+
+**Hooks** are scripts that fire deterministically at lifecycle events. They don't ask Claude — they enforce.
+
+::: {.incremental}
+- `PreToolUse` — before any tool runs (block dangerous patterns)
+- `PostToolUse` — after tool completes (sanity check, log, notify)
+- `Stop` — when Claude is about to stop responding (verify, remind)
+- `PreCompact` — before context auto-compaction (save plan to disk)
+:::
+
+## A hook example {.compact}
+
+```python
+# .claude/hooks/log-reminder.py — Stop hook
+# Fires when Claude is about to stop responding.
+# If session log hasn't been updated in N responses, remind to update it.
+
+if responses_since_last_log_update > 50:
+    print("Session log is stale. Update quality_reports/session_logs/", file=sys.stderr)
+```
+
+. . .
+
+This isn't AI judgment — it's a Python script. Deterministic. Runs every Stop, no exceptions.
+
+## What's coming next {.compact}
+
+::: {.incremental}
+- **Part 2** (next, 30 min): see all of the above run end-to-end on a real manuscript section.
+- **Part 4** (later, 25 min): when multi-agent helps, when it hurts.
+- **Part 5 + 6** (after lunch): the headline demos — replication audit + simulated peer review.
+:::
+
+. . .
+
+Take a 30-second stretch. We're going to a live demo.
 
 ---
 
