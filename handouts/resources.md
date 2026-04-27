@@ -33,6 +33,7 @@ These are the source of truth. If a claim in the talk seemed surprising, check t
 ### Highest priority
 
 - **[Paul Goldsmith-Pinkham — Claude Code mini-series at Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** *(March 2026, Markus' Academy, 5 episodes)*. Applied-econ angle. Topics: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing & thinking. **The most authoritative public material on this topic for our field.**
+- **[Claes Bäckman — Claude Code in VS Code, For Academic Economists](https://claesbackman.com/claude-code-guide.html)** — Written practical guide (~3,500 words). Setup → recommended extensions (R / Stata / Python / LaTeX) → file formats → CLAUDE.md and skills → git → performance. **Recommended companion** to this talk: written-form, IDE-focused, complementary to Goldsmith-Pinkham's video format.
 
 ### Forks of `claude-code-my-workflow`
 

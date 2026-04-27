@@ -136,6 +136,7 @@ Other applied researchers have been building in this space:
 
 ::: {.incremental}
 - **Paul Goldsmith-Pinkham** (Yale SOM): [5-episode mini-series at Princeton's Markus' Academy](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/) — "Claude Code for Applied Economists" (March 2026). Covers: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing & thinking. Different angle, longer form.
+- **Claes Bäckman**: [Claude Code in VS Code — For Academic Economists](https://claesbackman.com/claude-code-guide.html) — practical tutorial focused on R / Stata / Python / LaTeX workflows in VS Code. Emphasizes the everyday-friction "ten-line Python script" angle.
 - **Hugo Sant'Anna** (UAB Birmingham): [`clo-author`](https://github.com/hugosantanna/clo-author) — fork of `claude-code-my-workflow` with paper-authoring extensions (theorist agents, 30+ journal profiles).
 - **Jussi at Aalto University**: [`crossref`](https://github.com/jusi-aalto/crossref) and [`strategic-revision`](https://github.com/jusi-aalto/strategic-revision) — community skills targeting accounting + finance R&R workflows.
 - **AI MBA**: [`ai-mba.io`](https://ai-mba.io) — a structured curriculum with tutorials on skills vs MCPs and AI for business-school audiences.
@@ -1770,6 +1771,7 @@ Choreography: `demos/06-cross-tool/README.md`.
 
 ::: {.incremental}
 - **[Goldsmith-Pinkham × Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** — Yale finance professor; 5-episode video series on Claude Code for applied economists (March 2026 at Markus' Academy). **The most authoritative public material on this topic for our field.**
+- **[Claes Bäckman — Claude Code in VS Code for Academic Economists](https://claesbackman.com/claude-code-guide.html)** — practical written guide; ~3,500 words covering setup, R/Stata/Python/LaTeX extensions, CLAUDE.md, skills, git, performance. **Recommended companion to this talk** — written-form, IDE-focused.
 - **[`hugosantanna/clo-author`](https://github.com/hugosantanna/clo-author)** — authoring-side fork of `claude-code-my-workflow`. Theorist agents, 30+ journal profiles, worker-critic pairs. **Source of `/checkpoint` and `/review-paper --peer` (with permission).**
 - **[`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision)** — DAG-based peer-review response planning for empirical accounting + finance R&R. **Highly recommend for accounting faculty.**
 - **[`jusi-aalto/crossref`](https://github.com/jusi-aalto/crossref)** — bibliography validation against Crossref API.
