@@ -1462,20 +1462,312 @@ Pedro H. C. Sant’Anna
 <h1>Part 5 — Research + Replication</h1>
 
 </section>
-<section id="coming-in-part-5" class="slide level2">
-<h2>Coming in Part 5</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="a-short-personal-anecdote" class="slide level2 compact">
+<h2>A short personal anecdote</h2>
+<blockquote>
+<p><em>I had a working paper rejected once because a single number in Table 3 didn’t match the .csv I shipped. I spent 8 hours figuring out why.</em></p>
+</blockquote>
+<div class="fragment">
+<p>The skill I’m about to show you would have caught it in 90 seconds.</p>
+</div>
+</section>
+<section id="why-this-part-lands-hardest-for-b-school-faculty" class="slide level2 compact">
+<h2>Why this part lands hardest for B-school faculty</h2>
+<ul>
+<li class="fragment"><strong>AEA Data Editor</strong> has been operational since 2019. Every accepted AEA paper goes through a numerical reproduction check.</li>
+<li class="fragment"><strong>JF Disclosure Statement</strong> (2023+) requires data + code at acceptance. Verification is editorial.</li>
+<li class="fragment"><strong>JAR replication archive</strong> is rolling out. Soon every accepted paper.</li>
+<li class="fragment"><strong>TAR, RFS, JFE</strong> are following.</li>
+</ul>
+<div class="fragment">
+<p>This is no longer “good practice.” It’s increasingly <strong>a desk-reject hazard</strong>.</p>
+</div>
+</section>
+<section id="what-the-aea-data-editor-checks" class="slide level2 compact">
+<h2>What the AEA Data Editor checks</h2>
+<ul>
+<li class="fragment">Every numerical claim in the manuscript must reproduce from the shipped code + data.</li>
+<li class="fragment">Tolerance: typically 4 decimal places on point estimates; exact match on N, R², degrees of freedom.</li>
+<li class="fragment">Discrepancies → <strong>major revision required to fix</strong> — even after acceptance.</li>
+</ul>
+<div class="fragment">
+<p>You don’t want to discover the discrepancy <em>after</em> the editor’s email.</p>
+</div>
+</section>
+<section id="replication-first-as-a-workflow-rule" class="slide level2 compact">
+<h2>Replication-first as a workflow rule</h2>
+<p>The repo’s <code>.claude/rules/replication-protocol.md</code> says:</p>
+<blockquote>
+<p><em>When asked to extend an analysis: FIRST replicate the original numbers. THEN extend. NEVER ship a script that produces numbers that don’t match the paper.</em></p>
+</blockquote>
+<div class="fragment">
+<p>This rule auto-loads on <code>*.R</code>, <code>*.do</code>, <code>*.py</code>. Claude reads it at the start of every analysis session.</p>
+</div>
+<div class="fragment">
+<p>It’s a rule, not a hook — Claude can override with reason. But the default is replication-first.</p>
+</div>
+</section></section>
+<section>
+<section id="code-inventory-comparison" class="title-slide slide level1 claudeorange center">
+<h1>Code inventory + comparison</h1>
+
+</section>
+<section id="the-dependency-graph" class="slide level2 compact">
+<h2>The dependency graph</h2>
+<pre><code>manuscript.tex ──cites──&gt; Table 2
+Table 2        ──from──&gt; scripts/R/_outputs/results.rds
+results.rds    ──by──&gt; scripts/R/03_analyze.R
+03_analyze.R   ──reads──&gt; data/clean.rds
+clean.rds      ──by──&gt; scripts/R/02_clean.R
+02_clean.R     ──reads──&gt; data/raw/</code></pre>
+<div class="fragment">
+<p>A bug in <code>02_clean.R</code> invalidates Table 2. <strong>Reviewing the manuscript without touching the code misses this class of error.</strong></p>
+</div>
+</section>
+<section id="what-review-paper-does-about-it" class="slide level2 compact">
+<h2>What <code>/review-paper</code> does about it</h2>
+<ul>
+<li class="fragment">Detects script references in the manuscript (<code>\input{scripts/...}</code>, <code>%% source: scripts/...</code>, table names matching script outputs).</li>
+<li class="fragment">Auto-invokes <code>/review-r</code> on each referenced script (code-quality review).</li>
+<li class="fragment">Auto-invokes <code>/audit-reproducibility</code> on the paper ↔︎ outputs pair (numeric verification).</li>
+<li class="fragment">Surfaces cross-artifact findings at the top of the review report.</li>
+</ul>
+<div class="fragment">
+<p>This isn’t a feature you trigger. It’s the <strong>default for <code>/review-paper</code></strong> when scripts are detected.</p>
+</div>
+</section>
+<section id="the-cross-artifact-finding" class="slide level2 compact">
+<h2>The cross-artifact finding</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href=""></a><span class="fu">## Cross-Artifact Findings</span></span>
+<span id="cb10-2"><a href=""></a></span>
+<span id="cb10-3"><a href=""></a>**Scripts reviewed:** 3</span>
+<span id="cb10-4"><a href=""></a>**Reproducibility:** FAIL — 1 of 4 numeric claims diverges from script output</span>
+<span id="cb10-5"><a href=""></a>**Code quality:** 0 critical, 2 major, 5 minor</span>
+<span id="cb10-6"><a href=""></a></span>
+<span id="cb10-7"><a href=""></a><span class="fu">### Critical cross-artifact issues</span></span>
+<span id="cb10-8"><a href=""></a><span class="pp">|</span> Paper claim <span class="pp">|</span> Code location <span class="pp">|</span> Issue <span class="pp">|</span></span>
+<span id="cb10-9"><a href=""></a><span class="pp">|---|---|---|</span></span>
+<span id="cb10-10"><a href=""></a><span class="pp">|</span> Table 2, ATT = -0.247 <span class="pp">|</span> scripts/R/03_analyze.R:142 <span class="pp">|</span> Script output: ATT = -0.218 (diff &gt; 4 decimals) <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>This block goes at the <strong>top of the review report</strong>. The paper-side findings come after — because if the numbers don’t reproduce, paper-side polish is moot.</p>
+</div>
+</section></section>
+<section>
+<section id="aea-style-packaging" class="title-slide slide level1 claudeorange center">
+<h1>AEA-style packaging</h1>
+
+</section>
+<section id="what-an-aea-compliant-package-looks-like" class="slide level2 compact">
+<h2>What an AEA-compliant package looks like</h2>
+<pre><code>replication-package/
+├── README.md                  # data sources, software versions, runtime estimate
+├── 00_run_all.R               # ONE entry point that produces all outputs
+├── data/
+│   ├── raw/                   # downloaded, never modified
+│   └── clean/                 # outputs of cleaning step
+├── scripts/
+│   ├── 01_load.R
+│   ├── 02_clean.R
+│   ├── 03_analyze.R
+│   └── 04_figures.R
+├── outputs/
+│   ├── tables/                # match Table N in manuscript
+│   └── figures/               # match Figure N in manuscript
+└── sessionInfo.txt            # captured at the end of 00_run_all.R</code></pre>
+</section>
+<section id="what-the-workflow-gives-you" class="slide level2 compact">
+<h2>What the workflow gives you</h2>
+<ul>
+<li class="fragment"><code>/data-analysis</code> scaffolds this structure on a new project.</li>
+<li class="fragment">Numbered scripts (<code>01_*</code>, <code>02_*</code>, etc.) — implicit dependency order; AEA Data Editor loves it.</li>
+<li class="fragment"><code>00_run_all.R</code> is the entry point — a Data Editor runs it once, no flags, expects matching outputs.</li>
+<li class="fragment"><code>sessionInfo.txt</code> captured automatically = R version + package versions reproducible.</li>
+</ul>
+<div class="fragment">
+<p>You don’t have to remember any of this. The skill enforces the structure.</p>
+</div>
+</section>
+<section id="what-the-rule-enforces" class="slide level2 compact">
+<h2>What the rule enforces</h2>
+<p><code>.claude/rules/r-code-conventions.md</code> (v1.6.x) Section 8 — <strong>Numerical Discipline</strong>:</p>
+<ul>
+<li class="fragment">No floating-point <code>==</code> comparison</li>
+<li class="fragment">CDF clamping with named epsilon (<code>eps &lt;- 1e-12</code>)</li>
+<li class="fragment">Integer literals for counts (<code>1L</code>, not <code>1</code>)</li>
+<li class="fragment">Pre-allocated vectors</li>
+<li class="fragment">Deterministic bootstrap seeding (<code>set.seed(YYYYMMDD)</code> once at the top)</li>
+<li class="fragment">Explicit <code>na.rm</code> (no defaults)</li>
+<li class="fragment">No <code>T</code>/<code>F</code> shorthands</li>
+</ul>
+<div class="fragment">
+<p>These are the kinds of bugs that produce “the script ran but the numbers are slightly off” — which is exactly what AEA Data Editors catch.</p>
+</div>
+</section>
+<section id="a-bug-class-audit-reproducibility-catches-that-id-miss" class="slide level2 compact">
+<h2>A bug class /audit-reproducibility catches that I’d miss</h2>
+<ul>
+<li class="fragment">I write <code>subset(df, year &gt; 2010)</code> in the cleaning script.</li>
+<li class="fragment">Manuscript reports N = 14,562.</li>
+<li class="fragment">Three months later, I add <code>&amp; industry != "financial"</code> to the subset for a robustness check.</li>
+<li class="fragment">Forget to update the manuscript; new N is 14,489 — manuscript still says 14,562.</li>
+<li class="fragment"><strong>I’d never catch this on re-read.</strong> The skill catches it in 5 seconds.</li>
+</ul>
+</section></section>
+<section>
+<section id="live-demo-replication-audit" class="title-slide slide level1 claudeorange center">
+<h1>Live demo: replication audit</h1>
+
+</section>
+<section id="what-youre-about-to-see-1" class="slide level2 compact">
+<h2>What you’re about to see</h2>
+<ul>
+<li class="fragment">A real (sanitized) <code>manuscript-claims.md</code> with 4 numerical claims.</li>
+<li class="fragment">A real <code>analyze.R</code> script that allegedly produced them.</li>
+<li class="fragment">I run <code>/audit-reproducibility manuscript-claims.md analyze.R</code>.</li>
+<li class="fragment">The agent reads both, runs the script, compares to claims.</li>
+<li class="fragment">One claim diverges (planted bug). Agent surfaces it.</li>
+</ul>
+</section>
+<section id="the-4-numerical-claims-preview" class="slide level2 compact">
+<h2>The 4 numerical claims (preview)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href=""></a><span class="fu"># Manuscript Claims to Audit</span></span>
+<span id="cb12-2"><a href=""></a></span>
+<span id="cb12-3"><a href=""></a><span class="pp">|</span> ID <span class="pp">|</span> Claim <span class="pp">|</span> Source <span class="pp">|</span></span>
+<span id="cb12-4"><a href=""></a><span class="pp">|----|-------|--------|</span></span>
+<span id="cb12-5"><a href=""></a><span class="pp">|</span> C1 <span class="pp">|</span> ATT = -0.247 (SE 0.083) <span class="pp">|</span> Table 2, col (3) <span class="pp">|</span></span>
+<span id="cb12-6"><a href=""></a><span class="pp">|</span> C2 <span class="pp">|</span> N = 14,562 <span class="pp">|</span> Table 2, col (3) <span class="pp">|</span></span>
+<span id="cb12-7"><a href=""></a><span class="pp">|</span> C3 <span class="pp">|</span> R² = 0.31 <span class="pp">|</span> Table 2, col (3) <span class="pp">|</span></span>
+<span id="cb12-8"><a href=""></a><span class="pp">|</span> C4 <span class="pp">|</span> First-stage F-stat &gt; 25 <span class="pp">|</span> Section 4.2 narrative <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="the-choreographed-time-budget" class="slide level2 compact">
+<h2>The choreographed time-budget</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>What happens</th>
+<th>Time mark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>I show the claims file</td>
+<td>T+0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>I show the R script</td>
+<td>T+1</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Run <code>/audit-reproducibility ...</code></td>
+<td>T+2</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Agent reads both files</td>
+<td>T+3</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Agent runs the R script (~3 min for actual estimation)</td>
+<td>T+5</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Agent compares outputs to claims</td>
+<td>T+9</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><strong>Discrepancy surfaced</strong></td>
+<td>T+10</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Generate report</td>
+<td>T+12</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Wrap</td>
+<td>T+15</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="watch-the-discrepancy-moment" class="slide level2">
+<h2>Watch the discrepancy moment</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Placeholder</strong></p>
+<p><strong>Live demo handoff</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Finance/Accounting headline.</strong> Replication-first framing → code inventory + comparison → AEA-style packaging → <strong>live demo:</strong> replication audit. Choreography in <code>demos/04-replication/README.md</code>.</p>
+<p>Switch to terminal. Run the audit.</p>
+<p>If T+10 hasn’t surfaced the discrepancy, we play <code>demos/04-replication/pre-recorded.mp4</code> for the remainder. The recording shows the same flow at 1.5x with the discrepancy moment annotated on screen.</p>
+<p>Choreography: <code>demos/04-replication/README.md</code>.</p>
 </div>
 </div>
+</div>
+<blockquote>
+<p>[Pedro switches to the IDE. Live demo runs ~15 min.]</p>
+</blockquote>
+</section>
+<section id="coming-back-from-the-demo-1" class="slide level2 compact">
+<h2>Coming back from the demo</h2>
+<p>What you saw:</p>
+<ul>
+<li class="fragment">The agent read <code>manuscript-claims.md</code> — extracted the 4 numerical claims into a checklist.</li>
+<li class="fragment">The agent ran <code>analyze.R</code> — captured all output.</li>
+<li class="fragment">For each claim, compared to the corresponding script output with <strong>explicit tolerance thresholds</strong>.</li>
+<li class="fragment">Three claims passed. <strong>One failed.</strong> (Planted: N = 14,562 vs.&nbsp;actual 14,489.)</li>
+<li class="fragment">The agent surfaced exactly <em>which line</em> of the script produces the divergent number.</li>
+</ul>
+</section>
+<section id="why-this-matters-in-2026" class="slide level2 compact">
+<h2>Why this matters in 2026</h2>
+<ul>
+<li class="fragment">This is what AEA Data Editors do — for <strong>every accepted paper</strong>.</li>
+<li class="fragment">Doing it BEFORE submission means: you fix in private, not in public.</li>
+<li class="fragment">The cost of a desk-reject because of a numerical discrepancy is <strong>several months of your life</strong>.</li>
+<li class="fragment">This skill costs ~5 minutes per run.</li>
+</ul>
+</section>
+<section id="what-it-doesnt-replace" class="slide level2 compact">
+<h2>What it doesn’t replace</h2>
+<ul>
+<li class="fragment">❌ <strong>Conceptual review.</strong> The skill checks numbers, not whether the question is interesting.</li>
+<li class="fragment">❌ <strong>Identification audits.</strong> It doesn’t ask “is parallel trends plausible here?”</li>
+<li class="fragment">❌ <strong>Editorial judgment.</strong> It can’t tell you the result is too small to publish.</li>
+<li class="fragment">✅ <strong>The boring 70%.</strong> All of which is mechanical and previously slow.</li>
+</ul>
+</section>
+<section id="how-to-start-on-monday" class="slide level2 compact">
+<h2>How to start, on Monday</h2>
+<ol type="1">
+<li class="fragment"><strong>Pick your most recent submitted paper.</strong></li>
+<li class="fragment"><strong>Run <code>/audit-reproducibility</code></strong> on its manuscript + replication code.</li>
+<li class="fragment"><strong>What does it find?</strong></li>
+<li class="fragment">If it finds something — fix and re-submit a corrigendum if needed.</li>
+<li class="fragment">Now run it on every paper before submission, going forward.</li>
+</ol>
+<div class="fragment">
+<p>You’ll find at least one issue on a previous submission. I always do.</p>
+</div>
+</section>
+<section id="take-a-10-minute-break-1" class="slide level2 emoryblue">
+<h2>Take a 10-minute break</h2>
+<div class="fragment">
+<p>Back at [time]. Final stretch — three live demos in the next 70 minutes.</p>
+</div>
+<div class="fragment">
+<p>After the break: <strong>Part 6 — refereeing + review simulation.</strong></p>
 </div>
 </section>
 <section class="slide level2">

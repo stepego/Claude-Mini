@@ -1,0 +1,154 @@
+# Demo 04 — Replication audit (HEADLINE for finance/accounting)
+
+**Part of:** Notre Dame Watch-Along, Part 5 (~15 min live)
+**Status:** Choreography drafted; pre-recorded fallback to be created in Week 3.
+
+---
+
+## Goal
+
+Show `/audit-reproducibility` finding a **real, planted numerical discrepancy** between a manuscript's numerical claims and the R script that produced them.
+
+This is the headline demo for finance + accounting. The audience leaves understanding that:
+
+1. AEA Data Editors do this for every accepted paper.
+2. JF / JAR / TAR are moving the same way.
+3. Doing it before submission saves you a months-long fix-it cycle in public.
+
+---
+
+## Pre-conditions
+
+- [ ] `claude-code-my-workflow` cloned at `~/Documents/GitHub/claude-code-my-workflow` (pinned).
+- [ ] `manuscript-claims.md` and `analyze.R` placed in `demos/04-replication/` (this directory).
+- [ ] **Planted bug confirmed** — see `expected-discrepancies.md`.
+- [ ] R installed; `Rscript --version` works on the presentation laptop.
+- [ ] Required R packages (`fixest`, `dplyr`, `readr`) installed.
+- [ ] Pre-recorded fallback `pre-recorded.mp4` accessible offline.
+
+---
+
+## The materials
+
+### `manuscript-claims.md`
+
+Four numerical claims:
+- C1: ATT = -0.247 (SE 0.083) — Table 2, col (3)
+- C2: N = 14,562 — Table 2, col (3)
+- C3: R² = 0.31 — Table 2, col (3)
+- C4: First-stage F-stat > 25 — Section 4.2 narrative
+
+### `analyze.R` (~50 lines)
+
+Loads `data/clean.rds`, applies sample filters, runs the regression, prints the coefficient table.
+
+**Planted bug:** an extra exclusion was added to the sample-construction step
+(`& industry != "financial"`) that was forgotten in the manuscript. So the
+script's actual N is 14,489 — three claims still pass, but C2 fails.
+
+---
+
+## Choreography (~15 min)
+
+### T+0 to T+1 — Show the claims file
+
+Pedro:
+
+```bash
+cat demos/04-replication/manuscript-claims.md
+```
+
+Reads the 4 claims aloud.
+
+### T+1 to T+2 — Show the R script
+
+Pedro:
+
+```bash
+head -30 demos/04-replication/analyze.R
+```
+
+Audience sees the script structure: load → clean → regress.
+
+### T+2 to T+3 — Invoke the audit
+
+Pedro types:
+
+```
+/audit-reproducibility demos/04-replication/manuscript-claims.md demos/04-replication/analyze.R
+```
+
+### T+3 to T+5 — Agent reads both files
+
+Audience watches Claude:
+- Read `manuscript-claims.md` — extract the 4 claims into structured form
+- Read `analyze.R` — note the script's expected outputs
+
+### T+5 to T+9 — Agent runs the R script
+
+The R script takes ~3-4 min to actually execute (real regression on real-ish data).
+
+Pedro narrates over the wait:
+
+> "While that runs — notice that the agent is *running R*, not asking me to run it. The audit is end-to-end. The output will be the script's actual numbers."
+
+### T+9 to T+12 — Agent compares + surfaces discrepancy
+
+Output (target):
+
+```
+## Reproducibility audit
+
+| ID | Claim | Source value | Script output | Tolerance | Status |
+|----|-------|--------------|---------------|-----------|--------|
+| C1 | ATT = -0.247 (SE 0.083) | -0.247 | -0.247 (SE 0.083) | 4 decimals | ✓ PASS |
+| C2 | N = 14,562 | 14,562 | 14,489 | exact | ✗ FAIL |
+| C3 | R² = 0.31 | 0.31 | 0.31 | 2 decimals | ✓ PASS |
+| C4 | First-stage F > 25 | "> 25" | F = 32.1 | numeric > 25 | ✓ PASS |
+
+### Discrepancy detail
+
+C2 — N: manuscript claims 14,562; script produces 14,489.
+Likely source: line 18 of analyze.R adds `& industry != "financial"`
+which is not mentioned in the manuscript's sample-construction paragraph.
+Either: (a) update the manuscript text + Table 2 numbers,
+or (b) remove the financial exclusion in the script.
+```
+
+### T+12 to T+15 — Wrap
+
+Pedro narrates:
+
+> "This took ~10 minutes including the actual R execution. AEA Data Editors do this for every paper. Now you can do it before they do."
+
+Switch back to slides.
+
+---
+
+## Abort triggers
+
+| Time | Trigger | Action |
+|------|---------|--------|
+| T+5  | R script hasn't started running | Pedro narrates: "the agent is reading the script line by line — let's give it 30 more seconds." Continue if it starts. |
+| T+10 | Discrepancy not yet surfaced | Kill the live demo. Switch to `pre-recorded.mp4`. Narrate over the recording. |
+| Network failure | Agent can't pull dependencies | `pre-recorded.mp4` covers the full demo. |
+
+---
+
+## Why the planted bug is good
+
+The bug (silent industry filter) is:
+- **Realistic** — happens to me 1-2x per year on real papers
+- **Survivable** — three of four claims pass, so it's not catastrophic
+- **Catchable only by reproduction** — re-reading the manuscript wouldn't find it
+- **Fixable in either direction** — update text OR script; demo doesn't take a side
+
+This makes the audience think "huh, that's exactly the kind of thing I'd miss" — which is the point.
+
+---
+
+## Pre-recorded fallback
+
+`pre-recorded.mp4` (~5 min, edited from clean rehearsal). To be produced in Week 3.
+
+The recording compresses the 3-min R wait to 30 sec with a `[fast-forward]` on-screen indicator. Discrepancy moment is annotated.

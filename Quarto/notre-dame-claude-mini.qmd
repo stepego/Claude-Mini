@@ -1027,13 +1027,271 @@ Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fres
 
 # Part 5 — Research + Replication {.emoryblue #part-5}
 
-## Coming in Part 5
+## A short personal anecdote {.compact}
 
-::: {.callout-note}
-## Placeholder
+> *I had a working paper rejected once because a single number in Table 3 didn't match the .csv I shipped. I spent 8 hours figuring out why.*
 
-**Finance/Accounting headline.** Replication-first framing → code inventory + comparison → AEA-style packaging → **live demo:** replication audit. Choreography in `demos/04-replication/README.md`.
+. . .
+
+The skill I'm about to show you would have caught it in 90 seconds.
+
+## Why this part lands hardest for B-school faculty {.compact}
+
+::: {.incremental}
+- **AEA Data Editor** has been operational since 2019. Every accepted AEA paper goes through a numerical reproduction check.
+- **JF Disclosure Statement** (2023+) requires data + code at acceptance. Verification is editorial.
+- **JAR replication archive** is rolling out. Soon every accepted paper.
+- **TAR, RFS, JFE** are following.
 :::
+
+. . .
+
+This is no longer "good practice." It's increasingly **a desk-reject hazard**.
+
+## What the AEA Data Editor checks {.compact}
+
+::: {.incremental}
+- Every numerical claim in the manuscript must reproduce from the shipped code + data.
+- Tolerance: typically 4 decimal places on point estimates; exact match on N, R², degrees of freedom.
+- Discrepancies → **major revision required to fix** — even after acceptance.
+:::
+
+. . .
+
+You don't want to discover the discrepancy *after* the editor's email.
+
+## Replication-first as a workflow rule {.compact}
+
+The repo's `.claude/rules/replication-protocol.md` says:
+
+> *When asked to extend an analysis: FIRST replicate the original numbers. THEN extend. NEVER ship a script that produces numbers that don't match the paper.*
+
+. . .
+
+This rule auto-loads on `*.R`, `*.do`, `*.py`. Claude reads it at the start of every analysis session.
+
+. . .
+
+It's a rule, not a hook — Claude can override with reason. But the default is replication-first.
+
+# Code inventory + comparison {.claudeorange}
+
+## The dependency graph {.compact}
+
+```
+manuscript.tex ──cites──> Table 2
+Table 2        ──from──> scripts/R/_outputs/results.rds
+results.rds    ──by──> scripts/R/03_analyze.R
+03_analyze.R   ──reads──> data/clean.rds
+clean.rds      ──by──> scripts/R/02_clean.R
+02_clean.R     ──reads──> data/raw/
+```
+
+. . .
+
+A bug in `02_clean.R` invalidates Table 2. **Reviewing the manuscript without touching the code misses this class of error.**
+
+## What `/review-paper` does about it {.compact}
+
+::: {.incremental}
+- Detects script references in the manuscript (`\input{scripts/...}`, `%% source: scripts/...`, table names matching script outputs).
+- Auto-invokes `/review-r` on each referenced script (code-quality review).
+- Auto-invokes `/audit-reproducibility` on the paper ↔ outputs pair (numeric verification).
+- Surfaces cross-artifact findings at the top of the review report.
+:::
+
+. . .
+
+This isn't a feature you trigger. It's the **default for `/review-paper`** when scripts are detected.
+
+## The cross-artifact finding {.compact}
+
+```markdown
+## Cross-Artifact Findings
+
+**Scripts reviewed:** 3
+**Reproducibility:** FAIL — 1 of 4 numeric claims diverges from script output
+**Code quality:** 0 critical, 2 major, 5 minor
+
+### Critical cross-artifact issues
+| Paper claim | Code location | Issue |
+|---|---|---|
+| Table 2, ATT = -0.247 | scripts/R/03_analyze.R:142 | Script output: ATT = -0.218 (diff > 4 decimals) |
+```
+
+. . .
+
+This block goes at the **top of the review report**. The paper-side findings come after — because if the numbers don't reproduce, paper-side polish is moot.
+
+# AEA-style packaging {.claudeorange}
+
+## What an AEA-compliant package looks like {.compact}
+
+```
+replication-package/
+├── README.md                  # data sources, software versions, runtime estimate
+├── 00_run_all.R               # ONE entry point that produces all outputs
+├── data/
+│   ├── raw/                   # downloaded, never modified
+│   └── clean/                 # outputs of cleaning step
+├── scripts/
+│   ├── 01_load.R
+│   ├── 02_clean.R
+│   ├── 03_analyze.R
+│   └── 04_figures.R
+├── outputs/
+│   ├── tables/                # match Table N in manuscript
+│   └── figures/               # match Figure N in manuscript
+└── sessionInfo.txt            # captured at the end of 00_run_all.R
+```
+
+## What the workflow gives you {.compact}
+
+::: {.incremental}
+- `/data-analysis` scaffolds this structure on a new project.
+- Numbered scripts (`01_*`, `02_*`, etc.) — implicit dependency order; AEA Data Editor loves it.
+- `00_run_all.R` is the entry point — a Data Editor runs it once, no flags, expects matching outputs.
+- `sessionInfo.txt` captured automatically = R version + package versions reproducible.
+:::
+
+. . .
+
+You don't have to remember any of this. The skill enforces the structure.
+
+## What the rule enforces {.compact}
+
+`.claude/rules/r-code-conventions.md` (v1.6.x) Section 8 — **Numerical Discipline**:
+
+::: {.incremental}
+- No floating-point `==` comparison
+- CDF clamping with named epsilon (`eps <- 1e-12`)
+- Integer literals for counts (`1L`, not `1`)
+- Pre-allocated vectors
+- Deterministic bootstrap seeding (`set.seed(YYYYMMDD)` once at the top)
+- Explicit `na.rm` (no defaults)
+- No `T`/`F` shorthands
+:::
+
+. . .
+
+These are the kinds of bugs that produce "the script ran but the numbers are slightly off" — which is exactly what AEA Data Editors catch.
+
+## A bug class /audit-reproducibility catches that I'd miss {.compact}
+
+::: {.incremental}
+- I write `subset(df, year > 2010)` in the cleaning script.
+- Manuscript reports N = 14,562.
+- Three months later, I add `& industry != "financial"` to the subset for a robustness check.
+- Forget to update the manuscript; new N is 14,489 — manuscript still says 14,562.
+- **I'd never catch this on re-read.** The skill catches it in 5 seconds.
+:::
+
+# Live demo: replication audit {.claudeorange}
+
+## What you're about to see {.compact}
+
+::: {.incremental}
+- A real (sanitized) `manuscript-claims.md` with 4 numerical claims.
+- A real `analyze.R` script that allegedly produced them.
+- I run `/audit-reproducibility manuscript-claims.md analyze.R`.
+- The agent reads both, runs the script, compares to claims.
+- One claim diverges (planted bug). Agent surfaces it.
+:::
+
+## The 4 numerical claims (preview) {.compact}
+
+```markdown
+# Manuscript Claims to Audit
+
+| ID | Claim | Source |
+|----|-------|--------|
+| C1 | ATT = -0.247 (SE 0.083) | Table 2, col (3) |
+| C2 | N = 14,562 | Table 2, col (3) |
+| C3 | R² = 0.31 | Table 2, col (3) |
+| C4 | First-stage F-stat > 25 | Section 4.2 narrative |
+```
+
+## The choreographed time-budget {.compact}
+
+| Step | What happens | Time mark |
+|------|-------------|-----------|
+| 1 | I show the claims file | T+0 |
+| 2 | I show the R script | T+1 |
+| 3 | Run `/audit-reproducibility ...` | T+2 |
+| 4 | Agent reads both files | T+3 |
+| 5 | Agent runs the R script (~3 min for actual estimation) | T+5 |
+| 6 | Agent compares outputs to claims | T+9 |
+| 7 | **Discrepancy surfaced** | T+10 |
+| 8 | Generate report | T+12 |
+| 9 | Wrap | T+15 |
+
+## Watch the discrepancy moment
+
+::: {.callout-tip}
+## Live demo handoff
+
+Switch to terminal. Run the audit.
+
+If T+10 hasn't surfaced the discrepancy, we play `demos/04-replication/pre-recorded.mp4` for the remainder. The recording shows the same flow at 1.5x with the discrepancy moment annotated on screen.
+
+Choreography: `demos/04-replication/README.md`.
+:::
+
+> [Pedro switches to the IDE. Live demo runs ~15 min.]
+
+## Coming back from the demo {.compact}
+
+What you saw:
+
+::: {.incremental}
+- The agent read `manuscript-claims.md` — extracted the 4 numerical claims into a checklist.
+- The agent ran `analyze.R` — captured all output.
+- For each claim, compared to the corresponding script output with **explicit tolerance thresholds**.
+- Three claims passed. **One failed.** (Planted: N = 14,562 vs. actual 14,489.)
+- The agent surfaced exactly *which line* of the script produces the divergent number.
+:::
+
+## Why this matters in 2026 {.compact}
+
+::: {.incremental}
+- This is what AEA Data Editors do — for **every accepted paper**.
+- Doing it BEFORE submission means: you fix in private, not in public.
+- The cost of a desk-reject because of a numerical discrepancy is **several months of your life**.
+- This skill costs ~5 minutes per run.
+:::
+
+## What it doesn't replace {.compact}
+
+::: {.incremental}
+- ❌ **Conceptual review.** The skill checks numbers, not whether the question is interesting.
+- ❌ **Identification audits.** It doesn't ask "is parallel trends plausible here?"
+- ❌ **Editorial judgment.** It can't tell you the result is too small to publish.
+- ✅ **The boring 70%.** All of which is mechanical and previously slow.
+:::
+
+## How to start, on Monday {.compact}
+
+::: {.incremental}
+1. **Pick your most recent submitted paper.**
+2. **Run `/audit-reproducibility`** on its manuscript + replication code.
+3. **What does it find?**
+4. If it finds something — fix and re-submit a corrigendum if needed.
+5. Now run it on every paper before submission, going forward.
+:::
+
+. . .
+
+You'll find at least one issue on a previous submission. I always do.
+
+## Take a 10-minute break {.emoryblue}
+
+. . .
+
+Back at [time]. Final stretch — three live demos in the next 70 minutes.
+
+. . .
+
+After the break: **Part 6 — refereeing + review simulation.**
 
 ---
 
