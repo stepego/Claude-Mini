@@ -438,54 +438,54 @@ Pedro H. C. Sant’Anna
 </section>
 <section id="what-agentic-actually-means" class="slide level2 compact">
 <h2>What “agentic” actually means</h2>
-<p>A chatbot:</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<h3 id="a-chatbot">A chatbot</h3>
 <blockquote>
-<p><em>You</em>: “Edit the abstract to mention the panel-data dimension.” <em>Bot</em>: “Here’s a revision: [text]” <em>You</em>: copy → paste → save → repeat.</p>
+<p><em>“Edit the abstract to mention the panel-data dimension.”</em></p>
+<p><em>“Here’s a revision: [text]”</em></p>
 </blockquote>
-<div class="fragment">
-<p>An agent:</p>
+<p>. . .</p>
+<p>You: copy → paste → save → check the bib → repeat.</p>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column" style="width:48%;">
+<h3 id="an-agent">An agent</h3>
 <blockquote>
-<p><em>You</em>: “Edit the abstract to mention the panel-data dimension.” <em>Agent</em>: opens the file, reads the abstract, writes the edit, saves, runs the bibliography check, opens the result, reports back.</p>
+<p><em>“Edit the abstract to mention the panel-data dimension.”</em></p>
+<p><em>Opens the file → reads the abstract → writes the edit → saves → runs the bibliography check → opens the result → reports back.</em></p>
 </blockquote>
-</div>
+<p>. . .</p>
+<p>You: read the diff. Approve.</p>
+</div></div>
 <div class="fragment">
-<p>The difference isn’t intelligence. It’s <strong>the ability to act</strong> — and to verify it acted correctly.</p>
+<p>The difference isn’t <strong>intelligence</strong>. It’s <strong>the ability to act</strong> — and to <strong>verify it acted correctly</strong>.</p>
 </div>
 </section>
 <section id="the-four-agentic-primitives" class="slide level2 compact">
 <h2>The four agentic primitives</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 36%">
-<col style="width: 63%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Primitive</th>
-<th>What it gives you</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Tool use</strong></td>
-<td>Read files, run commands, edit on disk, call APIs</td>
-</tr>
-<tr class="even">
-<td><strong>Planning</strong></td>
-<td>Break a task into reviewable steps before acting</td>
-</tr>
-<tr class="odd">
-<td><strong>Sub-agents</strong></td>
-<td>Spawn focused workers (proofreader, code reviewer, fact-checker) in parallel</td>
-</tr>
-<tr class="even">
-<td><strong>Hooks</strong></td>
-<td>Deterministic enforcement at lifecycle events (pre-commit, post-edit)</td>
-</tr>
-</tbody>
-</table>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="tool-use">🛠️ Tool use</h3>
+<p><em>Read files, run commands, edit on disk, call APIs.</em></p>
+<p>The agent <strong>acts</strong>, not just talks.</p>
+</div><div class="column" style="width:50%;">
+<h3 id="planning">🧭 Planning</h3>
+<p><em>Break a task into reviewable steps <strong>before</strong> acting.</em></p>
+<p>A safety boundary you control.</p>
+</div></div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="sub-agents">🤝 Sub-agents</h3>
+<p><em>Focused workers (proofreader, code reviewer, fact-checker) in <strong>parallel</strong>.</em></p>
+<p>Different agents, different blind spots.</p>
+</div><div class="column" style="width:50%;">
+<h3 id="hooks">⚙️ Hooks</h3>
+<p><em>Deterministic enforcement at lifecycle events.</em></p>
+<p>When “Claude is supposed to” must become “this thing actually happens.”</p>
+</div></div>
 <div class="fragment">
-<p>The next four parts walk through these one at a time. Today’s lecture in one sentence: <strong>a workflow is the pattern that connects them</strong>.</p>
+<p>The next four parts walk through these. Today’s talk in one sentence: <strong>a workflow is the pattern that connects them.</strong></p>
 </div>
 </section></section>
 <section>
@@ -967,29 +967,20 @@ Pedro H. C. Sant’Anna
 <h2>Anatomy of a skill</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href=""></a><span class="pp">---</span></span>
 <span id="cb7-2"><a href=""></a><span class="fu">name</span><span class="kw">:</span><span class="at"> my-skill-name</span></span>
-<span id="cb7-3"><a href=""></a><span class="fu">description</span><span class="kw">:</span><span class="at"> One-sentence description with trigger keywords. "Use when user says X, Y, Z."</span></span>
-<span id="cb7-4"><a href=""></a><span class="fu">argument-hint</span><span class="kw">:</span><span class="at"> </span><span class="st">"[optional flags / inputs]"</span></span>
-<span id="cb7-5"><a href=""></a><span class="fu">allowed-tools</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"Read"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Write"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Bash"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Grep"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Glob"</span><span class="kw">]</span></span>
-<span id="cb7-6"><a href=""></a><span class="fu">disable-model-invocation</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">   # set true if this skill must be user-explicit only</span></span>
-<span id="cb7-7"><a href=""></a><span class="pp">---</span></span>
+<span id="cb7-3"><a href=""></a><span class="fu">description</span><span class="kw">:</span><span class="at"> What it does + trigger phrases. "Use when user says X, Y, Z."</span></span>
+<span id="cb7-4"><a href=""></a><span class="fu">allowed-tools</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="st">"Read"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Write"</span><span class="kw">,</span><span class="at"> </span><span class="st">"Bash"</span><span class="kw">]</span></span>
+<span id="cb7-5"><a href=""></a><span class="pp">---</span></span>
+<span id="cb7-6"><a href=""></a></span>
+<span id="cb7-7"><a href=""></a><span class="co"># My Skill Name</span></span>
 <span id="cb7-8"><a href=""></a></span>
-<span id="cb7-9"><a href=""></a><span class="co"># My Skill Name</span></span>
+<span id="cb7-9"><a href=""></a><span class="co">## Workflow</span></span>
 <span id="cb7-10"><a href=""></a></span>
-<span id="cb7-11"><a href=""></a><span class="co">## Workflow</span></span>
-<span id="cb7-12"><a href=""></a></span>
-<span id="cb7-13"><a href=""></a><span class="co">### Phase 1 — Inputs</span></span>
-<span id="cb7-14"><a href=""></a><span class="at">Read the spec, validate inputs, refuse if results are present.</span></span>
-<span id="cb7-15"><a href=""></a></span>
-<span id="cb7-16"><a href=""></a><span class="co">### Phase 2 — Generate</span></span>
-<span id="cb7-17"><a href=""></a><span class="at">Produce the output, MUST/SHOULD/MAY annotated.</span></span>
-<span id="cb7-18"><a href=""></a></span>
-<span id="cb7-19"><a href=""></a><span class="co">### Phase 3 — Verify</span></span>
-<span id="cb7-20"><a href=""></a><span class="at">Cross-check against domain rules.</span></span>
-<span id="cb7-21"><a href=""></a></span>
-<span id="cb7-22"><a href=""></a><span class="co">### Phase 4 — Output</span></span>
-<span id="cb7-23"><a href=""></a><span class="at">Write to disk. Report to user.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-11"><a href=""></a><span class="co">### Phase 1 — Read inputs (refuse if invalid)</span></span>
+<span id="cb7-12"><a href=""></a><span class="co">### Phase 2 — Generate (annotate MUST / SHOULD / MAY)</span></span>
+<span id="cb7-13"><a href=""></a><span class="co">### Phase 3 — Verify (cross-check domain rules)</span></span>
+<span id="cb7-14"><a href=""></a><span class="co">### Phase 4 — Output (write to disk; report)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<p>That’s a real skill template. Frontmatter ≤ 6 fields. Body = numbered phases.</p>
+<p>That’s a real skill template. <strong>Frontmatter ≤ 4 fields. Body = numbered phases.</strong> Other fields (<code>argument-hint</code>, <code>disable-model-invocation</code>) are optional polish — not required.</p>
 </div>
 </section>
 <section id="why-this-beats-writing-the-workflow-into-your-prompts" class="slide level2 compact">
@@ -2208,42 +2199,42 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h2>The full stack, recap</h2>
 <table class="caption-top">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 30%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 40%">
+<col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Layer</th>
 <th>What it is</th>
-<th>Where you saw it</th>
+<th>Seen in</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><code>CLAUDE.md</code></td>
 <td>The control center — universal project instructions</td>
-<td>Part 1 walkthrough</td>
+<td>Part 1</td>
 </tr>
 <tr class="even">
 <td><code>.claude/rules/</code></td>
 <td>Path-scoped, auto-loading domain knowledge</td>
-<td>Part 1 + Part 5 (replication-protocol)</td>
+<td>Parts 1, 5</td>
 </tr>
 <tr class="odd">
 <td><code>.claude/skills/</code></td>
 <td>Triggerable, version-controlled workflows</td>
-<td>Parts 2, 3, 5, 6 demos</td>
+<td>Parts 2, 3, 5, 6</td>
 </tr>
 <tr class="even">
 <td><code>.claude/agents/</code></td>
-<td>Specialized review personas (proofreader, referees, etc.)</td>
-<td>Parts 2 + 6 demos</td>
+<td>Specialized review personas (proofreader, referees)</td>
+<td>Parts 2, 6</td>
 </tr>
 <tr class="odd">
 <td><code>.claude/hooks/</code></td>
 <td>Deterministic lifecycle enforcement</td>
-<td>Part 4 (commit gate)</td>
+<td>Part 4</td>
 </tr>
 </tbody>
 </table>

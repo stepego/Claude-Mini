@@ -174,35 +174,82 @@ If you're already in another tool: most concepts port. The CLAUDE.md → instruc
 
 ## What "agentic" actually means {.compact}
 
-A chatbot:
+:::: {.columns}
 
-> *You*: "Edit the abstract to mention the panel-data dimension."
-> *Bot*: "Here's a revision: [text]"
-> *You*: copy → paste → save → repeat.
+::: {.column width="48%"}
+### A chatbot
 
-. . .
-
-An agent:
-
-> *You*: "Edit the abstract to mention the panel-data dimension."
-> *Agent*: opens the file, reads the abstract, writes the edit, saves, runs the bibliography check, opens the result, reports back.
+> *"Edit the abstract to mention the panel-data dimension."*
+>
+> *"Here's a revision: [text]"*
 
 . . .
 
-The difference isn't intelligence. It's **the ability to act** — and to verify it acted correctly.
+You: copy → paste → save → check the bib → repeat.
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+### An agent
+
+> *"Edit the abstract to mention the panel-data dimension."*
+>
+> *Opens the file → reads the abstract → writes the edit → saves → runs the bibliography check → opens the result → reports back.*
+
+. . .
+
+You: read the diff. Approve.
+:::
+
+::::
+
+. . .
+
+The difference isn't **intelligence**. It's **the ability to act** — and to **verify it acted correctly**.
 
 ## The four agentic primitives {.compact}
 
-| Primitive | What it gives you |
-|-----------|-------------------|
-| **Tool use** | Read files, run commands, edit on disk, call APIs |
-| **Planning** | Break a task into reviewable steps before acting |
-| **Sub-agents** | Spawn focused workers (proofreader, code reviewer, fact-checker) in parallel |
-| **Hooks** | Deterministic enforcement at lifecycle events (pre-commit, post-edit) |
+:::: {.columns}
+
+::: {.column width="50%"}
+### 🛠️ Tool use
+*Read files, run commands, edit on disk, call APIs.*
+
+The agent **acts**, not just talks.
+:::
+
+::: {.column width="50%"}
+### 🧭 Planning
+*Break a task into reviewable steps **before** acting.*
+
+A safety boundary you control.
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### 🤝 Sub-agents
+*Focused workers (proofreader, code reviewer, fact-checker) in **parallel**.*
+
+Different agents, different blind spots.
+:::
+
+::: {.column width="50%"}
+### ⚙️ Hooks
+*Deterministic enforcement at lifecycle events.*
+
+When "Claude is supposed to" must become "this thing actually happens."
+:::
+
+::::
 
 . . .
 
-The next four parts walk through these one at a time. Today's lecture in one sentence: **a workflow is the pattern that connects them**.
+The next four parts walk through these. Today's talk in one sentence: **a workflow is the pattern that connects them.**
 
 # CLAUDE.md as control center {.claudeorange}
 
@@ -625,32 +672,23 @@ A skill is just a written instruction — but a *triggerable, version-controlled
 ```yaml
 ---
 name: my-skill-name
-description: One-sentence description with trigger keywords. "Use when user says X, Y, Z."
-argument-hint: "[optional flags / inputs]"
-allowed-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
-disable-model-invocation: false   # set true if this skill must be user-explicit only
+description: What it does + trigger phrases. "Use when user says X, Y, Z."
+allowed-tools: ["Read", "Write", "Bash"]
 ---
 
 # My Skill Name
 
 ## Workflow
 
-### Phase 1 — Inputs
-Read the spec, validate inputs, refuse if results are present.
-
-### Phase 2 — Generate
-Produce the output, MUST/SHOULD/MAY annotated.
-
-### Phase 3 — Verify
-Cross-check against domain rules.
-
-### Phase 4 — Output
-Write to disk. Report to user.
+### Phase 1 — Read inputs (refuse if invalid)
+### Phase 2 — Generate (annotate MUST / SHOULD / MAY)
+### Phase 3 — Verify (cross-check domain rules)
+### Phase 4 — Output (write to disk; report)
 ```
 
 . . .
 
-That's a real skill template. Frontmatter ≤ 6 fields. Body = numbered phases.
+That's a real skill template. **Frontmatter ≤ 4 fields. Body = numbered phases.** Other fields (`argument-hint`, `disable-model-invocation`) are optional polish — not required.
 
 ## Why this beats writing the workflow into your prompts {.compact}
 
@@ -1685,13 +1723,13 @@ We're 3h35min in. Final stretch.
 
 ## The full stack, recap {.compact}
 
-| Layer | What it is | Where you saw it |
-|-------|-----------|------------------|
-| `CLAUDE.md` | The control center — universal project instructions | Part 1 walkthrough |
-| `.claude/rules/` | Path-scoped, auto-loading domain knowledge | Part 1 + Part 5 (replication-protocol) |
-| `.claude/skills/` | Triggerable, version-controlled workflows | Parts 2, 3, 5, 6 demos |
-| `.claude/agents/` | Specialized review personas (proofreader, referees, etc.) | Parts 2 + 6 demos |
-| `.claude/hooks/` | Deterministic lifecycle enforcement | Part 4 (commit gate) |
+| Layer | What it is | Seen in |
+|-------|-----------|---------|
+| `CLAUDE.md` | The control center — universal project instructions | Part 1 |
+| `.claude/rules/` | Path-scoped, auto-loading domain knowledge | Parts 1, 5 |
+| `.claude/skills/` | Triggerable, version-controlled workflows | Parts 2, 3, 5, 6 |
+| `.claude/agents/` | Specialized review personas (proofreader, referees) | Parts 2, 6 |
+| `.claude/hooks/` | Deterministic lifecycle enforcement | Part 4 |
 
 . . .
 
