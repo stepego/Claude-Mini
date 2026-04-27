@@ -45,30 +45,47 @@ theme_claude_mini <- theme_minimal(base_size = 14) +
 
 # Welcome {.emoryblue}
 
-## A 4-hour Watch-Along
+## I lost a paper to one number {.compact}
+
+> *I had a working paper rejected at __REStud__ once because a single number in Table 3 didn't match the .csv I shipped.*
+>
+> *Eight hours of debugging — to find out I had silently dropped 73 observations in a robustness check three months earlier. Manuscript still cited the old N.*
+>
+> *The skill I'm about to show you would have caught it in 90 seconds.*
+
+. . .
+
+I'm going to show you **that skill** — and the workflow it lives in — in the next 4 hours.
+
+## What you'll have at the end {.compact}
 
 ::: {.incremental}
-- **Goal**: by the end, you'll know whether to adopt this for your next paper, class, or RA workflow.
-- **Format**: I demonstrate; you observe. Two 10-minute breaks. Q&A throughout.
-- **Take-home**: a curated repo (`Claude-Mini`) you can clone tonight, and a working starter template (`claude-code-my-workflow`) you can fork.
+- A clear answer to: **"should I adopt this for my next paper, class, or RA workflow?"**
+- A repo (`Claude-Mini`) you can clone tonight.
+- A working starter template (`claude-code-my-workflow`) you can fork on Monday.
+- Three demos that catch the kinds of bugs that cost months of revision.
 :::
 
 ## What this is *not*
 
 - Not a sales pitch.
-- Not a tutorial on writing Python or installing software.
+- Not a tutorial on writing Python, R, or Stata.
 - Not "AI will write your paper." (Claude won't, and shouldn't.)
 
 ## What it *is*
 
-A demonstration of how a research workflow built on top of agentic AI:
+A workflow built on top of agentic AI that:
 
-1. Plans before it acts.
-2. Reviews its own work with multiple specialized agents.
-3. Verifies its output before shipping.
-4. Survives across sessions and across collaborators.
+1. **Plans** before it acts.
+2. **Reviews** its own work with multiple specialized agents.
+3. **Verifies** its output before shipping.
+4. **Survives** across sessions and across collaborators.
 
-## Roadmap (4 hours, watch-along)
+. . .
+
+Four hours. Three live demos. One repo to clone tonight.
+
+## Roadmap (4 hours, watch-along) {.compact}
 
 | Part | Topic | Time |
 |------|-------|------|
@@ -129,39 +146,6 @@ The next 4 hours: see what's on that table.
 2. Demonstrate it live on real materials — manuscript improvement, replication audit, simulated peer review.
 3. Hand you a repo (`Claude-Mini`) you can clone tonight and a parent template (`claude-code-my-workflow`) you can fork on Monday.
 :::
-
-## You're not the first {.compact}
-
-Other applied researchers have been building in this space:
-
-::: {.incremental}
-- **Paul Goldsmith-Pinkham** (Yale SOM): [5-episode mini-series at Princeton's Markus' Academy](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/) — "Claude Code for Applied Economists" (March 2026). Covers: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing & thinking. Different angle, longer form.
-- **Claes Bäckman**: [Claude Code in VS Code — For Academic Economists](https://claesbackman.com/claude-code-guide.html) — practical tutorial focused on R / Stata / Python / LaTeX workflows in VS Code. Emphasizes the everyday-friction "ten-line Python script" angle.
-- **Hugo Sant'Anna** (UAB Birmingham): [`clo-author`](https://github.com/hugosantanna/clo-author) — fork of `claude-code-my-workflow` with paper-authoring extensions (theorist agents, 30+ journal profiles).
-- **Jussi at Aalto University**: [`crossref`](https://github.com/jusi-aalto/crossref) and [`strategic-revision`](https://github.com/jusi-aalto/strategic-revision) — community skills targeting accounting + finance R&R workflows.
-- **AI MBA**: [`ai-mba.io`](https://ai-mba.io) — a structured curriculum with tutorials on skills vs MCPs and AI for business-school audiences.
-:::
-
-. . .
-
-This talk pulls from all of them. Cited where relevant.
-
-## Anthropic's own materials {.compact}
-
-If you want canonical references during or after this talk:
-
-::: {.incremental}
-- [**Best Practices**](https://code.claude.com/docs/en/best-practices) — short, direct, current. Read first.
-- [**What's New**](https://code.claude.com/docs/en/whats-new) — weekly digest of feature changes
-- [**Permission modes**](https://code.claude.com/docs/en/permission-modes) — bypass / auto / plan / dontAsk modes
-- [**CLAUDE.md / memory**](https://code.claude.com/docs/en/memory) — the file we're about to walk through
-- [**Hooks**](https://code.claude.com/docs/en/hooks-guide) — deterministic enforcement
-- [**Skills**](https://code.claude.com/docs/en/skills) — the topic of Part 3
-:::
-
-. . .
-
-You don't need to read these to follow the talk. But every claim I make is backed by one of these pages.
 
 # Tool landscape {.claudeorange}
 
@@ -278,8 +262,8 @@ I'll open the actual file in a moment.
 > Walks line by line. Audience sees that the file is **short**, **specific**,
 > and **prescriptive about what Claude can't guess**.]
 
-::: {.callout-tip}
-## Demo prompt
+::: {.demobox}
+**Demo prompt**
 
 After the tour: delete the `## Commands` section. Re-open Claude. Ask: "render the slides." Watch Claude guess `pandoc` (wrong tool). Restore the section. Ask again. Watch Claude pick `quarto render`. **The file is the difference.**
 :::
@@ -543,8 +527,8 @@ The next 25 minutes is **infrastructure**, not prose.
 
 ## To the editor {auto-animate=true}
 
-::: {.callout-tip}
-## Live demo
+::: {.demobox}
+**Live demo**
 
 Switching to the IDE + terminal. Watch the screen, not the slides.
 
@@ -698,8 +682,8 @@ It refuses to draft if your description contains *results* — preregistration i
 > Then INVOKES it on a fake study description.
 > Audience sees: input → output, end to end, ~3 minutes.]
 
-::: {.callout-tip}
-## Demo prompt (verbatim)
+::: {.demobox}
+**Demo prompt (verbatim)**
 
 > *I'm planning a 2x2 between-subjects survey experiment on N=800 US adults via Prolific. Manipulating message-source partisanship × policy framing on attitudes toward climate policy. Primary DV is a 4-item attitude index. Hypothesis: in-party + gain framing produces highest support. Pre-registered analysis: two-way ANOVA. Run /preregister --style aspredicted on this.*
 :::
@@ -813,8 +797,8 @@ Most failures: trying to cram too much into skill #1. Aim small.
 
 ## Workshop (5 minutes) {.compact}
 
-::: {.callout-tip}
-## Volunteers
+::: {.demobox}
+**Volunteers**
 
 Two volunteers share their sketches. I read aloud + react in real time. We type one of them up live as a real `SKILL.md` to demonstrate the sketch → working-skill translation.
 
@@ -904,6 +888,8 @@ A model alone is impressive. **A model in a loop is useful.**
 
 ## The 6-step orchestrator loop {.compact}
 
+You saw this shape in Part 2's demo. Now we generalize.
+
 ```
 1. IMPLEMENT   — agent does the work
 2. VERIFY      — does it compile / render / parse?
@@ -918,7 +904,7 @@ A model alone is impressive. **A model in a loop is useful.**
 
 . . .
 
-The point isn't the specific 6 steps. It's that **steps 2 and 5 have to be deterministic**.
+The point isn't the specific 6 steps. It's that **steps 2 and 5 have to be deterministic** — and that the loop runs *automatically* until quality clears.
 
 ## Where this lives in the template {.compact}
 
@@ -976,7 +962,7 @@ Honesty matters: this is a contract that skills implement, not a magic backgroun
 
 . . .
 
-**Why this matters for B-school work:** referee reports cite specific papers. CoVe catches misattributions BEFORE you submit.
+**Why this matters:** in my rejected-paper story, the bug was a number, not a citation — but with CoVe, *citation* misattribution is the next class of error this catches. Different agent. Different blind spots.
 
 ## Three patterns, three failure modes {.compact}
 
@@ -1065,8 +1051,8 @@ This isn't AI judgment. It's a Python script. **The same gate runs whether I'm t
 
 ## Mini demo: critic-fixer loop {.compact}
 
-::: {.callout-tip}
-## Live demo (~3 min)
+::: {.demobox}
+**Live demo (~3 min)**
 
 Switch to terminal. Run `/qa-quarto` on a Quarto slide with a known content drift from its Beamer counterpart (a typo in a formula). Audience watches:
 
@@ -1102,13 +1088,17 @@ Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fres
 
 # Part 5 — Research + Replication {.emoryblue #part-5}
 
-## A short personal anecdote {.compact}
+## Back to the paper I lost {.compact}
 
-> *I had a working paper rejected once because a single number in Table 3 didn't match the .csv I shipped. I spent 8 hours figuring out why.*
+> *Remember the rejected REStud paper from this morning? Single-number mismatch, 8 hours of debugging.*
 
 . . .
 
-The skill I'm about to show you would have caught it in 90 seconds.
+Here's the skill. It would have caught it in 90 seconds.
+
+. . .
+
+Watch.
 
 ## Why this part lands hardest for applied-causal work {.compact}
 
@@ -1265,12 +1255,14 @@ These are the kinds of bugs that produce "the script ran but the numbers are sli
 
 ## What you're about to see {.compact}
 
+> **Watch the moment a number you trusted turns out to be wrong.**
+
 ::: {.incremental}
 - A real (sanitized) `manuscript-claims.md` with 4 numerical claims.
 - A real `analyze.R` script that allegedly produced them.
 - I run `/audit-reproducibility manuscript-claims.md analyze.R`.
 - The agent reads both, runs the script, compares to claims.
-- One claim diverges (planted bug). Agent surfaces it.
+- **One claim diverges. Agent surfaces it.** It's the kind of bug that re-reading the manuscript would never catch.
 :::
 
 ## The 4 numerical claims (preview) {.compact}
@@ -1302,8 +1294,8 @@ These are the kinds of bugs that produce "the script ran but the numbers are sli
 
 ## Watch the discrepancy moment
 
-::: {.callout-tip}
-## Live demo handoff
+::: {.demobox}
+**Live demo handoff**
 
 Switch to terminal. Run the audit.
 
@@ -1397,6 +1389,39 @@ That's what we're about to show.
 
 Use it as a **dress rehearsal**, not a substitute for real referees.
 
+## The shape of what's coming {.compact}
+
+```
+                       ┌──────────────────┐
+                       │   /review-paper  │
+                       │     --peer AER   │
+                       └────────┬─────────┘
+                                │
+                       ┌────────▼────────┐
+                       │     EDITOR      │  desk review +
+                       │     AGENT       │  novelty probe
+                       └────────┬────────┘
+                       picks two referees
+                          ◄──── ▼ ────►
+              ┌──────────────────┐  ┌──────────────────┐
+              │  REFEREE 1       │  │  REFEREE 2       │
+              │  (CREDIBILITY)   │  │  (POLICY)        │
+              │  parallel-trends │  │  magnitude in pp │
+              │  robustness      │  │  external valid. │
+              └────────┬─────────┘  └─────────┬────────┘
+                       │ different dispositions │
+                       ▼ non-overlapping concerns ▼
+                       ┌──────────────────┐
+                       │     EDITOR       │  synthesizes
+                       │   editorial      │  → FATAL /
+                       │   decision       │    ADDRESSABLE /
+                       └──────────────────┘    TASTE
+```
+
+. . .
+
+**One prompt. Three agents. One revision plan.** You'll see this run live in the next slide.
+
 ## The 6-way disposition taxonomy {.compact}
 
 Every applied-empirics referee has a *type*. We model them explicitly.
@@ -1459,11 +1484,13 @@ Every MAJOR concern in a referee report from this pipeline must include:
 
 ## What you're about to see {.compact}
 
+> **Watch a simulated AER editor surface a concern a real editor would have surfaced — about a paper I haven't published yet.**
+
 ::: {.incremental}
 - A real (sanitized) manuscript snippet — intro + identification section, ~3 pages. A staggered-DiD application paper.
-- I run `/review-paper --peer AER` (American Economic Review profile).
+- I run `/review-paper --peer AER`.
 - The **editor agent** does desk review (with a WebSearch novelty probe).
-- The editor selects **two referees with different dispositions** from the AER disposition pool.
+- The editor selects **two referees with different dispositions** from the AER pool.
 - The two referees fan out **in parallel**.
 - The editor synthesizes both reports → **editorial decision** (FATAL / ADDRESSABLE / TASTE).
 :::
@@ -1485,8 +1512,8 @@ Every MAJOR concern in a referee report from this pipeline must include:
 
 ## The headline moment {auto-animate=true}
 
-::: {.callout-tip}
-## Live demo handoff
+::: {.demobox}
+**Live demo handoff**
 
 Switch to terminal. Run `/review-paper --peer AER`.
 
@@ -1538,7 +1565,7 @@ You just saw a simulated peer review. The other half of the workflow:
 
 . . .
 
-Editors at JF / JAR / TAR want to see all four categories used appropriately. **Avoiding "Disagreement" looks evasive.**
+Top journal editors want to see all four categories used appropriately. **Avoiding "Disagreement" looks evasive.**
 
 ## A concrete example {.compact}
 
@@ -1570,8 +1597,8 @@ A community Claude skill from outside our template. Different approach than ours
 
 ## Live demo: response letter {.compact}
 
-::: {.callout-tip}
-## Live demo handoff (~8 min)
+::: {.demobox}
+**Live demo handoff (~8 min)**
 
 Take the editor agent's output from the previous demo (still on screen).
 
@@ -1755,8 +1782,8 @@ The plugin `codex:adversarial-review` (in `claude-code-my-workflow`) is exactly 
 
 ## A live-mini-demo (if time) {.compact}
 
-::: {.callout-tip}
-## Optional demo (~3 min)
+::: {.demobox}
+**Optional demo (~3 min)**
 
 Run `/codex:adversarial-review` on a small refactor.
 
@@ -1772,24 +1799,16 @@ Choreography: `demos/06-cross-tool/README.md`.
 
 # Ecosystem tour {.claudeorange}
 
-## What others have built (academic-focused) {.compact}
+## You're not alone in this {.compact}
 
-::: {.incremental}
-- **[Goldsmith-Pinkham × Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** — Yale finance professor; 5-episode video series on Claude Code for applied economists (March 2026 at Markus' Academy). **The most authoritative public material on this topic for our field.**
-- **[Claes Bäckman — Claude Code in VS Code for Academic Economists](https://claesbackman.com/claude-code-guide.html)** — practical written guide; ~3,500 words covering setup, R/Stata/Python/LaTeX extensions, CLAUDE.md, skills, git, performance. **Recommended companion to this talk** — written-form, IDE-focused.
-- **[`hugosantanna/clo-author`](https://github.com/hugosantanna/clo-author)** — authoring-side fork of `claude-code-my-workflow`. Theorist agents, 30+ journal profiles, worker-critic pairs. **Source of `/checkpoint` and `/review-paper --peer` (with permission).**
-- **[`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision)** — DAG-based peer-review response planning. Targets empirical R&R rounds; alternative approach to `/respond-to-referees` (Part 6).
-- **[`jusi-aalto/crossref`](https://github.com/jusi-aalto/crossref)** — bibliography validation against Crossref API.
-- **[`chrisblattman/claudeblattman`](https://github.com/chrisblattman/claudeblattman)** — guide for non-technical academics. Less code, more workflow.
-:::
+Two complements I'd point you at first:
 
-## What others have built (broader) {.compact}
+- **[Paul Goldsmith-Pinkham × Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** — Yale finance prof, 5-episode video series for applied economists. **Different format, different angle, longer form.** Watch over a Saturday morning.
+- **[Claes Bäckman's written guide](https://claesbackman.com/claude-code-guide.html)** — ~3,500-word practical companion: setup, R/Stata/Python/LaTeX, CLAUDE.md, skills, git, performance.
 
-::: {.incremental}
-- **[`scunning1975/MixtapeTools`](https://github.com/scunning1975/MixtapeTools)** — Scott Cunningham's TikZ + Rhetoric of Decks. **Source of our TikZ infrastructure.**
-- **[`karpathy/autoresearch`](https://github.com/karpathy/autoresearch)** — Karpathy's experiment in constraint-based autonomous research. Aspirational; different shape.
-- **[`ai-mba.io`](https://ai-mba.io)** — AI MBA curriculum and tutorials. Targets B-school audiences specifically. Their [skills vs MCPs tutorial](https://ai-mba.io/tutorials/skills-vs-mcps) is a good follow-up to Part 3.
-:::
+. . .
+
+Six more high-quality projects (clo-author, strategic-revision, crossref, claudeblattman, MixtapeTools, autoresearch, AI MBA) are in `handouts/resources.md` — won't fit on a slide; will fit on your reference card.
 
 ## Anthropic-shipped utilities {.compact}
 
@@ -1816,17 +1835,17 @@ Built by OpenAI's VB Srivastav and team. Source: [OpenAI Developer Community ann
 
 # Resources + start {.claudeorange}
 
-## Three things to do this week {.compact}
+## One thing to do tonight {.compact}
 
-::: {.incremental}
-1. **Clone `Claude-Mini`** (the repo you're looking at): [github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini). Slides + all demo bundles.
-2. **Fork `claude-code-my-workflow`**: [github.com/pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow). The full template (30 skills, 14 agents, 24 rules, 6 hooks, v1.8.0).
-3. **Write a `CLAUDE.md`** for your next paper. **30 minutes**. Highest-leverage action you can take.
-:::
+> **Open the directory of your most-active paper. Write a `CLAUDE.md`. 30 minutes.**
 
 . . .
 
-If you do nothing else: **#3.** Open one paper directory, write 100 lines, and the whole rest of this stack pays off.
+That's it. The single highest-leverage action from these 4 hours. Once `CLAUDE.md` exists, the whole rest of this stack composes onto it.
+
+. . .
+
+(Logistics: clone [`Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini) for slides + demos; fork [`claude-code-my-workflow`](https://github.com/pedrohcgs/claude-code-my-workflow) when you're ready for the full template. But neither of those is the thing that changes a paper.)
 
 ## Three things to do this month {.compact}
 
@@ -1868,25 +1887,16 @@ If you do nothing else: **#3.** Open one paper directory, write 100 lines, and t
 
 ## Thank you {.emoryblue}
 
-::: {.incremental}
-- This was 4 hours of your time. Thank you for it.
-- Materials at: [github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini)
-- Reach me: pedro.santanna@emory.edu | [psantanna.com](https://psantanna.com) | [@pedrohcgs](https://github.com/pedrohcgs)
-- **Q&A starts now.**
-:::
+> Four hours of your time. I appreciate it.
+
+. . .
+
+**Materials:** [github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini)
+
+**Reach me:** pedro.santanna@emory.edu · [psantanna.com](https://psantanna.com) · [@pedrohcgs](https://github.com/pedrohcgs)
+
+. . .
+
+**Q&A starts now.**
 
 ---
-
-# Thank You {.emoryblue}
-
-## Three things to do next week
-
-1. **Clone `Claude-Mini`** ([github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini)) — these slides plus all demo materials.
-2. **Fork `claude-code-my-workflow`** ([github.com/pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow)) — the full template I built this on.
-3. **Write a CLAUDE.md** for your next paper. 30 minutes, biggest leverage.
-
-## Stay in touch
-
-- Email: pedro.santanna@emory.edu
-- GitHub: [pedrohcgs](https://github.com/pedrohcgs)
-- Web: [psantanna.com](https://psantanna.com)

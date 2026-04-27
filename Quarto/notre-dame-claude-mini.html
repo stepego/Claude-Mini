@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="notre-dame-claude-mini_files/libs/revealjs/dist/theme/quarto-7772829f4b03cff9980b33ded13a40a7.css">
+  <link rel="stylesheet" href="notre-dame-claude-mini_files/libs/revealjs/dist/theme/quarto-4414d7da34d7d615c3c4232d8d068c79.css">
   <link href="notre-dame-claude-mini_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="notre-dame-claude-mini_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="notre-dame-claude-mini_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -217,33 +217,48 @@ Pedro H. C. Sant’Anna
 <h1>Welcome</h1>
 
 </section>
-<section id="a-4-hour-watch-along" class="slide level2">
-<h2>A 4-hour Watch-Along</h2>
+<section id="i-lost-a-paper-to-one-number" class="slide level2 compact">
+<h2>I lost a paper to one number</h2>
+<blockquote>
+<p><em>I had a working paper rejected at <strong>REStud</strong> once because a single number in Table 3 didn’t match the .csv I shipped.</em></p>
+<p><em>Eight hours of debugging — to find out I had silently dropped 73 observations in a robustness check three months earlier. Manuscript still cited the old N.</em></p>
+<p><em>The skill I’m about to show you would have caught it in 90 seconds.</em></p>
+</blockquote>
+<div class="fragment">
+<p>I’m going to show you <strong>that skill</strong> — and the workflow it lives in — in the next 4 hours.</p>
+</div>
+</section>
+<section id="what-youll-have-at-the-end" class="slide level2 compact">
+<h2>What you’ll have at the end</h2>
 <ul>
-<li class="fragment"><strong>Goal</strong>: by the end, you’ll know whether to adopt this for your next paper, class, or RA workflow.</li>
-<li class="fragment"><strong>Format</strong>: I demonstrate; you observe. Two 10-minute breaks. Q&amp;A throughout.</li>
-<li class="fragment"><strong>Take-home</strong>: a curated repo (<code>Claude-Mini</code>) you can clone tonight, and a working starter template (<code>claude-code-my-workflow</code>) you can fork.</li>
+<li class="fragment">A clear answer to: <strong>“should I adopt this for my next paper, class, or RA workflow?”</strong></li>
+<li class="fragment">A repo (<code>Claude-Mini</code>) you can clone tonight.</li>
+<li class="fragment">A working starter template (<code>claude-code-my-workflow</code>) you can fork on Monday.</li>
+<li class="fragment">Three demos that catch the kinds of bugs that cost months of revision.</li>
 </ul>
 </section>
 <section id="what-this-is-not" class="slide level2">
 <h2>What this is <em>not</em></h2>
 <ul>
 <li>Not a sales pitch.</li>
-<li>Not a tutorial on writing Python or installing software.</li>
+<li>Not a tutorial on writing Python, R, or Stata.</li>
 <li>Not “AI will write your paper.” (Claude won’t, and shouldn’t.)</li>
 </ul>
 </section>
 <section id="what-it-is" class="slide level2">
 <h2>What it <em>is</em></h2>
-<p>A demonstration of how a research workflow built on top of agentic AI:</p>
+<p>A workflow built on top of agentic AI that:</p>
 <ol type="1">
-<li>Plans before it acts.</li>
-<li>Reviews its own work with multiple specialized agents.</li>
-<li>Verifies its output before shipping.</li>
-<li>Survives across sessions and across collaborators.</li>
+<li><strong>Plans</strong> before it acts.</li>
+<li><strong>Reviews</strong> its own work with multiple specialized agents.</li>
+<li><strong>Verifies</strong> its output before shipping.</li>
+<li><strong>Survives</strong> across sessions and across collaborators.</li>
 </ol>
+<div class="fragment">
+<p>Four hours. Three live demos. One repo to clone tonight.</p>
+</div>
 </section>
-<section id="roadmap-4-hours-watch-along" class="slide level2">
+<section id="roadmap-4-hours-watch-along" class="slide level2 compact">
 <h2>Roadmap (4 hours, watch-along)</h2>
 <table class="caption-top">
 <thead>
@@ -353,35 +368,6 @@ Pedro H. C. Sant’Anna
 <li class="fragment">Demonstrate it live on real materials — manuscript improvement, replication audit, simulated peer review.</li>
 <li class="fragment">Hand you a repo (<code>Claude-Mini</code>) you can clone tonight and a parent template (<code>claude-code-my-workflow</code>) you can fork on Monday.</li>
 </ol>
-</section>
-<section id="youre-not-the-first" class="slide level2 compact">
-<h2>You’re not the first</h2>
-<p>Other applied researchers have been building in this space:</p>
-<ul>
-<li class="fragment"><strong>Paul Goldsmith-Pinkham</strong> (Yale SOM): <a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">5-episode mini-series at Princeton’s Markus’ Academy</a> — “Claude Code for Applied Economists” (March 2026). Covers: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing &amp; thinking. Different angle, longer form.</li>
-<li class="fragment"><strong>Claes Bäckman</strong>: <a href="https://claesbackman.com/claude-code-guide.html">Claude Code in VS Code — For Academic Economists</a> — practical tutorial focused on R / Stata / Python / LaTeX workflows in VS Code. Emphasizes the everyday-friction “ten-line Python script” angle.</li>
-<li class="fragment"><strong>Hugo Sant’Anna</strong> (UAB Birmingham): <a href="https://github.com/hugosantanna/clo-author"><code>clo-author</code></a> — fork of <code>claude-code-my-workflow</code> with paper-authoring extensions (theorist agents, 30+ journal profiles).</li>
-<li class="fragment"><strong>Jussi at Aalto University</strong>: <a href="https://github.com/jusi-aalto/crossref"><code>crossref</code></a> and <a href="https://github.com/jusi-aalto/strategic-revision"><code>strategic-revision</code></a> — community skills targeting accounting + finance R&amp;R workflows.</li>
-<li class="fragment"><strong>AI MBA</strong>: <a href="https://ai-mba.io"><code>ai-mba.io</code></a> — a structured curriculum with tutorials on skills vs MCPs and AI for business-school audiences.</li>
-</ul>
-<div class="fragment">
-<p>This talk pulls from all of them. Cited where relevant.</p>
-</div>
-</section>
-<section id="anthropics-own-materials" class="slide level2 compact">
-<h2>Anthropic’s own materials</h2>
-<p>If you want canonical references during or after this talk:</p>
-<ul>
-<li class="fragment"><a href="https://code.claude.com/docs/en/best-practices"><strong>Best Practices</strong></a> — short, direct, current. Read first.</li>
-<li class="fragment"><a href="https://code.claude.com/docs/en/whats-new"><strong>What’s New</strong></a> — weekly digest of feature changes</li>
-<li class="fragment"><a href="https://code.claude.com/docs/en/permission-modes"><strong>Permission modes</strong></a> — bypass / auto / plan / dontAsk modes</li>
-<li class="fragment"><a href="https://code.claude.com/docs/en/memory"><strong>CLAUDE.md / memory</strong></a> — the file we’re about to walk through</li>
-<li class="fragment"><a href="https://code.claude.com/docs/en/hooks-guide"><strong>Hooks</strong></a> — deterministic enforcement</li>
-<li class="fragment"><a href="https://code.claude.com/docs/en/skills"><strong>Skills</strong></a> — the topic of Part 3</li>
-</ul>
-<div class="fragment">
-<p>You don’t need to read these to follow the talk. But every claim I make is backed by one of these pages.</p>
-</div>
 </section></section>
 <section>
 <section id="tool-landscape" class="title-slide slide level1 claudeorange center">
@@ -556,18 +542,9 @@ Pedro H. C. Sant’Anna
 <blockquote>
 <p>[In live demo: Pedro opens <code>claude-code-my-workflow/CLAUDE.md</code> in editor. Walks line by line. Audience sees that the file is <strong>short</strong>, <strong>specific</strong>, and <strong>prescriptive about what Claude can’t guess</strong>.]</p>
 </blockquote>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Demo prompt</strong></p>
-</div>
-<div class="callout-content">
 <p>After the tour: delete the <code>## Commands</code> section. Re-open Claude. Ask: “render the slides.” Watch Claude guess <code>pandoc</code> (wrong tool). Restore the section. Ask again. Watch Claude pick <code>quarto render</code>. <strong>The file is the difference.</strong></p>
-</div>
-</div>
 </div>
 </section>
 <section id="three-sections-that-always-pull-weight" class="slide level2 compact">
@@ -895,20 +872,11 @@ Pedro H. C. Sant’Anna
 </section>
 <section id="to-the-editor" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">To the editor</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Live demo</strong></p>
-</div>
-<div class="callout-content">
 <p>Switching to the IDE + terminal. Watch the screen, not the slides.</p>
 <p>Demo script: <code>demos/01-end-to-end/README.md</code>. Pre-recorded fallback at <code>demos/01-end-to-end/pre-recorded.mp4</code> (5 min, edited).</p>
 <p>Abort trigger: if <strong>review fanout</strong> hasn’t fired by T+15, kill the live demo and play the recording.</p>
-</div>
-</div>
 </div>
 <blockquote>
 <p>[Pedro switches to the IDE. Live demo runs ~25 min.]</p>
@@ -1055,20 +1023,11 @@ Pedro H. C. Sant’Anna
 <blockquote>
 <p>[Pedro opens <code>~/Documents/GitHub/claude-code-my-workflow/.claude/skills/preregister/SKILL.md</code>. Walks the frontmatter (description, argument-hint, allowed-tools), then the 6 phases. Then INVOKES it on a fake study description. Audience sees: input → output, end to end, ~3 minutes.]</p>
 </blockquote>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Demo prompt (verbatim)</strong></p>
-</div>
-<div class="callout-content">
 <blockquote>
 <p><em>I’m planning a 2x2 between-subjects survey experiment on N=800 US adults via Prolific. Manipulating message-source partisanship × policy framing on attitudes toward climate policy. Primary DV is a 4-item attitude index. Hypothesis: in-party + gain framing produces highest support. Pre-registered analysis: two-way ANOVA. Run /preregister –style aspredicted on this.</em></p>
 </blockquote>
-</div>
-</div>
 </div>
 </section>
 <section id="why-this-skill-for-this-audience" class="slide level2 compact">
@@ -1213,19 +1172,10 @@ Pedro H. C. Sant’Anna
 </section>
 <section id="workshop-5-minutes" class="slide level2 compact">
 <h2>Workshop (5 minutes)</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Volunteers</strong></p>
-</div>
-<div class="callout-content">
 <p>Two volunteers share their sketches. I read aloud + react in real time. We type one of them up live as a real <code>SKILL.md</code> to demonstrate the sketch → working-skill translation.</p>
 <p>If no volunteers: I have two pre-drafted I can walk through (one finance, one accounting).</p>
-</div>
-</div>
 </div>
 </section></section>
 <section>
@@ -1312,6 +1262,7 @@ Pedro H. C. Sant’Anna
 </section>
 <section id="the-6-step-orchestrator-loop" class="slide level2 compact">
 <h2>The 6-step orchestrator loop</h2>
+<p>You saw this shape in Part 2’s demo. Now we generalize.</p>
 <pre><code>1. IMPLEMENT   — agent does the work
 2. VERIFY      — does it compile / render / parse?
 3. REVIEW      — what does a focused critic think?
@@ -1322,7 +1273,7 @@ Pedro H. C. Sant’Anna
        ├── Score ≥ threshold → ship
        └── Score &lt; threshold → loop back to step 3 (max 5 rounds)</code></pre>
 <div class="fragment">
-<p>The point isn’t the specific 6 steps. It’s that <strong>steps 2 and 5 have to be deterministic</strong>.</p>
+<p>The point isn’t the specific 6 steps. It’s that <strong>steps 2 and 5 have to be deterministic</strong> — and that the loop runs <em>automatically</em> until quality clears.</p>
 </div>
 </section>
 <section id="where-this-lives-in-the-template" class="slide level2 compact">
@@ -1379,7 +1330,7 @@ Pedro H. C. Sant’Anna
 <li class="fragment">Adapted from Dhuliawala et al.&nbsp;2023, <em>Chain-of-Verification Reduces Hallucination in LLMs</em> (<a href="https://arxiv.org/abs/2309.11495">arXiv:2309.11495</a>).</li>
 </ul>
 <div class="fragment">
-<p><strong>Why this matters for B-school work:</strong> referee reports cite specific papers. CoVe catches misattributions BEFORE you submit.</p>
+<p><strong>Why this matters:</strong> in my rejected-paper story, the bug was a number, not a citation — but with CoVe, <em>citation</em> misattribution is the next class of error this catches. Different agent. Different blind spots.</p>
 </div>
 </section>
 <section id="three-patterns-three-failure-modes" class="slide level2 compact">
@@ -1520,15 +1471,8 @@ Pedro H. C. Sant’Anna
 </section>
 <section id="mini-demo-critic-fixer-loop" class="slide level2 compact">
 <h2>Mini demo: critic-fixer loop</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Live demo (~3 min)</strong></p>
-</div>
-<div class="callout-content">
 <p>Switch to terminal. Run <code>/qa-quarto</code> on a Quarto slide with a known content drift from its Beamer counterpart (a typo in a formula). Audience watches:</p>
 <ol type="1">
 <li>Critic reads both files, flags the drift, hands findings to fixer.</li>
@@ -1537,8 +1481,6 @@ Pedro H. C. Sant’Anna
 </ol>
 <p>Then run a <code>git commit</code> with no message; watch <code>check-skill-integrity.py</code> block.</p>
 <p>Choreography: <code>demos/03-orchestration/README.md</code>.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="what-you-saw" class="slide level2 compact">
@@ -1567,13 +1509,16 @@ Pedro H. C. Sant’Anna
 <h1>Part 5 — Research + Replication</h1>
 
 </section>
-<section id="a-short-personal-anecdote" class="slide level2 compact">
-<h2>A short personal anecdote</h2>
+<section id="back-to-the-paper-i-lost" class="slide level2 compact">
+<h2>Back to the paper I lost</h2>
 <blockquote>
-<p><em>I had a working paper rejected once because a single number in Table 3 didn’t match the .csv I shipped. I spent 8 hours figuring out why.</em></p>
+<p><em>Remember the rejected REStud paper from this morning? Single-number mismatch, 8 hours of debugging.</em></p>
 </blockquote>
 <div class="fragment">
-<p>The skill I’m about to show you would have caught it in 90 seconds.</p>
+<p>Here’s the skill. It would have caught it in 90 seconds.</p>
+</div>
+<div class="fragment">
+<p>Watch.</p>
 </div>
 </section>
 <section id="why-this-part-lands-hardest-for-applied-causal-work" class="slide level2 compact">
@@ -1725,12 +1670,15 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="what-youre-about-to-see-1" class="slide level2 compact">
 <h2>What you’re about to see</h2>
+<blockquote>
+<p><strong>Watch the moment a number you trusted turns out to be wrong.</strong></p>
+</blockquote>
 <ul>
 <li class="fragment">A real (sanitized) <code>manuscript-claims.md</code> with 4 numerical claims.</li>
 <li class="fragment">A real <code>analyze.R</code> script that allegedly produced them.</li>
 <li class="fragment">I run <code>/audit-reproducibility manuscript-claims.md analyze.R</code>.</li>
 <li class="fragment">The agent reads both, runs the script, compares to claims.</li>
-<li class="fragment">One claim diverges (planted bug). Agent surfaces it.</li>
+<li class="fragment"><strong>One claim diverges. Agent surfaces it.</strong> It’s the kind of bug that re-reading the manuscript would never catch.</li>
 </ul>
 </section>
 <section id="the-4-numerical-claims-preview" class="slide level2 compact">
@@ -1805,20 +1753,11 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="watch-the-discrepancy-moment" class="slide level2">
 <h2>Watch the discrepancy moment</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Live demo handoff</strong></p>
-</div>
-<div class="callout-content">
 <p>Switch to terminal. Run the audit.</p>
 <p>If T+10 hasn’t surfaced the discrepancy, we play <code>demos/04-replication/pre-recorded.mp4</code> for the remainder. The recording shows the same flow at 1.5x with the discrepancy moment annotated on screen.</p>
 <p>Choreography: <code>demos/04-replication/README.md</code>.</p>
-</div>
-</div>
 </div>
 <blockquote>
 <p>[Pedro switches to the IDE. Live demo runs ~15 min.]</p>
@@ -1906,6 +1845,36 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <p>Use it as a <strong>dress rehearsal</strong>, not a substitute for real referees.</p>
 </div>
 </section>
+<section id="the-shape-of-whats-coming" class="slide level2 compact">
+<h2>The shape of what’s coming</h2>
+<pre><code>                       ┌──────────────────┐
+                       │   /review-paper  │
+                       │     --peer AER   │
+                       └────────┬─────────┘
+                                │
+                       ┌────────▼────────┐
+                       │     EDITOR      │  desk review +
+                       │     AGENT       │  novelty probe
+                       └────────┬────────┘
+                       picks two referees
+                          ◄──── ▼ ────►
+              ┌──────────────────┐  ┌──────────────────┐
+              │  REFEREE 1       │  │  REFEREE 2       │
+              │  (CREDIBILITY)   │  │  (POLICY)        │
+              │  parallel-trends │  │  magnitude in pp │
+              │  robustness      │  │  external valid. │
+              └────────┬─────────┘  └─────────┬────────┘
+                       │ different dispositions │
+                       ▼ non-overlapping concerns ▼
+                       ┌──────────────────┐
+                       │     EDITOR       │  synthesizes
+                       │   editorial      │  → FATAL /
+                       │   decision       │    ADDRESSABLE /
+                       └──────────────────┘    TASTE</code></pre>
+<div class="fragment">
+<p><strong>One prompt. Three agents. One revision plan.</strong> You’ll see this run live in the next slide.</p>
+</div>
+</section>
 <section id="the-6-way-disposition-taxonomy" class="slide level2 compact">
 <h2>The 6-way disposition taxonomy</h2>
 <p>Every applied-empirics referee has a <em>type</em>. We model them explicitly.</p>
@@ -1991,11 +1960,14 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="what-youre-about-to-see-2" class="slide level2 compact">
 <h2>What you’re about to see</h2>
+<blockquote>
+<p><strong>Watch a simulated AER editor surface a concern a real editor would have surfaced — about a paper I haven’t published yet.</strong></p>
+</blockquote>
 <ul>
 <li class="fragment">A real (sanitized) manuscript snippet — intro + identification section, ~3 pages. A staggered-DiD application paper.</li>
-<li class="fragment">I run <code>/review-paper --peer AER</code> (American Economic Review profile).</li>
+<li class="fragment">I run <code>/review-paper --peer AER</code>.</li>
 <li class="fragment">The <strong>editor agent</strong> does desk review (with a WebSearch novelty probe).</li>
-<li class="fragment">The editor selects <strong>two referees with different dispositions</strong> from the AER disposition pool.</li>
+<li class="fragment">The editor selects <strong>two referees with different dispositions</strong> from the AER pool.</li>
 <li class="fragment">The two referees fan out <strong>in parallel</strong>.</li>
 <li class="fragment">The editor synthesizes both reports → <strong>editorial decision</strong> (FATAL / ADDRESSABLE / TASTE).</li>
 </ul>
@@ -2066,20 +2038,11 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="the-headline-moment" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">The headline moment</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Live demo handoff</strong></p>
-</div>
-<div class="callout-content">
 <p>Switch to terminal. Run <code>/review-paper --peer AER</code>.</p>
 <p>This is <strong>the</strong> demo. The editorial decision moment is what we’re aiming for. If T+18 hasn’t fired, we play <code>pre-recorded.mp4</code> for the remainder. <strong>The recording compresses the 18-min lifecycle to 5 min with annotations on the editor → referees → synthesis transitions.</strong></p>
 <p>Choreography: <code>demos/05-peer-review/README.md</code>.</p>
-</div>
-</div>
 </div>
 <blockquote>
 <p>[Pedro switches to the IDE. Live demo runs ~20 min.]</p>
@@ -2127,7 +2090,7 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <li class="fragment"><strong>Disagreement</strong> — you don’t think the thing should be done. <strong>Explain courteously and substantively.</strong></li>
 </ul>
 <div class="fragment">
-<p>Editors at JF / JAR / TAR want to see all four categories used appropriately. <strong>Avoiding “Disagreement” looks evasive.</strong></p>
+<p>Top journal editors want to see all four categories used appropriately. <strong>Avoiding “Disagreement” looks evasive.</strong></p>
 </div>
 </section>
 <section id="a-concrete-example" class="slide level2 compact">
@@ -2157,22 +2120,13 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="live-demo-response-letter" class="slide level2 compact">
 <h2>Live demo: response letter</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Live demo handoff (~8 min)</strong></p>
-</div>
-<div class="callout-content">
 <p>Take the editor agent’s output from the previous demo (still on screen).</p>
 <p>Run:</p>
 <pre><code>/respond-to-referees demos/05-peer-review/editor-output.md demos/05-peer-review/manuscript-snippet.tex</code></pre>
 <p>Audience watches the agent map each editorial concern to a revision plan with classification + drafted response.</p>
 <p>Choreography: <code>demos/05-peer-review/README.md</code>.</p>
-</div>
-</div>
 </div>
 <blockquote>
 <p>[Pedro switches to the IDE. Live demo runs ~8 min.]</p>
@@ -2377,21 +2331,12 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="a-live-mini-demo-if-time" class="slide level2 compact">
 <h2>A live-mini-demo (if time)</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
+<div class="demobox">
 <p><strong>Optional demo (~3 min)</strong></p>
-</div>
-<div class="callout-content">
 <p>Run <code>/codex:adversarial-review</code> on a small refactor.</p>
 <p>Audience watches: 1. Codex generates the refactor (already done, in the demo bundle) 2. Claude opens the diff fresh, reviews, surfaces 2-3 issues 3. Pedro narrates: “I’d have shipped this. Codex’s tool agreed with itself.”</p>
 <p>Skip if running short on Q&amp;A time.</p>
 <p>Choreography: <code>demos/06-cross-tool/README.md</code>.</p>
-</div>
-</div>
 </div>
 </section></section>
 <section>
@@ -2399,24 +2344,16 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h1>Ecosystem tour</h1>
 
 </section>
-<section id="what-others-have-built-academic-focused" class="slide level2 compact">
-<h2>What others have built (academic-focused)</h2>
+<section id="youre-not-alone-in-this" class="slide level2 compact">
+<h2>You’re not alone in this</h2>
+<p>Two complements I’d point you at first:</p>
 <ul>
-<li class="fragment"><strong><a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">Goldsmith-Pinkham × Princeton</a></strong> — Yale finance professor; 5-episode video series on Claude Code for applied economists (March 2026 at Markus’ Academy). <strong>The most authoritative public material on this topic for our field.</strong></li>
-<li class="fragment"><strong><a href="https://claesbackman.com/claude-code-guide.html">Claes Bäckman — Claude Code in VS Code for Academic Economists</a></strong> — practical written guide; ~3,500 words covering setup, R/Stata/Python/LaTeX extensions, CLAUDE.md, skills, git, performance. <strong>Recommended companion to this talk</strong> — written-form, IDE-focused.</li>
-<li class="fragment"><strong><a href="https://github.com/hugosantanna/clo-author"><code>hugosantanna/clo-author</code></a></strong> — authoring-side fork of <code>claude-code-my-workflow</code>. Theorist agents, 30+ journal profiles, worker-critic pairs. <strong>Source of <code>/checkpoint</code> and <code>/review-paper --peer</code> (with permission).</strong></li>
-<li class="fragment"><strong><a href="https://github.com/jusi-aalto/strategic-revision"><code>jusi-aalto/strategic-revision</code></a></strong> — DAG-based peer-review response planning. Targets empirical R&amp;R rounds; alternative approach to <code>/respond-to-referees</code> (Part 6).</li>
-<li class="fragment"><strong><a href="https://github.com/jusi-aalto/crossref"><code>jusi-aalto/crossref</code></a></strong> — bibliography validation against Crossref API.</li>
-<li class="fragment"><strong><a href="https://github.com/chrisblattman/claudeblattman"><code>chrisblattman/claudeblattman</code></a></strong> — guide for non-technical academics. Less code, more workflow.</li>
+<li><strong><a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">Paul Goldsmith-Pinkham × Princeton</a></strong> — Yale finance prof, 5-episode video series for applied economists. <strong>Different format, different angle, longer form.</strong> Watch over a Saturday morning.</li>
+<li><strong><a href="https://claesbackman.com/claude-code-guide.html">Claes Bäckman’s written guide</a></strong> — ~3,500-word practical companion: setup, R/Stata/Python/LaTeX, CLAUDE.md, skills, git, performance.</li>
 </ul>
-</section>
-<section id="what-others-have-built-broader" class="slide level2 compact">
-<h2>What others have built (broader)</h2>
-<ul>
-<li class="fragment"><strong><a href="https://github.com/scunning1975/MixtapeTools"><code>scunning1975/MixtapeTools</code></a></strong> — Scott Cunningham’s TikZ + Rhetoric of Decks. <strong>Source of our TikZ infrastructure.</strong></li>
-<li class="fragment"><strong><a href="https://github.com/karpathy/autoresearch"><code>karpathy/autoresearch</code></a></strong> — Karpathy’s experiment in constraint-based autonomous research. Aspirational; different shape.</li>
-<li class="fragment"><strong><a href="https://ai-mba.io"><code>ai-mba.io</code></a></strong> — AI MBA curriculum and tutorials. Targets B-school audiences specifically. Their <a href="https://ai-mba.io/tutorials/skills-vs-mcps">skills vs MCPs tutorial</a> is a good follow-up to Part 3.</li>
-</ul>
+<div class="fragment">
+<p>Six more high-quality projects (clo-author, strategic-revision, crossref, claudeblattman, MixtapeTools, autoresearch, AI MBA) are in <code>handouts/resources.md</code> — won’t fit on a slide; will fit on your reference card.</p>
+</div>
 </section>
 <section id="anthropic-shipped-utilities" class="slide level2 compact">
 <h2>Anthropic-shipped utilities</h2>
@@ -2444,15 +2381,16 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h1>Resources + start</h1>
 
 </section>
-<section id="three-things-to-do-this-week" class="slide level2 compact">
-<h2>Three things to do this week</h2>
-<ol type="1">
-<li class="fragment"><strong>Clone <code>Claude-Mini</code></strong> (the repo you’re looking at): <a href="https://github.com/pedrohcgs/Claude-Mini">github.com/pedrohcgs/Claude-Mini</a>. Slides + all demo bundles.</li>
-<li class="fragment"><strong>Fork <code>claude-code-my-workflow</code></strong>: <a href="https://github.com/pedrohcgs/claude-code-my-workflow">github.com/pedrohcgs/claude-code-my-workflow</a>. The full template (30 skills, 14 agents, 24 rules, 6 hooks, v1.8.0).</li>
-<li class="fragment"><strong>Write a <code>CLAUDE.md</code></strong> for your next paper. <strong>30 minutes</strong>. Highest-leverage action you can take.</li>
-</ol>
+<section id="one-thing-to-do-tonight" class="slide level2 compact">
+<h2>One thing to do tonight</h2>
+<blockquote>
+<p><strong>Open the directory of your most-active paper. Write a <code>CLAUDE.md</code>. 30 minutes.</strong></p>
+</blockquote>
 <div class="fragment">
-<p>If you do nothing else: <strong>#3.</strong> Open one paper directory, write 100 lines, and the whole rest of this stack pays off.</p>
+<p>That’s it. The single highest-leverage action from these 4 hours. Once <code>CLAUDE.md</code> exists, the whole rest of this stack composes onto it.</p>
+</div>
+<div class="fragment">
+<p>(Logistics: clone <a href="https://github.com/pedrohcgs/Claude-Mini"><code>Claude-Mini</code></a> for slides + demos; fork <a href="https://github.com/pedrohcgs/claude-code-my-workflow"><code>claude-code-my-workflow</code></a> when you’re ready for the full template. But neither of those is the thing that changes a paper.)</p>
 </div>
 </section>
 <section id="three-things-to-do-this-month" class="slide level2 compact">
@@ -2494,36 +2432,19 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="thank-you" class="slide level2 emoryblue">
 <h2>Thank you</h2>
-<ul>
-<li class="fragment">This was 4 hours of your time. Thank you for it.</li>
-<li class="fragment">Materials at: <a href="https://github.com/pedrohcgs/Claude-Mini">github.com/pedrohcgs/Claude-Mini</a></li>
-<li class="fragment">Reach me: pedro.santanna@emory.edu | <a href="https://psantanna.com">psantanna.com</a> | <a href="https://github.com/pedrohcgs"><span class="citation" data-cites="pedrohcgs">@pedrohcgs</span></a></li>
-<li class="fragment"><strong>Q&amp;A starts now.</strong></li>
-</ul>
+<blockquote>
+<p>Four hours of your time. I appreciate it.</p>
+</blockquote>
+<div class="fragment">
+<p><strong>Materials:</strong> <a href="https://github.com/pedrohcgs/Claude-Mini">github.com/pedrohcgs/Claude-Mini</a></p>
+<p><strong>Reach me:</strong> pedro.santanna@emory.edu · <a href="https://psantanna.com">psantanna.com</a> · <a href="https://github.com/pedrohcgs"><span class="citation" data-cites="pedrohcgs">@pedrohcgs</span></a></p>
+</div>
+<div class="fragment">
+<p><strong>Q&amp;A starts now.</strong></p>
+</div>
 </section>
 <section class="slide level2">
 
-</section></section>
-<section>
-<section id="thank-you-1" class="title-slide slide level1 emoryblue center">
-<h1>Thank You</h1>
-
-</section>
-<section id="three-things-to-do-next-week" class="slide level2">
-<h2>Three things to do next week</h2>
-<ol type="1">
-<li><strong>Clone <code>Claude-Mini</code></strong> (<a href="https://github.com/pedrohcgs/Claude-Mini">github.com/pedrohcgs/Claude-Mini</a>) — these slides plus all demo materials.</li>
-<li><strong>Fork <code>claude-code-my-workflow</code></strong> (<a href="https://github.com/pedrohcgs/claude-code-my-workflow">github.com/pedrohcgs/claude-code-my-workflow</a>) — the full template I built this on.</li>
-<li><strong>Write a CLAUDE.md</strong> for your next paper. 30 minutes, biggest leverage.</li>
-</ol>
-</section>
-<section id="stay-in-touch" class="slide level2">
-<h2>Stay in touch</h2>
-<ul>
-<li>Email: pedro.santanna@emory.edu</li>
-<li>GitHub: <a href="https://github.com/pedrohcgs">pedrohcgs</a></li>
-<li>Web: <a href="https://psantanna.com">psantanna.com</a></li>
-</ul>
 
 </section></section>
     </div>
