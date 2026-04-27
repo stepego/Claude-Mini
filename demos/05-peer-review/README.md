@@ -1,0 +1,170 @@
+# Demo 05 — Simulated peer review (HEADLINE — Part 6)
+
+**Part of:** Notre Dame Watch-Along, Part 6 (~28 min live across two demos)
+**Status:** Choreography drafted; pre-recorded fallback to be created in Week 3.
+
+---
+
+## Goal
+
+The most memorable demo of the talk. Audience leaves understanding that:
+
+1. Simulated peer review **with journal calibration** is concretely useful before submission.
+2. The disposition-pair design (two different referee types) catches non-overlapping issues.
+3. The "What would change my mind" discipline turns adversarial review into actionable revision plans.
+4. Drafting referee responses is the natural follow-on, with structural classification (Addressed / Partial / Deferred / Disagreement).
+
+---
+
+## Two demos in one section
+
+### Demo 5a: `/review-paper --peer JF` (~20 min)
+
+Run on a real working paper snippet. Show the editor → 2 referees → synthesis flow.
+
+### Demo 5b: `/respond-to-referees` (~8 min)
+
+Take the editorial output from Demo 5a. Show the response-mapping flow.
+
+---
+
+## Pre-conditions
+
+- [ ] `claude-code-my-workflow` cloned at `~/Documents/GitHub/claude-code-my-workflow`.
+- [ ] **JF profile shipped in v1.8.1** to `.claude/references/journal-profiles.md`. (Currently in v1.9 backlog; needs to land before talk.)
+- [ ] **JAR profile** also shipped in v1.8.1 — for fallback if JF demo doesn't surface enough discipline-specific findings.
+- [ ] `manuscript-snippet.tex` placed in this directory: a sanitized intro + identification section from a real Pedro working paper, ~3 pages.
+- [ ] Pre-recorded fallback `pre-recorded.mp4` for both demos accessible offline.
+
+---
+
+## Demo 5a Choreography (~20 min)
+
+### T+0 to T+1 — Show the manuscript
+
+Pedro opens `manuscript-snippet.tex`. Reads aloud the abstract + first paragraph.
+
+> "This is a real working paper of mine, sanitized. Three pages of intro + identification. Let's see what JF would do with it."
+
+### T+1 to T+2 — Invoke the peer review
+
+```
+/review-paper --peer JF demos/05-peer-review/manuscript-snippet.tex
+```
+
+### T+2 to T+5 — Editor desk review + novelty probe
+
+Editor agent activates. Audience watches:
+- Calibration: "Calibrated to: Journal of Finance (JF), accept rate ~5%."
+- Novelty probe: WebSearch on key contribution — surfaces the 3 most-related published papers.
+- Desk verdict: "PROCEED to peer review" (vs alternative "DESK REJECT — overlap with [paper]").
+
+### T+5 to T+6 — Referee selection
+
+Editor selects two referees from the JF disposition pool with **different dispositions**. Visible in transcript:
+
+> "Selected: Referee 1 (CREDIBILITY); Referee 2 (POLICY). Pet-peeves seeded: 'instrument validity' / 'real-world implications'."
+
+Pedro narrates:
+
+> "Notice — the editor chose CREDIBILITY + POLICY. Different dispositions = non-overlapping concerns. We'll see two genuinely different reports."
+
+### T+6 to T+13 — Two referees in parallel
+
+Two `Task` calls fire in parallel. Audience sees the transcript split:
+- Domain referee — substantive review
+- Methods referee — identification + estimation review
+
+Each runs ~5-7 minutes.
+
+### T+13 to T+15 — Reports visible
+
+Each referee report appears in `quality_reports/peer_review_<paper>/`:
+- `referee_domain.md`
+- `referee_methods.md`
+
+Pedro reads aloud the **most surprising MAJOR concern** from each — typically one that he as the author hadn't considered.
+
+### T+15 to T+18 — Editorial synthesis
+
+Editor agent runs synthesis. Output:
+- Classification: FATAL / ADDRESSABLE / TASTE per concern
+- Editorial decision (Major Revision / Reject / etc.)
+- Revision plan
+
+### T+18 to T+20 — Wrap
+
+Pedro reads the final decision aloud. Switches back to slide briefly to set up Demo 5b.
+
+---
+
+## Demo 5b Choreography (~8 min)
+
+### T+0 — The teed-up scenario
+
+Pedro:
+
+> "OK, the editor's letter is in front of me. I disagree with one of the concerns. Watch what happens."
+
+### T+1 — Invoke
+
+```
+/respond-to-referees \
+  quality_reports/peer_review_<paper>/editorial_decision.md \
+  demos/05-peer-review/manuscript-snippet.tex
+```
+
+### T+1 to T+5 — Concern mapping
+
+Audience watches the agent:
+- Read both files
+- Extract each numbered concern from the editorial decision
+- For each: classify (Addressed / Partial / Deferred / Disagreement) + draft a response + cite manuscript location
+
+### T+5 to T+7 — Output review
+
+Final document appears at `quality_reports/response_to_referees_<paper>.md`.
+
+Pedro reads aloud one of each classification type.
+
+### T+7 to T+8 — Wrap
+
+Pedro narrates:
+
+> "Net time on this R&R round: 30 minutes. Without this skill, I'd budget half a day."
+
+Switch back to slides.
+
+---
+
+## Abort triggers
+
+| Time | Demo | Trigger | Action |
+|------|------|---------|--------|
+| T+10 | 5a | Referees haven't started | Kill 5a, play recorded portion. Skip to 5b briefly. |
+| T+18 | 5a | Editorial decision not produced | Kill, play recorded portion of synthesis. |
+| T+5 | 5b | Concern mapping stalled | Skip 5b; narrate the output verbally with `expected-decision.md` open. |
+
+---
+
+## Manuscript-snippet sourcing
+
+**Critical decision (Week 1):** which working paper to use?
+
+Options (in priority order):
+1. A Pedro paper recently submitted but not yet refereed — most authentic, but risk of revealing identification before public release.
+2. A Pedro paper at R&R round 2 — sanitize so referee-1's actual report isn't recognizable, then use as substrate.
+3. A public preprint with planted issues — safest, but less personal.
+
+Decision: **option 2** — paper at R&R round 2 with referee names + specific findings sanitized. Pedro's familiarity = best live narration.
+
+---
+
+## Pre-recorded fallback
+
+`pre-recorded.mp4` (~10 min total covering both demos). To be produced in Week 3.
+
+The recording compresses the 28 minutes to 10 min with on-screen labels at:
+- Disposition selection (T+5 of demo 5a)
+- Editor synthesis (T+15 of demo 5a)
+- Concern classification (mid-demo 5b)

@@ -1,0 +1,84 @@
+% manuscript-snippet.tex
+% Stripped-down working paper substrate for /review-paper --peer JF demo.
+% Approx 3 pages of LaTeX. Sanitized — no real names, no real findings.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+
+\title{Information Asymmetry and Cross-Border Capital Flows: \\
+       Evidence from a Quasi-Experimental Reform}
+\author{[Author 1] \and [Author 2]}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We examine how a 2018 disclosure-regime reform in [Country X] affected cross-border
+capital allocation. Using a difference-in-differences design with synthetic-control
+comparison units, we find that disclosure transparency increases foreign portfolio
+investment by roughly 22\% over a three-year horizon, with the strongest effects
+concentrated in mid-cap firms. Our estimates are robust to alternative event windows,
+control-group selection, and exclusion of financial firms. We interpret these results
+through the lens of \citet{Merton1987} and discuss implications for emerging-market
+disclosure standards.
+\end{abstract}
+
+\section{Introduction}
+
+The relationship between corporate-information disclosure and cross-border capital
+flows has been a long-standing question in international finance. Theoretical work
+\citep{Merton1987, Easley2004} predicts that information asymmetry creates barriers
+to entry for non-domestic investors. Empirical work using cross-country variation
+has been suggestive but limited by confounding policy reforms.
+
+In this paper, we exploit a sharp regulatory reform in [Country X] in 2018 that
+mandated quarterly disclosure of beneficial-ownership structure for all listed firms.
+The reform was announced in 2017 and took effect on January 1, 2018, providing a
+clean before-after design.
+
+[More text here in the real paper, sanitized for length...]
+
+\section{Empirical Strategy}
+
+\subsection{Sample Construction}
+
+Our analysis sample consists of [Country X]-listed firms in 2014--2022. We exclude
+financial firms (SIC 6000-6999) and firms with fewer than 8 quarters of pre-period data,
+yielding a final sample of 14,562 firm-year observations.
+
+\subsection{Identification}
+
+We use a difference-in-differences design comparing affected firms to a synthetic-control
+unit constructed from neighboring [Region] markets without disclosure reforms in 2018.
+The identifying assumption is that, absent the reform, treated and synthetic-control
+firms would have followed parallel trends in foreign portfolio investment.
+
+[Pre-trends discussion would go here in the real paper. Note: deliberately sparse
+in this teaching version to provide a planted concern for the methods referee.]
+
+\subsection{Estimation}
+
+Our preferred specification is:
+\[ Y_{it} = \alpha_i + \gamma_t + \beta \cdot \text{Treated}_i \cdot \text{Post}_t + \varepsilon_{it} \]
+where $Y_{it}$ is the log of foreign portfolio investment for firm $i$ at quarter $t$.
+
+\section{Main Results}
+
+[Table 2 from the paper would appear here. Effect = 0.247 SD units, SE = 0.083,
+N = 14,562, $R^2$ = 0.31. First-stage F-stat = 32.1 in robustness IV specification.]
+
+[More text, robustness checks, mechanism discussion. Approx 1.5 pages here in real paper.]
+
+\section{Conclusion}
+
+We provide quasi-experimental evidence that disclosure-regime reforms increase
+cross-border portfolio flows. The implications for emerging-market regulators are
+direct: even modest, well-targeted disclosure mandates can substantially shift
+the cost of capital for affected firms.
+
+\bibliographystyle{aer}
+\bibliography{Bibliography}
+
+\end{document}

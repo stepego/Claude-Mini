@@ -1775,23 +1775,354 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section></section>
 <section>
 <section id="part-6" class="title-slide slide level1 emoryblue center">
-<h1>Part 6 — Writing, Refereeing, Review Simulation</h1>
+<h1>Part 6 — Refereeing + Review Simulation</h1>
 
 </section>
-<section id="coming-in-part-6" class="slide level2">
-<h2>Coming in Part 6</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="what-if-every-paper-got-a-peer-review-before-you-submitted-it" class="slide level2 compact">
+<h2>What if every paper got a peer review <em>before</em> you submitted it?</h2>
+<ul>
+<li class="fragment">Not in the “I emailed it to my co-author” sense.</li>
+<li class="fragment">An <em>editor</em> who selects two referees with different perspectives, who write structured reports, and an <em>editorial decision</em> with an explicit revision plan.</li>
+<li class="fragment">Twenty minutes. Not weeks.</li>
+</ul>
+<div class="fragment">
+<p>That’s what we’re about to show.</p>
+</div>
+</section>
+<section id="why-this-works-and-where-it-doesnt" class="slide level2 compact">
+<h2>Why this works (and where it doesn’t)</h2>
+<ul>
+<li class="fragment">✅ <strong>Surface-level + structural issues:</strong> missing citations, unclear identification, weak first-stage, framing drift.</li>
+<li class="fragment">✅ <strong>Referee-perspective stress-tests:</strong> a “credibility skeptic” reads it differently than a “policy relevance” reviewer.</li>
+<li class="fragment">❌ <strong>Substantive contribution.</strong> The simulation can’t tell you the result is <em>interesting</em>. That’s the editor’s actual job.</li>
+<li class="fragment">❌ <strong>Field-specific norms</strong> beyond what’s in the journal profile.</li>
+</ul>
+<div class="fragment">
+<p>Use it as a <strong>dress rehearsal</strong>, not a substitute for real referees.</p>
+</div>
+</section>
+<section id="the-6-way-disposition-taxonomy" class="slide level2 compact">
+<h2>The 6-way disposition taxonomy</h2>
+<p>Every B-school referee has a <em>type</em>. We model them explicitly.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Disposition</th>
+<th>Reads it asking…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STRUCTURAL</td>
+<td>“Is the model specification right?”</td>
+</tr>
+<tr class="even">
+<td>CREDIBILITY</td>
+<td>“Is identification airtight?”</td>
+</tr>
+<tr class="odd">
+<td>MEASUREMENT</td>
+<td>“Are the variables the right things?”</td>
+</tr>
+<tr class="even">
+<td>POLICY</td>
+<td>“Does this matter outside of academia?”</td>
+</tr>
+<tr class="odd">
+<td>THEORY</td>
+<td>“Where’s the mechanism?”</td>
+</tr>
+<tr class="even">
+<td>SKEPTIC</td>
+<td>“What’s the strongest case against this?”</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Two referees with <strong>deliberately different dispositions</strong> stress-tests the paper from non-overlapping angles.</p>
+</div>
+</section>
+<section id="journal-calibration" class="slide level2 compact">
+<h2>Journal calibration</h2>
+<p>The editor reads <code>.claude/references/journal-profiles.md</code> and adjusts:</p>
+<ul>
+<li class="fragment"><strong>Disposition pool weights</strong> per journal (AER skews CREDIBILITY + POLICY; APSR skews THEORY; AJPS skews CREDIBILITY + MEASUREMENT)</li>
+<li class="fragment"><strong>Domain-referee dimension weights</strong> (AER raises Contribution; QJE raises Identification)</li>
+<li class="fragment"><strong>Methods-referee paper-type rubrics</strong> (formal-theory weights model-novelty; survey-experiment weights design + balance)</li>
+</ul>
+<div class="fragment">
+<p>A simulated AER review <em>should</em> feel different from a simulated AJPS review. <strong>The journal is the prior.</strong></p>
+</div>
+</section>
+<section id="what-we-ship" class="slide level2 compact">
+<h2>What we ship</h2>
+<p>In <code>claude-code-my-workflow/.claude/references/journal-profiles.md</code> (v1.8.0):</p>
+<ul>
+<li class="fragment"><strong>Econ top-5:</strong> AER, QJE, JPE, ECMA, ReStud</li>
+<li class="fragment"><strong>Political science top-3:</strong> APSR, AJPS, JOP (added v1.8.0)</li>
+<li class="fragment"><strong>Coming for ND talk:</strong> <strong>JF + JAR</strong> (v1.8.1, this week)</li>
+<li class="fragment"><strong>Sociology, public health, psych:</strong> template + skeleton — your fork-and-extend</li>
+</ul>
+<div class="fragment">
+<p>Each profile is ~40 lines. Adding your home journal: 30 minutes once.</p>
+</div>
+</section>
+<section id="what-would-change-my-mind" class="slide level2 compact">
+<h2>“What would change my mind?”</h2>
+<p>Every MAJOR concern in a referee report from this pipeline must include:</p>
+<blockquote>
+<p><strong>What would change my mind:</strong> [specific test, estimator, robustness check, or evidence that would resolve this concern]</p>
+</blockquote>
+<ul>
+<li class="fragment">This is a discipline, not a feature. Without it, “I’m worried about endogeneity” is taste; with it, “I’d be convinced if you ran an IV with X as instrument” is actionable.</li>
+<li class="fragment">Same discipline for both referee agents (domain + methods).</li>
+<li class="fragment">Without this constraint, the simulated reports drift toward un-actionable adversarialism.</li>
+</ul>
+</section></section>
+<section>
+<section id="live-demo-review-paper---peer" class="title-slide slide level1 claudeorange center">
+<h1>Live demo: <code>/review-paper --peer</code></h1>
+
+</section>
+<section id="what-youre-about-to-see-2" class="slide level2 compact">
+<h2>What you’re about to see</h2>
+<ul>
+<li class="fragment">A real (sanitized) manuscript snippet — intro + identification section, ~3 pages.</li>
+<li class="fragment">I run <code>/review-paper --peer JF</code> (Journal of Finance profile).</li>
+<li class="fragment">The <strong>editor agent</strong> does desk review (with a WebSearch novelty probe).</li>
+<li class="fragment">The editor selects <strong>two referees with different dispositions</strong> from the JF disposition pool.</li>
+<li class="fragment">The two referees fan out <strong>in parallel</strong>.</li>
+<li class="fragment">The editor synthesizes both reports → <strong>editorial decision</strong> (FATAL / ADDRESSABLE / TASTE).</li>
+</ul>
+</section>
+<section id="the-choreographed-time-budget-1" class="slide level2 compact">
+<h2>The choreographed time-budget</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>What happens</th>
+<th>Time mark</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Show the manuscript snippet</td>
+<td>T+0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Run <code>/review-paper --peer JF</code></td>
+<td>T+1</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Editor: desk review + novelty probe</td>
+<td>T+2</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Editor: referee selection (2 dispositions)</td>
+<td>T+5</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Two referees fan out (parallel)</td>
+<td>T+6</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Domain referee report visible</td>
+<td>T+11</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Methods referee report visible</td>
+<td>T+13</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Editorial synthesis</td>
+<td>T+15</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td><strong>Editorial decision</strong></td>
+<td>T+18</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Wrap</td>
+<td>T+20</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-headline-moment" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The headline moment</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Placeholder</strong></p>
+<p><strong>Live demo handoff</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>The headliner demo.</strong> Referee perspectives → <strong>live demo:</strong> <code>/review-paper --peer JF</code> → drafting referee responses → <strong>live demo:</strong> <code>/respond-to-referees</code>. Choreography in <code>demos/05-peer-review/README.md</code>.</p>
+<p>Switch to terminal. Run <code>/review-paper --peer JF</code>.</p>
+<p>This is <strong>the</strong> demo. The editorial decision moment is what we’re aiming for. If T+18 hasn’t fired, we play <code>pre-recorded.mp4</code> for the remainder. <strong>The recording compresses the 18-min lifecycle to 5 min with annotations on the editor → referees → synthesis transitions.</strong></p>
+<p>Choreography: <code>demos/05-peer-review/README.md</code>.</p>
 </div>
 </div>
+</div>
+<blockquote>
+<p>[Pedro switches to the IDE. Live demo runs ~20 min.]</p>
+</blockquote>
+</section>
+<section id="what-you-should-have-caught" class="slide level2 compact">
+<h2>What you should have caught</h2>
+<ul>
+<li class="fragment">The <strong>disposition pairs were different</strong> (e.g., one CREDIBILITY, one POLICY) — generating non-overlapping concerns.</li>
+<li class="fragment">Each MAJOR concern had a <strong>“What would change my mind”</strong> clause — actionable.</li>
+<li class="fragment">The editor’s synthesis classified concerns: <strong>FATAL</strong> (rejection unless mind-changed) / <strong>ADDRESSABLE</strong> (revise+resubmit territory) / <strong>TASTE</strong> (referee preference, not the paper’s fault).</li>
+<li class="fragment">The decision wasn’t “accept” or “reject” — it was a <strong>revision plan</strong>.</li>
+</ul>
+</section></section>
+<section>
+<section id="drafting-referee-responses" class="title-slide slide level1 claudeorange center">
+<h1>Drafting referee responses</h1>
+
+</section>
+<section id="the-flip-side" class="slide level2 compact">
+<h2>The flip side</h2>
+<p>You just saw a simulated peer review. The other half of the workflow:</p>
+<blockquote>
+<p><em>Now I have a real referee report I disagree with. How do I respond?</em></p>
+</blockquote>
+<div class="fragment">
+<p><code>/respond-to-referees</code> parses a referee report and maps each concern to a specific revision in the manuscript.</p>
+</div>
+</section>
+<section id="what-it-produces" class="slide level2 compact">
+<h2>What it produces</h2>
+<ul>
+<li class="fragment"><strong>Concern-by-concern table:</strong> referee text → classification (Addressed / Partial / Deferred / Disagreement) → manuscript location of the response.</li>
+<li class="fragment"><strong>Drafted response prose</strong> for each concern, polite-but-firm, in the project’s voice.</li>
+<li class="fragment"><strong>A coverage summary</strong> at the top: X addressed, Y partial, Z deferred, W disagreement.</li>
+<li class="fragment"><strong>Revision-letter scaffold</strong> ready to upload.</li>
+</ul>
+</section>
+<section id="why-classification-matters-for-rr" class="slide level2 compact">
+<h2>Why classification matters for R&amp;R</h2>
+<ul>
+<li class="fragment"><strong>Addressed</strong> — you did the thing. Cite where.</li>
+<li class="fragment"><strong>Partial</strong> — you did some of the thing. Cite where; explain what’s missing and why.</li>
+<li class="fragment"><strong>Deferred</strong> — you didn’t do the thing this round. Explain <em>why deferred</em> (out of scope, future work, infeasible).</li>
+<li class="fragment"><strong>Disagreement</strong> — you don’t think the thing should be done. <strong>Explain courteously and substantively.</strong></li>
+</ul>
+<div class="fragment">
+<p>Editors at JF / JAR / TAR want to see all four categories used appropriately. <strong>Avoiding “Disagreement” looks evasive.</strong></p>
+</div>
+</section>
+<section id="a-concrete-example" class="slide level2 compact">
+<h2>A concrete example</h2>
+<p>A referee writes:</p>
+<blockquote>
+<p><em>“The first-stage F-statistic of 9 is well below the conventional weak-instrument threshold. The IV results should not be interpreted causally.”</em></p>
+</blockquote>
+<div class="fragment">
+<p><code>/respond-to-referees</code> produces:</p>
+<blockquote>
+<p><strong>Classification:</strong> Addressed. <strong>Where:</strong> Manuscript p.&nbsp;14, footnote 22; Online Appendix B.3. <strong>Response:</strong> “We thank the referee for raising the weak-instrument concern. We now report Anderson-Rubin confidence intervals (Online Appendix B.3) which are robust to weak instruments; the result is qualitatively similar with much wider intervals. We have added a footnote on p.&nbsp;14 noting the limitation explicitly.”</p>
+</blockquote>
+</div>
+</section>
+<section id="live-demo-response-letter" class="slide level2 compact">
+<h2>Live demo: response letter</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Live demo handoff (~8 min)</strong></p>
+</div>
+<div class="callout-content">
+<p>Take the editor agent’s output from the previous demo (still on screen).</p>
+<p>Run:</p>
+<pre><code>/respond-to-referees demos/05-peer-review/editor-output.md demos/05-peer-review/manuscript-snippet.tex</code></pre>
+<p>Audience watches the agent map each editorial concern to a revision plan with classification + drafted response.</p>
+<p>Choreography: <code>demos/05-peer-review/README.md</code>.</p>
+</div>
+</div>
+</div>
+<blockquote>
+<p>[Pedro switches to the IDE. Live demo runs ~8 min.]</p>
+</blockquote>
+</section>
+<section id="what-just-happened" class="slide level2 compact">
+<h2>What just happened</h2>
+<ul>
+<li class="fragment">The skill read both files.</li>
+<li class="fragment">For each concern in the editorial decision: classified it; drafted a response; pointed at the manuscript location where the response should land.</li>
+<li class="fragment"><strong>Output is a structured Markdown response document</strong> — not a finished revision letter, but the scaffolding for one.</li>
+<li class="fragment">Net time saved: 4-6 hours per R&amp;R round.</li>
+</ul>
+</section>
+<section id="the-what-would-change-my-mind-symmetry" class="slide level2 compact">
+<h2>The “What would change my mind” symmetry</h2>
+<ul>
+<li class="fragment">The referee agent attaches “what would change my mind” to MAJOR concerns.</li>
+<li class="fragment">The response agent must engage with that explicitly: did the revision do <em>that thing</em>? If yes, claim it. If not, explain why.</li>
+<li class="fragment">This forces a <strong>disciplined R&amp;R conversation</strong> — the same kind real journals try to enforce, often with mixed success.</li>
+</ul>
+</section></section>
+<section>
+<section id="wrap-up" class="title-slide slide level1 claudeorange center">
+<h1>Wrap-up</h1>
+
+</section>
+<section id="what-this-session-covered" class="slide level2 compact">
+<h2>What this session covered</h2>
+<p>In 45 minutes:</p>
+<ul>
+<li class="fragment">A simulated peer review of a real working paper, with two differently-disposed referees + an editorial decision</li>
+<li class="fragment">A drafted response to that editorial decision, with concern-classification + revision mapping</li>
+<li class="fragment">All saved to disk as a reproducible audit trail</li>
+</ul>
+<div class="fragment">
+<p>The cost: <strong>~30 min of wall-clock time and one prompt.</strong></p>
+</div>
+</section>
+<section id="where-this-fits-in-your-actual-workflow" class="slide level2 compact">
+<h2>Where this fits in your actual workflow</h2>
+<ul>
+<li class="fragment"><strong>Pre-submission:</strong> dress rehearsal. Catches the obvious 80%; surfaces the 10% that needs work; misses the 10% that needs a real referee.</li>
+<li class="fragment"><strong>R&amp;R round 2:</strong> classification scaffolding when you have 8 referee concerns and 2 weeks to respond.</li>
+<li class="fragment"><strong>Co-author conflict:</strong> “the simulated review flagged exactly what my co-author has been pushing on. They’re right; here’s the data.”</li>
+</ul>
+</section>
+<section id="what-it-does-not-do" class="slide level2 compact">
+<h2>What it does NOT do</h2>
+<ul>
+<li class="fragment">❌ Predict whether your paper will be accepted at JF.</li>
+<li class="fragment">❌ Tell you the paper isn’t novel (the editor agent has a WebSearch novelty probe, but it’s heuristic — not a substitute for real desk review).</li>
+<li class="fragment">❌ Replace the deep, paper-changing engagement of a great real referee.</li>
+</ul>
+<div class="fragment">
+<p>It’s a <strong>first pass</strong>. The substance of peer review is still human.</p>
+</div>
+</section>
+<section id="coming-up-the-close-25-min" class="slide level2 compact">
+<h2>Coming up: the close (25 min)</h2>
+<ul>
+<li class="fragment"><strong>Cross-tool strategies</strong> — using Claude vs.&nbsp;Codex to audit each other.</li>
+<li class="fragment"><strong>Ecosystem tour</strong> — clo-author, claudeblattman, MixtapeTools, and what to read next.</li>
+<li class="fragment"><strong>Three things to do Monday morning.</strong></li>
+</ul>
+<div class="fragment">
+<p>We’re 3h35min in. Final stretch.</p>
 </div>
 </section>
 <section class="slide level2">

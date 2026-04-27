@@ -1295,15 +1295,273 @@ After the break: **Part 6 — refereeing + review simulation.**
 
 ---
 
-# Part 6 — Writing, Refereeing, Review Simulation {.emoryblue #part-6}
+# Part 6 — Refereeing + Review Simulation {.emoryblue #part-6}
 
-## Coming in Part 6
+## What if every paper got a peer review *before* you submitted it? {.compact}
 
-::: {.callout-note}
-## Placeholder
-
-**The headliner demo.** Referee perspectives → **live demo:** `/review-paper --peer JF` → drafting referee responses → **live demo:** `/respond-to-referees`. Choreography in `demos/05-peer-review/README.md`.
+::: {.incremental}
+- Not in the "I emailed it to my co-author" sense.
+- An *editor* who selects two referees with different perspectives, who write structured reports, and an *editorial decision* with an explicit revision plan.
+- Twenty minutes. Not weeks.
 :::
+
+. . .
+
+That's what we're about to show.
+
+## Why this works (and where it doesn't) {.compact}
+
+::: {.incremental}
+- ✅ **Surface-level + structural issues:** missing citations, unclear identification, weak first-stage, framing drift.
+- ✅ **Referee-perspective stress-tests:** a "credibility skeptic" reads it differently than a "policy relevance" reviewer.
+- ❌ **Substantive contribution.** The simulation can't tell you the result is *interesting*. That's the editor's actual job.
+- ❌ **Field-specific norms** beyond what's in the journal profile.
+:::
+
+. . .
+
+Use it as a **dress rehearsal**, not a substitute for real referees.
+
+## The 6-way disposition taxonomy {.compact}
+
+Every B-school referee has a *type*. We model them explicitly.
+
+| Disposition | Reads it asking… |
+|-------------|-------------------|
+| STRUCTURAL | "Is the model specification right?" |
+| CREDIBILITY | "Is identification airtight?" |
+| MEASUREMENT | "Are the variables the right things?" |
+| POLICY | "Does this matter outside of academia?" |
+| THEORY | "Where's the mechanism?" |
+| SKEPTIC | "What's the strongest case against this?" |
+
+. . .
+
+Two referees with **deliberately different dispositions** stress-tests the paper from non-overlapping angles.
+
+## Journal calibration {.compact}
+
+The editor reads `.claude/references/journal-profiles.md` and adjusts:
+
+::: {.incremental}
+- **Disposition pool weights** per journal (AER skews CREDIBILITY + POLICY; APSR skews THEORY; AJPS skews CREDIBILITY + MEASUREMENT)
+- **Domain-referee dimension weights** (AER raises Contribution; QJE raises Identification)
+- **Methods-referee paper-type rubrics** (formal-theory weights model-novelty; survey-experiment weights design + balance)
+:::
+
+. . .
+
+A simulated AER review *should* feel different from a simulated AJPS review. **The journal is the prior.**
+
+## What we ship {.compact}
+
+In `claude-code-my-workflow/.claude/references/journal-profiles.md` (v1.8.0):
+
+::: {.incremental}
+- **Econ top-5:** AER, QJE, JPE, ECMA, ReStud
+- **Political science top-3:** APSR, AJPS, JOP (added v1.8.0)
+- **Coming for ND talk:** **JF + JAR** (v1.8.1, this week)
+- **Sociology, public health, psych:** template + skeleton — your fork-and-extend
+:::
+
+. . .
+
+Each profile is ~40 lines. Adding your home journal: 30 minutes once.
+
+## "What would change my mind?" {.compact}
+
+Every MAJOR concern in a referee report from this pipeline must include:
+
+> **What would change my mind:** [specific test, estimator, robustness check, or evidence that would resolve this concern]
+
+::: {.incremental}
+- This is a discipline, not a feature. Without it, "I'm worried about endogeneity" is taste; with it, "I'd be convinced if you ran an IV with X as instrument" is actionable.
+- Same discipline for both referee agents (domain + methods).
+- Without this constraint, the simulated reports drift toward un-actionable adversarialism.
+:::
+
+# Live demo: `/review-paper --peer` {.claudeorange}
+
+## What you're about to see {.compact}
+
+::: {.incremental}
+- A real (sanitized) manuscript snippet — intro + identification section, ~3 pages.
+- I run `/review-paper --peer JF` (Journal of Finance profile).
+- The **editor agent** does desk review (with a WebSearch novelty probe).
+- The editor selects **two referees with different dispositions** from the JF disposition pool.
+- The two referees fan out **in parallel**.
+- The editor synthesizes both reports → **editorial decision** (FATAL / ADDRESSABLE / TASTE).
+:::
+
+## The choreographed time-budget {.compact}
+
+| Step | What happens | Time mark |
+|------|-------------|-----------|
+| 1 | Show the manuscript snippet | T+0 |
+| 2 | Run `/review-paper --peer JF` | T+1 |
+| 3 | Editor: desk review + novelty probe | T+2 |
+| 4 | Editor: referee selection (2 dispositions) | T+5 |
+| 5 | Two referees fan out (parallel) | T+6 |
+| 6 | Domain referee report visible | T+11 |
+| 7 | Methods referee report visible | T+13 |
+| 8 | Editorial synthesis | T+15 |
+| 9 | **Editorial decision** | T+18 |
+| 10 | Wrap | T+20 |
+
+## The headline moment {auto-animate=true}
+
+::: {.callout-tip}
+## Live demo handoff
+
+Switch to terminal. Run `/review-paper --peer JF`.
+
+This is **the** demo. The editorial decision moment is what we're aiming for. If T+18 hasn't fired, we play `pre-recorded.mp4` for the remainder. **The recording compresses the 18-min lifecycle to 5 min with annotations on the editor → referees → synthesis transitions.**
+
+Choreography: `demos/05-peer-review/README.md`.
+:::
+
+> [Pedro switches to the IDE. Live demo runs ~20 min.]
+
+## What you should have caught {.compact}
+
+::: {.incremental}
+- The **disposition pairs were different** (e.g., one CREDIBILITY, one POLICY) — generating non-overlapping concerns.
+- Each MAJOR concern had a **"What would change my mind"** clause — actionable.
+- The editor's synthesis classified concerns: **FATAL** (rejection unless mind-changed) / **ADDRESSABLE** (revise+resubmit territory) / **TASTE** (referee preference, not the paper's fault).
+- The decision wasn't "accept" or "reject" — it was a **revision plan**.
+:::
+
+# Drafting referee responses {.claudeorange}
+
+## The flip side {.compact}
+
+You just saw a simulated peer review. The other half of the workflow:
+
+> *Now I have a real referee report I disagree with. How do I respond?*
+
+. . .
+
+`/respond-to-referees` parses a referee report and maps each concern to a specific revision in the manuscript.
+
+## What it produces {.compact}
+
+::: {.incremental}
+- **Concern-by-concern table:** referee text → classification (Addressed / Partial / Deferred / Disagreement) → manuscript location of the response.
+- **Drafted response prose** for each concern, polite-but-firm, in the project's voice.
+- **A coverage summary** at the top: X addressed, Y partial, Z deferred, W disagreement.
+- **Revision-letter scaffold** ready to upload.
+:::
+
+## Why classification matters for R&R {.compact}
+
+::: {.incremental}
+- **Addressed** — you did the thing. Cite where.
+- **Partial** — you did some of the thing. Cite where; explain what's missing and why.
+- **Deferred** — you didn't do the thing this round. Explain *why deferred* (out of scope, future work, infeasible).
+- **Disagreement** — you don't think the thing should be done. **Explain courteously and substantively.**
+:::
+
+. . .
+
+Editors at JF / JAR / TAR want to see all four categories used appropriately. **Avoiding "Disagreement" looks evasive.**
+
+## A concrete example {.compact}
+
+A referee writes:
+
+> *"The first-stage F-statistic of 9 is well below the conventional weak-instrument threshold. The IV results should not be interpreted causally."*
+
+. . .
+
+`/respond-to-referees` produces:
+
+> **Classification:** Addressed.
+> **Where:** Manuscript p. 14, footnote 22; Online Appendix B.3.
+> **Response:** "We thank the referee for raising the weak-instrument concern. We now report Anderson-Rubin confidence intervals (Online Appendix B.3) which are robust to weak instruments; the result is qualitatively similar with much wider intervals. We have added a footnote on p. 14 noting the limitation explicitly."
+
+## Live demo: response letter {.compact}
+
+::: {.callout-tip}
+## Live demo handoff (~8 min)
+
+Take the editor agent's output from the previous demo (still on screen).
+
+Run:
+```
+/respond-to-referees demos/05-peer-review/editor-output.md demos/05-peer-review/manuscript-snippet.tex
+```
+
+Audience watches the agent map each editorial concern to a revision plan with classification + drafted response.
+
+Choreography: `demos/05-peer-review/README.md`.
+:::
+
+> [Pedro switches to the IDE. Live demo runs ~8 min.]
+
+## What just happened {.compact}
+
+::: {.incremental}
+- The skill read both files.
+- For each concern in the editorial decision: classified it; drafted a response; pointed at the manuscript location where the response should land.
+- **Output is a structured Markdown response document** — not a finished revision letter, but the scaffolding for one.
+- Net time saved: 4-6 hours per R&R round.
+:::
+
+## The "What would change my mind" symmetry {.compact}
+
+::: {.incremental}
+- The referee agent attaches "what would change my mind" to MAJOR concerns.
+- The response agent must engage with that explicitly: did the revision do *that thing*? If yes, claim it. If not, explain why.
+- This forces a **disciplined R&R conversation** — the same kind real journals try to enforce, often with mixed success.
+:::
+
+# Wrap-up {.claudeorange}
+
+## What this session covered {.compact}
+
+In 45 minutes:
+
+::: {.incremental}
+- A simulated peer review of a real working paper, with two differently-disposed referees + an editorial decision
+- A drafted response to that editorial decision, with concern-classification + revision mapping
+- All saved to disk as a reproducible audit trail
+:::
+
+. . .
+
+The cost: **~30 min of wall-clock time and one prompt.**
+
+## Where this fits in your actual workflow {.compact}
+
+::: {.incremental}
+- **Pre-submission:** dress rehearsal. Catches the obvious 80%; surfaces the 10% that needs work; misses the 10% that needs a real referee.
+- **R&R round 2:** classification scaffolding when you have 8 referee concerns and 2 weeks to respond.
+- **Co-author conflict:** "the simulated review flagged exactly what my co-author has been pushing on. They're right; here's the data."
+:::
+
+## What it does NOT do {.compact}
+
+::: {.incremental}
+- ❌ Predict whether your paper will be accepted at JF.
+- ❌ Tell you the paper isn't novel (the editor agent has a WebSearch novelty probe, but it's heuristic — not a substitute for real desk review).
+- ❌ Replace the deep, paper-changing engagement of a great real referee.
+:::
+
+. . .
+
+It's a **first pass**. The substance of peer review is still human.
+
+## Coming up: the close (25 min) {.compact}
+
+::: {.incremental}
+- **Cross-tool strategies** — using Claude vs. Codex to audit each other.
+- **Ecosystem tour** — clo-author, claudeblattman, MixtapeTools, and what to read next.
+- **Three things to do Monday morning.**
+:::
+
+. . .
+
+We're 3h35min in. Final stretch.
 
 ---
 
