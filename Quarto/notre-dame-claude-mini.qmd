@@ -1565,14 +1565,196 @@ We're 3h35min in. Final stretch.
 
 ---
 
-# Part 7 — Closing {.claudeorange #part-7}
+# Part 7 — Closing + Cross-Tool {.claudeorange #part-7}
 
-## Coming in Part 7
+## The full stack, recap {.compact}
 
-::: {.callout-note}
-## Placeholder
+| Layer | What it is | Where you saw it |
+|-------|-----------|------------------|
+| `CLAUDE.md` | The control center — universal project instructions | Part 1 walkthrough |
+| `.claude/rules/` | Path-scoped, auto-loading domain knowledge | Part 1 + Part 5 (replication-protocol) |
+| `.claude/skills/` | Triggerable, version-controlled workflows | Parts 2, 3, 5, 6 demos |
+| `.claude/agents/` | Specialized review personas (proofreader, referees, etc.) | Parts 2 + 6 demos |
+| `.claude/hooks/` | Deterministic lifecycle enforcement | Part 4 (commit gate) |
 
-The full stack visual recap → cross-tool strategies (Claude vs Codex audit) → ecosystem tour → 3 take-home actions.
+. . .
+
+Five layers. None of them are AI-magical. **All of them are written instructions.**
+
+## How they connect {.compact}
+
+```
+                   ┌─────────────────────────┐
+                   │      CLAUDE.md          │  always loaded
+                   │   (project universals)  │
+                   └────────────┬────────────┘
+                                │
+        ┌───────────────────────┼───────────────────────┐
+        │                       │                       │
+   path-scoped              triggered               lifecycle
+   ┌────▼────┐           ┌─────▼─────┐          ┌─────▼─────┐
+   │  rules  │           │  skills   │          │   hooks   │
+   └────┬────┘           └─────┬─────┘          └───────────┘
+        │                      │
+        │                  ┌───▼───┐
+        │                  │ agents │
+        │                  └────────┘
+        │
+   loaded only when
+   matching files touched
+```
+
+. . .
+
+The diagram is the whole talk in one picture.
+
+## What you have right now {.compact}
+
+::: {.incremental}
+- A clear mental model of where each layer lives + why
+- Concrete pictures of three live demos (manuscript improvement, replication audit, simulated peer review)
+- A repo (`Claude-Mini`) you can clone tonight
+- A parent template (`claude-code-my-workflow`) you can fork on Monday
+:::
+
+# Cross-tool strategies {.claudeorange}
+
+## Why use more than one AI tool {.compact}
+
+::: {.incremental}
+- **No single tool is best at everything.** Claude shines on repo-context tasks; Codex shines on focused-completion problems; Gemini on multimodal.
+- **A tool reviewing its own work has confirmation bias.** A different tool, different training data, different failure modes — independent review.
+- **Cost arbitrage.** Cheap Haiku-class models for triage; Opus-class for the hard part; Codex for the tasks where it's strictly better.
+:::
+
+. . .
+
+The orchestration story extends: **multi-agent across tools**, not just within Claude.
+
+## The pattern: Claude reviewing Codex {.compact}
+
+```
+1. Codex generates a 200-line refactor.
+2. Claude reads the diff in a fresh context (not the prompt that generated it).
+3. Claude flags issues from a different angle than Codex would.
+4. You see both views before deciding.
+```
+
+. . .
+
+The plugin `codex:adversarial-review` (in `claude-code-my-workflow`) is exactly this. **Different tool reviewing different tool's work.**
+
+## When cross-tool actually helps {.compact}
+
+::: {.incremental}
+- **Refactors with subtle correctness implications** — different tools see different bugs.
+- **Code in languages you don't read fluently** — your one tool agreeing with itself isn't reassurance.
+- **High-stakes one-shot tasks** — you'd rather pay 2x to get 2x review than re-do it.
+:::
+
+## When it doesn't {.compact}
+
+::: {.incremental}
+- **Routine work.** Cost-of-orchestration > value-of-second-opinion. Use one tool, save the round trip.
+- **Genuinely ambiguous decisions** (taste, style). Two tools voting doesn't tell you which is right.
+- **Speed-critical iteration loops.** Cross-tool adds 30 sec / iteration. On a 50-iteration day = 25 min lost.
+:::
+
+. . .
+
+**Heuristic:** cross-tool for *one in ten* tasks — the high-stakes ones. Not as a default.
+
+## A live-mini-demo (if time) {.compact}
+
+::: {.callout-tip}
+## Optional demo (~3 min)
+
+Run `/codex:adversarial-review` on a small refactor.
+
+Audience watches:
+1. Codex generates the refactor (already done, in the demo bundle)
+2. Claude opens the diff fresh, reviews, surfaces 2-3 issues
+3. Pedro narrates: "I'd have shipped this. Codex's tool agreed with itself."
+
+Skip if running short on Q&A time.
+
+Choreography: `demos/06-cross-tool/README.md`.
+:::
+
+# Ecosystem tour {.claudeorange}
+
+## What others have built {.compact}
+
+::: {.incremental}
+- **[`clo-author`](https://github.com/hugosantanna/clo-author)** — Hugo Sant'Anna's authoring-side fork. Has theorist agents (formal-theory section drafting), 30+ journal profiles, more aggressive multi-agent worker-critic pairs. **The /checkpoint and /review-paper --peer skills in our template are adapted from clo-author with permission.**
+- **[`claudeblattman`](https://github.com/chrisblattman/claudeblattman)** — Chris Blattman's guide for non-technical academics. Less code-heavy, more workflow-heavy. Good entry point if you don't write code daily.
+- **[`MixtapeTools`](https://github.com/scunning1975/MixtapeTools)** — Scott Cunningham's TikZ + Rhetoric of Decks materials. **Our TikZ infrastructure is ported from here.**
+- **[`autoresearch`](https://github.com/karpathy/autoresearch)** — Andrej Karpathy's experiment in constraint-based autonomous research. Aspirational; very different shape than ours.
+:::
+
+## Anthropic-shipped utilities {.compact}
+
+Built into Claude Code itself, no fork needed:
+
+::: {.incremental}
+- **`/team-onboarding`** — package your local setup into a replayable guide for collaborators
+- **`/autofix-pr`** — runs Claude Code on a GitHub PR, applying CI-style fixes
+- **`/powerup`** — interactive lessons (Anthropic's tutorial system)
+- **Ultraplan** — cloud-based plan editing, sync to local
+- **`/loop` self-pacing** — recurring or self-paced background tasks
+:::
+
+. . .
+
+I'd recommend `/team-onboarding` for any lab group — package once, share with all collaborators.
+
+# Resources + start {.claudeorange}
+
+## Three things to do this week {.compact}
+
+::: {.incremental}
+1. **Clone `Claude-Mini`** (the repo you're looking at): [github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini). Slides + all demo bundles.
+2. **Fork `claude-code-my-workflow`**: [github.com/pedrohcgs/claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow). The full template (30 skills, 14 agents, 24 rules, 6 hooks, v1.8.0).
+3. **Write a `CLAUDE.md`** for your next paper. **30 minutes**. Highest-leverage action you can take.
+:::
+
+. . .
+
+If you do nothing else: **#3.** Open one paper directory, write 100 lines, and the whole rest of this stack pays off.
+
+## Three things to do this month {.compact}
+
+::: {.incremental}
+1. **Pick one repetitive task you do 3+ times a year. Write it as a skill.** (Sample use cases on the handout.)
+2. **Run `/audit-reproducibility`** on your most recent submitted paper. Find the issue. Fix it.
+3. **Try `/review-paper --peer <your-target-journal>`** on a current draft. Treat the simulated review as a dress rehearsal.
+:::
+
+## Resources for going deeper {.compact}
+
+::: {.incremental}
+- **The Claude Code docs:** [code.claude.com/docs](https://code.claude.com/docs)
+- **Anthropic's "Best Practices" page:** [code.claude.com/docs/en/best-practices](https://code.claude.com/docs/en/best-practices) — short and very good
+- **The `claude-code-my-workflow` guide:** the full 250-section walkthrough at [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow)
+- **The TROUBLESHOOTING.md** in the same repo — most issues you'll hit are catalogued there
+:::
+
+## Honest closing {.compact}
+
+::: {.incremental}
+- This workflow has saved me **probably 100+ hours** in the last year.
+- It's also occasionally **infuriating** — agents misunderstanding, hooks firing inconveniently, demos failing live.
+- The leverage is real. The friction is also real. **You'll calibrate by doing.**
+- The community of academics adopting this is small but growing fast. **You're early.**
+:::
+
+## Thank you {.emoryblue}
+
+::: {.incremental}
+- This was 4 hours of your time. Thank you for it.
+- Materials at: [github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini)
+- Reach me: pedro.santanna@emory.edu | [psantanna.com](https://psantanna.com) | [@pedrohcgs](https://github.com/pedrohcgs)
+- **Q&A starts now.**
 :::
 
 ---

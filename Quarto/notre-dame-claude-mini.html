@@ -2130,30 +2130,237 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section></section>
 <section>
 <section id="part-7" class="title-slide slide level1 claudeorange center">
-<h1>Part 7 — Closing</h1>
+<h1>Part 7 — Closing + Cross-Tool</h1>
 
 </section>
-<section id="coming-in-part-7" class="slide level2">
-<h2>Coming in Part 7</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<section id="the-full-stack-recap" class="slide level2 compact">
+<h2>The full stack, recap</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 30%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>What it is</th>
+<th>Where you saw it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>CLAUDE.md</code></td>
+<td>The control center — universal project instructions</td>
+<td>Part 1 walkthrough</td>
+</tr>
+<tr class="even">
+<td><code>.claude/rules/</code></td>
+<td>Path-scoped, auto-loading domain knowledge</td>
+<td>Part 1 + Part 5 (replication-protocol)</td>
+</tr>
+<tr class="odd">
+<td><code>.claude/skills/</code></td>
+<td>Triggerable, version-controlled workflows</td>
+<td>Parts 2, 3, 5, 6 demos</td>
+</tr>
+<tr class="even">
+<td><code>.claude/agents/</code></td>
+<td>Specialized review personas (proofreader, referees, etc.)</td>
+<td>Parts 2 + 6 demos</td>
+</tr>
+<tr class="odd">
+<td><code>.claude/hooks/</code></td>
+<td>Deterministic lifecycle enforcement</td>
+<td>Part 4 (commit gate)</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Five layers. None of them are AI-magical. <strong>All of them are written instructions.</strong></p>
+</div>
+</section>
+<section id="how-they-connect" class="slide level2 compact">
+<h2>How they connect</h2>
+<pre><code>                   ┌─────────────────────────┐
+                   │      CLAUDE.md          │  always loaded
+                   │   (project universals)  │
+                   └────────────┬────────────┘
+                                │
+        ┌───────────────────────┼───────────────────────┐
+        │                       │                       │
+   path-scoped              triggered               lifecycle
+   ┌────▼────┐           ┌─────▼─────┐          ┌─────▼─────┐
+   │  rules  │           │  skills   │          │   hooks   │
+   └────┬────┘           └─────┬─────┘          └───────────┘
+        │                      │
+        │                  ┌───▼───┐
+        │                  │ agents │
+        │                  └────────┘
+        │
+   loaded only when
+   matching files touched</code></pre>
+<div class="fragment">
+<p>The diagram is the whole talk in one picture.</p>
+</div>
+</section>
+<section id="what-you-have-right-now" class="slide level2 compact">
+<h2>What you have right now</h2>
+<ul>
+<li class="fragment">A clear mental model of where each layer lives + why</li>
+<li class="fragment">Concrete pictures of three live demos (manuscript improvement, replication audit, simulated peer review)</li>
+<li class="fragment">A repo (<code>Claude-Mini</code>) you can clone tonight</li>
+<li class="fragment">A parent template (<code>claude-code-my-workflow</code>) you can fork on Monday</li>
+</ul>
+</section></section>
+<section>
+<section id="cross-tool-strategies" class="title-slide slide level1 claudeorange center">
+<h1>Cross-tool strategies</h1>
+
+</section>
+<section id="why-use-more-than-one-ai-tool" class="slide level2 compact">
+<h2>Why use more than one AI tool</h2>
+<ul>
+<li class="fragment"><strong>No single tool is best at everything.</strong> Claude shines on repo-context tasks; Codex shines on focused-completion problems; Gemini on multimodal.</li>
+<li class="fragment"><strong>A tool reviewing its own work has confirmation bias.</strong> A different tool, different training data, different failure modes — independent review.</li>
+<li class="fragment"><strong>Cost arbitrage.</strong> Cheap Haiku-class models for triage; Opus-class for the hard part; Codex for the tasks where it’s strictly better.</li>
+</ul>
+<div class="fragment">
+<p>The orchestration story extends: <strong>multi-agent across tools</strong>, not just within Claude.</p>
+</div>
+</section>
+<section id="the-pattern-claude-reviewing-codex" class="slide level2 compact">
+<h2>The pattern: Claude reviewing Codex</h2>
+<pre><code>1. Codex generates a 200-line refactor.
+2. Claude reads the diff in a fresh context (not the prompt that generated it).
+3. Claude flags issues from a different angle than Codex would.
+4. You see both views before deciding.</code></pre>
+<div class="fragment">
+<p>The plugin <code>codex:adversarial-review</code> (in <code>claude-code-my-workflow</code>) is exactly this. <strong>Different tool reviewing different tool’s work.</strong></p>
+</div>
+</section>
+<section id="when-cross-tool-actually-helps" class="slide level2 compact">
+<h2>When cross-tool actually helps</h2>
+<ul>
+<li class="fragment"><strong>Refactors with subtle correctness implications</strong> — different tools see different bugs.</li>
+<li class="fragment"><strong>Code in languages you don’t read fluently</strong> — your one tool agreeing with itself isn’t reassurance.</li>
+<li class="fragment"><strong>High-stakes one-shot tasks</strong> — you’d rather pay 2x to get 2x review than re-do it.</li>
+</ul>
+</section>
+<section id="when-it-doesnt" class="slide level2 compact">
+<h2>When it doesn’t</h2>
+<ul>
+<li class="fragment"><strong>Routine work.</strong> Cost-of-orchestration &gt; value-of-second-opinion. Use one tool, save the round trip.</li>
+<li class="fragment"><strong>Genuinely ambiguous decisions</strong> (taste, style). Two tools voting doesn’t tell you which is right.</li>
+<li class="fragment"><strong>Speed-critical iteration loops.</strong> Cross-tool adds 30 sec / iteration. On a 50-iteration day = 25 min lost.</li>
+</ul>
+<div class="fragment">
+<p><strong>Heuristic:</strong> cross-tool for <em>one in ten</em> tasks — the high-stakes ones. Not as a default.</p>
+</div>
+</section>
+<section id="a-live-mini-demo-if-time" class="slide level2 compact">
+<h2>A live-mini-demo (if time)</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Placeholder</strong></p>
+<p><strong>Optional demo (~3 min)</strong></p>
 </div>
 <div class="callout-content">
-<p>The full stack visual recap → cross-tool strategies (Claude vs Codex audit) → ecosystem tour → 3 take-home actions.</p>
+<p>Run <code>/codex:adversarial-review</code> on a small refactor.</p>
+<p>Audience watches: 1. Codex generates the refactor (already done, in the demo bundle) 2. Claude opens the diff fresh, reviews, surfaces 2-3 issues 3. Pedro narrates: “I’d have shipped this. Codex’s tool agreed with itself.”</p>
+<p>Skip if running short on Q&amp;A time.</p>
+<p>Choreography: <code>demos/06-cross-tool/README.md</code>.</p>
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="ecosystem-tour" class="title-slide slide level1 claudeorange center">
+<h1>Ecosystem tour</h1>
+
+</section>
+<section id="what-others-have-built" class="slide level2 compact">
+<h2>What others have built</h2>
+<ul>
+<li class="fragment"><strong><a href="https://github.com/hugosantanna/clo-author"><code>clo-author</code></a></strong> — Hugo Sant’Anna’s authoring-side fork. Has theorist agents (formal-theory section drafting), 30+ journal profiles, more aggressive multi-agent worker-critic pairs. <strong>The /checkpoint and /review-paper –peer skills in our template are adapted from clo-author with permission.</strong></li>
+<li class="fragment"><strong><a href="https://github.com/chrisblattman/claudeblattman"><code>claudeblattman</code></a></strong> — Chris Blattman’s guide for non-technical academics. Less code-heavy, more workflow-heavy. Good entry point if you don’t write code daily.</li>
+<li class="fragment"><strong><a href="https://github.com/scunning1975/MixtapeTools"><code>MixtapeTools</code></a></strong> — Scott Cunningham’s TikZ + Rhetoric of Decks materials. <strong>Our TikZ infrastructure is ported from here.</strong></li>
+<li class="fragment"><strong><a href="https://github.com/karpathy/autoresearch"><code>autoresearch</code></a></strong> — Andrej Karpathy’s experiment in constraint-based autonomous research. Aspirational; very different shape than ours.</li>
+</ul>
+</section>
+<section id="anthropic-shipped-utilities" class="slide level2 compact">
+<h2>Anthropic-shipped utilities</h2>
+<p>Built into Claude Code itself, no fork needed:</p>
+<ul>
+<li class="fragment"><strong><code>/team-onboarding</code></strong> — package your local setup into a replayable guide for collaborators</li>
+<li class="fragment"><strong><code>/autofix-pr</code></strong> — runs Claude Code on a GitHub PR, applying CI-style fixes</li>
+<li class="fragment"><strong><code>/powerup</code></strong> — interactive lessons (Anthropic’s tutorial system)</li>
+<li class="fragment"><strong>Ultraplan</strong> — cloud-based plan editing, sync to local</li>
+<li class="fragment"><strong><code>/loop</code> self-pacing</strong> — recurring or self-paced background tasks</li>
+</ul>
+<div class="fragment">
+<p>I’d recommend <code>/team-onboarding</code> for any lab group — package once, share with all collaborators.</p>
+</div>
+</section></section>
+<section>
+<section id="resources-start" class="title-slide slide level1 claudeorange center">
+<h1>Resources + start</h1>
+
+</section>
+<section id="three-things-to-do-this-week" class="slide level2 compact">
+<h2>Three things to do this week</h2>
+<ol type="1">
+<li class="fragment"><strong>Clone <code>Claude-Mini</code></strong> (the repo you’re looking at): <a href="https://github.com/pedrohcgs/Claude-Mini">github.com/pedrohcgs/Claude-Mini</a>. Slides + all demo bundles.</li>
+<li class="fragment"><strong>Fork <code>claude-code-my-workflow</code></strong>: <a href="https://github.com/pedrohcgs/claude-code-my-workflow">github.com/pedrohcgs/claude-code-my-workflow</a>. The full template (30 skills, 14 agents, 24 rules, 6 hooks, v1.8.0).</li>
+<li class="fragment"><strong>Write a <code>CLAUDE.md</code></strong> for your next paper. <strong>30 minutes</strong>. Highest-leverage action you can take.</li>
+</ol>
+<div class="fragment">
+<p>If you do nothing else: <strong>#3.</strong> Open one paper directory, write 100 lines, and the whole rest of this stack pays off.</p>
+</div>
+</section>
+<section id="three-things-to-do-this-month" class="slide level2 compact">
+<h2>Three things to do this month</h2>
+<ol type="1">
+<li class="fragment"><strong>Pick one repetitive task you do 3+ times a year. Write it as a skill.</strong> (Sample use cases on the handout.)</li>
+<li class="fragment"><strong>Run <code>/audit-reproducibility</code></strong> on your most recent submitted paper. Find the issue. Fix it.</li>
+<li class="fragment"><strong>Try <code>/review-paper --peer &lt;your-target-journal&gt;</code></strong> on a current draft. Treat the simulated review as a dress rehearsal.</li>
+</ol>
+</section>
+<section id="resources-for-going-deeper" class="slide level2 compact">
+<h2>Resources for going deeper</h2>
+<ul>
+<li class="fragment"><strong>The Claude Code docs:</strong> <a href="https://code.claude.com/docs">code.claude.com/docs</a></li>
+<li class="fragment"><strong>Anthropic’s “Best Practices” page:</strong> <a href="https://code.claude.com/docs/en/best-practices">code.claude.com/docs/en/best-practices</a> — short and very good</li>
+<li class="fragment"><strong>The <code>claude-code-my-workflow</code> guide:</strong> the full 250-section walkthrough at <a href="https://psantanna.com/claude-code-my-workflow">psantanna.com/claude-code-my-workflow</a></li>
+<li class="fragment"><strong>The TROUBLESHOOTING.md</strong> in the same repo — most issues you’ll hit are catalogued there</li>
+</ul>
+</section>
+<section id="honest-closing" class="slide level2 compact">
+<h2>Honest closing</h2>
+<ul>
+<li class="fragment">This workflow has saved me <strong>probably 100+ hours</strong> in the last year.</li>
+<li class="fragment">It’s also occasionally <strong>infuriating</strong> — agents misunderstanding, hooks firing inconveniently, demos failing live.</li>
+<li class="fragment">The leverage is real. The friction is also real. <strong>You’ll calibrate by doing.</strong></li>
+<li class="fragment">The community of academics adopting this is small but growing fast. <strong>You’re early.</strong></li>
+</ul>
+</section>
+<section id="thank-you" class="slide level2 emoryblue">
+<h2>Thank you</h2>
+<ul>
+<li class="fragment">This was 4 hours of your time. Thank you for it.</li>
+<li class="fragment">Materials at: <a href="https://github.com/pedrohcgs/Claude-Mini">github.com/pedrohcgs/Claude-Mini</a></li>
+<li class="fragment">Reach me: pedro.santanna@emory.edu | <a href="https://psantanna.com">psantanna.com</a> | <a href="https://github.com/pedrohcgs"><span class="citation" data-cites="pedrohcgs">@pedrohcgs</span></a></li>
+<li class="fragment"><strong>Q&amp;A starts now.</strong></li>
+</ul>
 </section>
 <section class="slide level2">
 
 </section></section>
 <section>
-<section id="thank-you" class="title-slide slide level1 emoryblue center">
+<section id="thank-you-1" class="title-slide slide level1 emoryblue center">
 <h1>Thank You</h1>
 
 </section>
