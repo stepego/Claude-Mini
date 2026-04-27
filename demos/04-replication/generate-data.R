@@ -51,14 +51,24 @@ df$formation_rate <- 50 +
 # Drop rows to land at exactly 14,635 (= 14,562 expected after the script's filters)
 # Filter cascade in analyze.R: year-range OK, n>=5 OK (each county has 11 years, all pass),
 # !is.na drops 0, year < 2020 drops 73 → leaves 14,562 in COVID-excluded run
-target_rows <- 14635
+target_rows <- 14562
 if (nrow(df) > target_rows) {
   df <- df[sample(nrow(df), target_rows), ]
 }
 
 # Save
-dir.create("data", showWarnings = FALSE)
-saveRDS(df, "data/clean.rds")
+# Resolve script directory (works whether run from repo root or demo dir)
+script_args <- commandArgs(trailingOnly = FALSE)
+script_path <- sub("--file=", "", script_args[grep("--file=", script_args)])
+if (length(script_path) == 0 || script_path == "") {
+  script_dir <- "."
+} else {
+  script_dir <- dirname(script_path)
+}
+data_dir <- file.path(script_dir, "data")
+dir.create(data_dir, showWarnings = FALSE, recursive = TRUE)
+saveRDS(df, file.path(data_dir, "clean.rds"))
+cat("Path used:", file.path(data_dir, "clean.rds"), "\n")
 
 cat("Wrote data/clean.rds with", nrow(df), "rows.\n")
 cat("Counties:", length(unique(df$county_fips)), "; years:", length(unique(df$year)), "\n")
@@ -68,8 +78,8 @@ df_full <- df %>%
   filter(year >= 2009, year <= 2022) %>%
   group_by(county_fips) %>% filter(n() >= 5) %>% ungroup() %>%
   filter(!is.na(treated), !is.na(formation_rate))
-cat("Filter cascade BEFORE COVID exclusion: N =", nrow(df_full), "(target ~14,562)\n")
+cat("Filter cascade BEFORE COVID exclusion: N =", nrow(df_full), "(target 14,562 — matches manuscript)\n")
 
 df_cov <- df_full %>% filter(year < 2020)
-cat("Filter cascade AFTER COVID exclusion (planted bug): N =", nrow(df_cov), "(target ~14,489)\n")
+cat("Filter cascade AFTER COVID exclusion (planted bug): N =", nrow(df_cov), "(target 14,489 — with planted COVID-year filter)\n")
 cat("Diff (silent COVID drop):", nrow(df_full) - nrow(df_cov), "(target 73)\n")

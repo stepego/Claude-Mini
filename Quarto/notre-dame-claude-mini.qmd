@@ -1572,7 +1572,7 @@ Every MAJOR concern in a referee report from this pipeline must include:
 | Step | What happens | Time mark |
 |------|-------------|-----------|
 | 1 | Show the manuscript snippet | T+0 |
-| 2 | Run `/review-paper --peer JF` | T+1 |
+| 2 | Run `/review-paper --peer AER` | T+1 |
 | 3 | Editor: desk review + novelty probe | T+2 |
 | 4 | Editor: referee selection (2 dispositions) | T+5 |
 | 5 | Two referees fan out (parallel) | T+6 |
