@@ -45,53 +45,77 @@ theme_claude_mini <- theme_minimal(base_size = 14) +
 
 # Agentic AI for Academic Research {.emoryblue}
 
-## A 4-hour Watch-Along · Notre Dame Mendoza · Spring 2026 {.compact background-color="#012169"}
+## A 4-hour Watch-Along · Notre Dame Mendoza · Spring 2026 {.compact}
 
 > Pedro H. C. Sant'Anna · Emory University
 
 . . .
 
-Three live demos. One repo to clone tonight.
+Mostly: how I've been using this in my own research. What works, what doesn't, what I'm still figuring out.
 
-## I lost a paper to one number {.compact}
+## Where I'm coming from {.compact}
 
-> *I had a working paper rejected at __REStud__ once because a single number in Table 3 didn't match the .csv I shipped.*
->
-> *Eight hours of debugging — to find out I had silently dropped 73 observations in a robustness check three months earlier. Manuscript still cited the old N.*
->
-> *The skill I'm about to show you would have caught it in 90 seconds.*
-
-. . .
-
-I'm going to show you **that skill** — and the workflow it lives in — in the next 4 hours.
-
-## What you'll have at the end {.compact}
+A few facts about my last 18 months:
 
 ::: {.incremental}
-- A clear answer to: **"should I adopt this for my next paper, class, or RA workflow?"**
-- A repo (`Claude-Mini`) you can clone tonight.
-- A working starter template (`claude-code-my-workflow`) you can fork on Monday.
-- Three demos that catch the kinds of bugs that cost months of revision.
+- **5 kids at home** (one of them very small)
+- **3 papers in revision** at top journals
+- **3 more papers** in active drafting
+- A **new PhD course** I'm teaching for the first time
 :::
-
-## What this is *not*
-
-- Not a sales pitch.
-- Not a tutorial on writing Python, R, or Stata.
-- Not "AI will write your paper." (Claude won't, and shouldn't.)
-
-## What it *is*
-
-A workflow built on top of agentic AI that:
-
-1. **Plans** before it acts.
-2. **Reviews** its own work with multiple specialized agents.
-3. **Verifies** its output before shipping.
-4. **Survives** across sessions and across collaborators.
 
 . . .
 
-Four hours. Three live demos. One repo to clone tonight.
+Something had to give. I started experimenting with Claude Code. **I'm still figuring it out.** Today is me sharing where I am.
+
+## What this actually is {.compact}
+
+Think of agentic AI as a **super-RA**:
+
+::: {.incremental}
+- It reads your files. Runs your code. Edits on disk. Calls external services.
+- It can plan steps before acting, and review its own work.
+- **You still drive.** You still check. You still take responsibility for what ships.
+- But it expands what's possible — *if* you put in the practice.
+:::
+
+. . .
+
+Faster, better, more reliable. **With practice.**
+
+## What this is *not* {.compact}
+
+- ❌ A sales pitch. Really. I have nothing to sell.
+- ❌ A tutorial that teaches you Python, R, or Stata.
+- ❌ "AI will write your paper." (It won't, and shouldn't.)
+- ❌ "Your first try will blow your mind." (It won't either. Keep at it anyway.)
+
+## How you get better at this {.compact}
+
+::: {.incremental}
+- **Experimentation.** Try small things first. See what breaks.
+- **On-the-job practice.** Use it on a paper you're already writing.
+- **Digging in.** Read other people's setups. Steal what works.
+- **Expanding the frontier.** Once it works for X, ask whether it can also do Y.
+:::
+
+. . .
+
+**The first time, you'll find errors.** You'll be picking on the wrong stuff. That's normal — that's the practice. Over time you build know-how, and the agents get better at the things *you* care about.
+
+## What we're going to do today {.compact}
+
+I'll show you how I've been using it. **Three live demos** drawn from my actual workflow:
+
+::: {.incremental}
+- A **manuscript section** I'm trying to improve
+- A **replication check** on numbers in a paper draft
+- A **simulated peer review** on a working paper
+:::
+
+. . .
+
+You're welcome to clone the repo. You're welcome to skip it. **Mainly: I'd love to hear what works for you afterward.**
 
 ## Roadmap (4 hours, watch-along) {.compact}
 
@@ -111,49 +135,49 @@ Four hours. Three live demos. One repo to clone tonight.
 
 # Part 1 — Agentic AI + CLAUDE.md {.claudeorange #part-1}
 
-## The premise of this part {.compact}
+## What I think matters most {.compact}
 
 ::: {.incremental}
-- The most useful thing a researcher writes in this stack is **not code**. It's a one-page file called `CLAUDE.md`.
-- Everything else — skills, rules, hooks, multi-agent review — derives from it.
-- Forty minutes from now, you'll know exactly what to put in yours.
+- In my experience, the highest-leverage file I write in this stack is **not code**. It's a one-page file called `CLAUDE.md`.
+- Everything else — skills, rules, hooks, multi-agent review — kind of derives from it.
+- I'll spend the next 40 minutes showing you what's in mine and how to think about yours.
 :::
 
-## Why now? {.compact}
-
-Three things changed in the last 18 months:
+## A few things have shifted {.compact}
 
 ::: {.incremental}
-- **Replication compliance is no longer optional.** AEA Data Editor since 2019; JF Disclosure Statement since 2023; JAR full-data archive expected by 2027. Desk rejects on package failures are rising.
-- **Referee reports got harder, not easier.** Higher methods bar at *AER* / *JF* / *JAR*; pre-registration creep into observational work; "what would change my mind" becoming a referee-side norm.
-- **Agentic AI matured fast.** "Tool-using" went from research preview (2024) to production (2025). The gap between *chatbot* and *agent* is now the same as the gap between *spreadsheet* and *programming language*.
-:::
-
-## Why this audience {.compact}
-
-::: {.incremental}
-- B-school faculty in **economics, finance, accounting** sit at the intersection of these three pressures.
-- High-stakes papers, slow review cycles, replication-package compliance now part of the job, not a footnote.
-- Most faculty I talk to use AI tools as **chat replacements** — better Google. That leaves 80% of the value on the table.
+- **Replication scrutiny has gone up.** AEA Data Editor checks every accepted paper; REStud + EJ run formal verification; the field-specific journals are heading the same direction.
+- **Referee reports got more methodical.** Pre-trends sensitivity, identification robustness, "what would change my mind" — the bar keeps rising.
+- **Agentic AI matured fast.** "Tool-using" went from research preview (2024) to production (2025). It's not a chatbot anymore. The gap between *chatbot* and *agent* is roughly the gap between *spreadsheet* and *programming language*.
 :::
 
 . . .
 
-The next 4 hours: see what's on that table.
+These don't make this stuff *necessary*. They just make the upside of having a workflow bigger.
 
-## What I'm not going to do {.compact}
-
-- ❌ Sell you on adopting this. (You'll evaluate yourself.)
-- ❌ Teach you Python or Stata or R. (Use what you already use.)
-- ❌ Promise that "AI will write your paper." (Claude won't — and shouldn't.)
-
-## What I am going to do
+## Where I think this might land {.compact}
 
 ::: {.incremental}
-1. Show you a workflow built on top of agentic AI that **plans before acting, reviews its own work, and verifies before shipping**.
-2. Demonstrate it live on real materials — manuscript improvement, replication audit, simulated peer review.
-3. Hand you a repo (`Claude-Mini`) you can clone tonight and a parent template (`claude-code-my-workflow`) you can fork on Monday.
+- Most academics I talk to use AI tools as **chat replacements** — basically a better Google.
+- That's fine, but it leaves a lot of capability on the table.
+- The leap from chatbot-AI to agentic-AI is genuinely big — *if* you set things up to take advantage of it.
 :::
+
+. . .
+
+I'll be honest: not all of what I show today is going to be relevant to all of you. Take what fits.
+
+## What I'll be doing {.compact}
+
+::: {.incremental}
+1. Walking you through a workflow I've built on top of agentic AI — one that **plans before acting, reviews its own work, and verifies before shipping**.
+2. Demonstrating it live on real materials I'm actually working on — manuscript improvement, replication check, simulated peer review.
+3. Sharing the repo (`Claude-Mini`) and the parent template (`claude-code-my-workflow`) so you can clone, fork, or just borrow ideas.
+:::
+
+. . .
+
+If something works for you, take it. If something doesn't, leave it.
 
 # Tool landscape {.claudeorange}
 
@@ -1032,7 +1056,7 @@ Honesty matters: this is a contract that skills implement, not a magic backgroun
 
 . . .
 
-**Why this matters:** in my rejected-paper story, the bug was a number, not a citation — but with CoVe, *citation* misattribution is the next class of error this catches. Different agent. Different blind spots.
+**Why this matters in practice:** I once spent an evening figuring out that I'd cited the wrong paper for a mechanism I was discussing — referee caught it. CoVe-style verification catches that class of mistake, because the verifier doesn't share the writer's confidence in the original draft.
 
 ## Three patterns, three failure modes {.compact}
 
@@ -1158,19 +1182,13 @@ Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fres
 
 # Part 5 — Research + Replication {.emoryblue #part-5}
 
-## Back to the paper I lost {.compact}
+## A small reflection {.compact}
 
-> *(Reminder from the cold open: I had a paper rejected at REStud because **a single number** in Table 3 didn't match the .csv I shipped. **Eight hours of debugging.** That's the story.)*
-
-> *Now here's the skill that would have caught it.*
+A few years back, I had a manuscript bounce because a single number in a table didn't match the .csv I shipped — silent filter I'd added months earlier and forgotten about. Took me a long evening to find it.
 
 . . .
 
-Here's the skill. It would have caught it in 90 seconds.
-
-. . .
-
-Watch.
+I now run this kind of check on every paper before submission. **Doesn't always catch everything**, but it catches more than I would on a re-read. Let me show you what it looks like.
 
 ## Why this part lands hardest for applied-causal work {.compact}
 
@@ -1327,15 +1345,17 @@ These are the kinds of bugs that produce "the script ran but the numbers are sli
 
 ## What you're about to see {.compact}
 
-> **Watch the moment a number you trusted turns out to be wrong.**
-
 ::: {.incremental}
-- A real (sanitized) `manuscript-claims.md` with 4 numerical claims.
-- A real `analyze.R` script that allegedly produced them.
+- A `manuscript-claims.md` with 4 numerical claims (sanitized — looks like a real paper draft).
+- An `analyze.R` script that allegedly produced them.
 - I run `/audit-reproducibility manuscript-claims.md analyze.R`.
 - The agent reads both, runs the script, compares to claims.
-- **One claim diverges. Agent surfaces it.** It's the kind of bug that re-reading the manuscript would never catch.
+- One claim diverges — the kind of bug re-reading the manuscript wouldn't catch.
 :::
+
+. . .
+
+This works *most* of the time. Sometimes the agent reports false positives or misses things. It's a check, not a guarantee.
 
 ## The 4 numerical claims (preview) {.compact}
 
@@ -1390,13 +1410,12 @@ What you saw:
 - The agent surfaced exactly *which line* of the script produces the divergent number.
 :::
 
-## Why this matters in 2026 {.compact}
+## Why this lands for me {.compact}
 
 ::: {.incremental}
-- This is what AEA Data Editors do — for **every accepted paper**.
-- Doing it BEFORE submission means: you fix in private, not in public.
-- The cost of a desk-reject because of a numerical discrepancy is **several months of your life**.
-- This skill costs ~5 minutes per run.
+- AEA Data Editors do this for every accepted paper. So do JF / REStud reviewers.
+- Catching a discrepancy *before* submission means fixing in private rather than in public.
+- The skill costs me ~5 minutes per run. Doesn't always find something — but when it does, it's saved me real time.
 :::
 
 ## What it doesn't replace {.compact}
@@ -1408,19 +1427,18 @@ What you saw:
 - ✅ **The boring 70%.** All of which is mechanical and previously slow.
 :::
 
-## How to start, on Monday {.compact}
+## If you want to try this {.compact}
 
 ::: {.incremental}
-1. **Pick your most recent submitted paper.**
-2. **Run `/audit-reproducibility`** on its manuscript + replication code.
-3. **What does it find?**
-4. If it finds something — fix and re-submit a corrigendum if needed.
-5. Now run it on every paper before submission, going forward.
+1. Pick a paper you've already submitted somewhere.
+2. Run `/audit-reproducibility` on the manuscript + replication code.
+3. See what comes up.
+4. If something comes up — decide what to do with it.
 :::
 
 . . .
 
-You'll find at least one issue on a previous submission. I always do.
+In my own runs, I usually find something — sometimes a real issue, sometimes a false alarm. Both are useful: the false alarms tell me what the agent is bad at, which helps me write better skills next time.
 
 ## Take a 10-minute break {.emoryblue}
 
@@ -1436,17 +1454,17 @@ After the break: **Part 6 — refereeing + review simulation.**
 
 # Part 6 — Refereeing + Review Simulation {.emoryblue #part-6}
 
-## What if every paper got a peer review *before* you submitted it? {.compact}
+## A pre-submission check that surprised me {.compact}
 
 ::: {.incremental}
-- Not in the "I emailed it to my co-author" sense.
-- An *editor* who selects two referees with different perspectives, who write structured reports, and an *editorial decision* with an explicit revision plan.
-- Twenty minutes. Not weeks.
+- I started using this skill expecting it to be useful for catching surface stuff (typos, clarity).
+- It turns out the more interesting use is the **disposition modeling** — simulating that a credibility-skeptic referee would read your paper differently than a policy-relevance referee, and seeing what each would surface.
+- The output isn't *the* peer review. It's a structured *practice* peer review: an editor + two referees with different priors + an editorial-decision template.
 :::
 
 . . .
 
-That's what we're about to show.
+Twenty minutes. Useful as a dress rehearsal — not a substitute for real referees.
 
 ## Why this works (and where it doesn't) {.compact}
 
@@ -1556,16 +1574,18 @@ Every MAJOR concern in a referee report from this pipeline must include:
 
 ## What you're about to see {.compact}
 
-> **Watch a simulated AER editor surface a concern a real editor would have surfaced — about a paper I haven't published yet.**
-
 ::: {.incremental}
-- A real (sanitized) manuscript snippet — intro + identification section, ~3 pages. A staggered-DiD application paper.
+- A sanitized manuscript snippet — intro + identification section, ~3 pages, a staggered-DiD application.
 - I run `/review-paper --peer AER`.
-- The **editor agent** does desk review (with a WebSearch novelty probe).
-- The editor selects **two referees with different dispositions** from the AER pool.
+- The **editor agent** does a desk review (with a WebSearch novelty probe).
+- The editor picks **two referees with different dispositions** from the AER pool.
 - The two referees fan out **in parallel**.
-- The editor synthesizes both reports → **editorial decision** (FATAL / ADDRESSABLE / TASTE).
+- The editor synthesizes → **editorial decision** (FATAL / ADDRESSABLE / TASTE).
 :::
+
+. . .
+
+Sometimes the simulated review surfaces something I hadn't thought of. Sometimes it's noise. **It's a useful first pass.**
 
 ## The choreographed time-budget {.compact}
 
@@ -1814,14 +1834,18 @@ Five layers. None of them are AI-magical. **All of them are written instructions
 
 The diagram is the whole talk in one picture.
 
-## What you have right now {.compact}
+## What we just covered {.compact}
 
 ::: {.incremental}
-- A clear mental model of where each layer lives + why
-- Concrete pictures of three live demos (manuscript improvement, replication audit, simulated peer review)
-- A repo (`Claude-Mini`) you can clone tonight
-- A parent template (`claude-code-my-workflow`) you can fork on Monday
+- A mental model for where each piece of the stack lives + why
+- Three concrete demos from my own workflow
+- A repo you can clone if you want the materials
+- A parent template you can fork when you're ready
 :::
+
+. . .
+
+If even *one* of these stuck, I'll consider the four hours well spent.
 
 # Cross-tool strategies {.claudeorange}
 
@@ -1925,17 +1949,17 @@ Built by OpenAI's VB Srivastav and team. Source: [OpenAI Developer Community ann
 
 # Resources + start {.claudeorange}
 
-## One thing to do tonight {.compact}
+## If you only do one thing this week {.compact}
 
-> **Open the directory of your most-active paper. Write a `CLAUDE.md`. 30 minutes.**
-
-. . .
-
-That's it. The single highest-leverage action from these 4 hours. Once `CLAUDE.md` exists, the whole rest of this stack composes onto it.
+> Open the directory of a paper you're working on. Try writing a `CLAUDE.md`. ~30 minutes.
 
 . . .
 
-(Logistics: clone [`Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini) for slides + demos; fork [`claude-code-my-workflow`](https://github.com/pedrohcgs/claude-code-my-workflow) when you're ready for the full template. But neither of those is the thing that changes a paper.)
+That's the smallest experiment I'd recommend. Once it exists, everything else in this stack has somewhere to anchor.
+
+. . .
+
+(If you want the slides and demos: clone [`Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini). Full template: fork [`claude-code-my-workflow`](https://github.com/pedrohcgs/claude-code-my-workflow). But neither of those changes a paper by itself.)
 
 ## When you're ready, three places to extend {.compact}
 
@@ -1983,7 +2007,7 @@ These are *menu*, not assignments. Pick one when it's the right week.
 
 ## Thank you {.emoryblue}
 
-> Four hours of your time. I appreciate it.
+> Thanks for spending four hours of your day with me. I'd genuinely love to hear what works for you.
 
 . . .
 
@@ -1993,6 +2017,6 @@ These are *menu*, not assignments. Pick one when it's the right week.
 
 . . .
 
-**Q&A starts now.**
+**Q&A — let's talk.**
 
 ---

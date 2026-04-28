@@ -217,54 +217,72 @@ Pedro H. C. Sant’Anna
 <h1>Agentic AI for Academic Research</h1>
 
 </section>
-<section id="a-4-hour-watch-along-notre-dame-mendoza-spring-2026" class="slide level2 compact" data-background-color="#012169">
+<section id="a-4-hour-watch-along-notre-dame-mendoza-spring-2026" class="slide level2 compact">
 <h2>A 4-hour Watch-Along · Notre Dame Mendoza · Spring 2026</h2>
 <blockquote>
 <p>Pedro H. C. Sant’Anna · Emory University</p>
 </blockquote>
 <div class="fragment">
-<p>Three live demos. One repo to clone tonight.</p>
+<p>Mostly: how I’ve been using this in my own research. What works, what doesn’t, what I’m still figuring out.</p>
 </div>
 </section>
-<section id="i-lost-a-paper-to-one-number" class="slide level2 compact">
-<h2>I lost a paper to one number</h2>
-<blockquote>
-<p><em>I had a working paper rejected at <strong>REStud</strong> once because a single number in Table 3 didn’t match the .csv I shipped.</em></p>
-<p><em>Eight hours of debugging — to find out I had silently dropped 73 observations in a robustness check three months earlier. Manuscript still cited the old N.</em></p>
-<p><em>The skill I’m about to show you would have caught it in 90 seconds.</em></p>
-</blockquote>
-<div class="fragment">
-<p>I’m going to show you <strong>that skill</strong> — and the workflow it lives in — in the next 4 hours.</p>
-</div>
-</section>
-<section id="what-youll-have-at-the-end" class="slide level2 compact">
-<h2>What you’ll have at the end</h2>
+<section id="where-im-coming-from" class="slide level2 compact">
+<h2>Where I’m coming from</h2>
+<p>A few facts about my last 18 months:</p>
 <ul>
-<li class="fragment">A clear answer to: <strong>“should I adopt this for my next paper, class, or RA workflow?”</strong></li>
-<li class="fragment">A repo (<code>Claude-Mini</code>) you can clone tonight.</li>
-<li class="fragment">A working starter template (<code>claude-code-my-workflow</code>) you can fork on Monday.</li>
-<li class="fragment">Three demos that catch the kinds of bugs that cost months of revision.</li>
+<li class="fragment"><strong>5 kids at home</strong> (one of them very small)</li>
+<li class="fragment"><strong>3 papers in revision</strong> at top journals</li>
+<li class="fragment"><strong>3 more papers</strong> in active drafting</li>
+<li class="fragment">A <strong>new PhD course</strong> I’m teaching for the first time</li>
 </ul>
+<div class="fragment">
+<p>Something had to give. I started experimenting with Claude Code. <strong>I’m still figuring it out.</strong> Today is me sharing where I am.</p>
+</div>
 </section>
-<section id="what-this-is-not" class="slide level2">
+<section id="what-this-actually-is" class="slide level2 compact">
+<h2>What this actually is</h2>
+<p>Think of agentic AI as a <strong>super-RA</strong>:</p>
+<ul>
+<li class="fragment">It reads your files. Runs your code. Edits on disk. Calls external services.</li>
+<li class="fragment">It can plan steps before acting, and review its own work.</li>
+<li class="fragment"><strong>You still drive.</strong> You still check. You still take responsibility for what ships.</li>
+<li class="fragment">But it expands what’s possible — <em>if</em> you put in the practice.</li>
+</ul>
+<div class="fragment">
+<p>Faster, better, more reliable. <strong>With practice.</strong></p>
+</div>
+</section>
+<section id="what-this-is-not" class="slide level2 compact">
 <h2>What this is <em>not</em></h2>
 <ul>
-<li>Not a sales pitch.</li>
-<li>Not a tutorial on writing Python, R, or Stata.</li>
-<li>Not “AI will write your paper.” (Claude won’t, and shouldn’t.)</li>
+<li>❌ A sales pitch. Really. I have nothing to sell.</li>
+<li>❌ A tutorial that teaches you Python, R, or Stata.</li>
+<li>❌ “AI will write your paper.” (It won’t, and shouldn’t.)</li>
+<li>❌ “Your first try will blow your mind.” (It won’t either. Keep at it anyway.)</li>
 </ul>
 </section>
-<section id="what-it-is" class="slide level2">
-<h2>What it <em>is</em></h2>
-<p>A workflow built on top of agentic AI that:</p>
-<ol type="1">
-<li><strong>Plans</strong> before it acts.</li>
-<li><strong>Reviews</strong> its own work with multiple specialized agents.</li>
-<li><strong>Verifies</strong> its output before shipping.</li>
-<li><strong>Survives</strong> across sessions and across collaborators.</li>
-</ol>
+<section id="how-you-get-better-at-this" class="slide level2 compact">
+<h2>How you get better at this</h2>
+<ul>
+<li class="fragment"><strong>Experimentation.</strong> Try small things first. See what breaks.</li>
+<li class="fragment"><strong>On-the-job practice.</strong> Use it on a paper you’re already writing.</li>
+<li class="fragment"><strong>Digging in.</strong> Read other people’s setups. Steal what works.</li>
+<li class="fragment"><strong>Expanding the frontier.</strong> Once it works for X, ask whether it can also do Y.</li>
+</ul>
 <div class="fragment">
-<p>Four hours. Three live demos. One repo to clone tonight.</p>
+<p><strong>The first time, you’ll find errors.</strong> You’ll be picking on the wrong stuff. That’s normal — that’s the practice. Over time you build know-how, and the agents get better at the things <em>you</em> care about.</p>
+</div>
+</section>
+<section id="what-were-going-to-do-today" class="slide level2 compact">
+<h2>What we’re going to do today</h2>
+<p>I’ll show you how I’ve been using it. <strong>Three live demos</strong> drawn from my actual workflow:</p>
+<ul>
+<li class="fragment">A <strong>manuscript section</strong> I’m trying to improve</li>
+<li class="fragment">A <strong>replication check</strong> on numbers in a paper draft</li>
+<li class="fragment">A <strong>simulated peer review</strong> on a working paper</li>
+</ul>
+<div class="fragment">
+<p>You’re welcome to clone the repo. You’re welcome to skip it. <strong>Mainly: I’d love to hear what works for you afterward.</strong></p>
 </div>
 </section>
 <section id="roadmap-4-hours-watch-along" class="slide level2 compact">
@@ -334,49 +352,46 @@ Pedro H. C. Sant’Anna
 <h1>Part 1 — Agentic AI + CLAUDE.md</h1>
 
 </section>
-<section id="the-premise-of-this-part" class="slide level2 compact">
-<h2>The premise of this part</h2>
+<section id="what-i-think-matters-most" class="slide level2 compact">
+<h2>What I think matters most</h2>
 <ul>
-<li class="fragment">The most useful thing a researcher writes in this stack is <strong>not code</strong>. It’s a one-page file called <code>CLAUDE.md</code>.</li>
-<li class="fragment">Everything else — skills, rules, hooks, multi-agent review — derives from it.</li>
-<li class="fragment">Forty minutes from now, you’ll know exactly what to put in yours.</li>
+<li class="fragment">In my experience, the highest-leverage file I write in this stack is <strong>not code</strong>. It’s a one-page file called <code>CLAUDE.md</code>.</li>
+<li class="fragment">Everything else — skills, rules, hooks, multi-agent review — kind of derives from it.</li>
+<li class="fragment">I’ll spend the next 40 minutes showing you what’s in mine and how to think about yours.</li>
 </ul>
 </section>
-<section id="why-now" class="slide level2 compact">
-<h2>Why now?</h2>
-<p>Three things changed in the last 18 months:</p>
+<section id="a-few-things-have-shifted" class="slide level2 compact">
+<h2>A few things have shifted</h2>
 <ul>
-<li class="fragment"><strong>Replication compliance is no longer optional.</strong> AEA Data Editor since 2019; JF Disclosure Statement since 2023; JAR full-data archive expected by 2027. Desk rejects on package failures are rising.</li>
-<li class="fragment"><strong>Referee reports got harder, not easier.</strong> Higher methods bar at <em>AER</em> / <em>JF</em> / <em>JAR</em>; pre-registration creep into observational work; “what would change my mind” becoming a referee-side norm.</li>
-<li class="fragment"><strong>Agentic AI matured fast.</strong> “Tool-using” went from research preview (2024) to production (2025). The gap between <em>chatbot</em> and <em>agent</em> is now the same as the gap between <em>spreadsheet</em> and <em>programming language</em>.</li>
-</ul>
-</section>
-<section id="why-this-audience" class="slide level2 compact">
-<h2>Why this audience</h2>
-<ul>
-<li class="fragment">B-school faculty in <strong>economics, finance, accounting</strong> sit at the intersection of these three pressures.</li>
-<li class="fragment">High-stakes papers, slow review cycles, replication-package compliance now part of the job, not a footnote.</li>
-<li class="fragment">Most faculty I talk to use AI tools as <strong>chat replacements</strong> — better Google. That leaves 80% of the value on the table.</li>
+<li class="fragment"><strong>Replication scrutiny has gone up.</strong> AEA Data Editor checks every accepted paper; REStud + EJ run formal verification; the field-specific journals are heading the same direction.</li>
+<li class="fragment"><strong>Referee reports got more methodical.</strong> Pre-trends sensitivity, identification robustness, “what would change my mind” — the bar keeps rising.</li>
+<li class="fragment"><strong>Agentic AI matured fast.</strong> “Tool-using” went from research preview (2024) to production (2025). It’s not a chatbot anymore. The gap between <em>chatbot</em> and <em>agent</em> is roughly the gap between <em>spreadsheet</em> and <em>programming language</em>.</li>
 </ul>
 <div class="fragment">
-<p>The next 4 hours: see what’s on that table.</p>
+<p>These don’t make this stuff <em>necessary</em>. They just make the upside of having a workflow bigger.</p>
 </div>
 </section>
-<section id="what-im-not-going-to-do" class="slide level2 compact">
-<h2>What I’m not going to do</h2>
+<section id="where-i-think-this-might-land" class="slide level2 compact">
+<h2>Where I think this might land</h2>
 <ul>
-<li>❌ Sell you on adopting this. (You’ll evaluate yourself.)</li>
-<li>❌ Teach you Python or Stata or R. (Use what you already use.)</li>
-<li>❌ Promise that “AI will write your paper.” (Claude won’t — and shouldn’t.)</li>
+<li class="fragment">Most academics I talk to use AI tools as <strong>chat replacements</strong> — basically a better Google.</li>
+<li class="fragment">That’s fine, but it leaves a lot of capability on the table.</li>
+<li class="fragment">The leap from chatbot-AI to agentic-AI is genuinely big — <em>if</em> you set things up to take advantage of it.</li>
 </ul>
+<div class="fragment">
+<p>I’ll be honest: not all of what I show today is going to be relevant to all of you. Take what fits.</p>
+</div>
 </section>
-<section id="what-i-am-going-to-do" class="slide level2">
-<h2>What I am going to do</h2>
+<section id="what-ill-be-doing" class="slide level2 compact">
+<h2>What I’ll be doing</h2>
 <ol type="1">
-<li class="fragment">Show you a workflow built on top of agentic AI that <strong>plans before acting, reviews its own work, and verifies before shipping</strong>.</li>
-<li class="fragment">Demonstrate it live on real materials — manuscript improvement, replication audit, simulated peer review.</li>
-<li class="fragment">Hand you a repo (<code>Claude-Mini</code>) you can clone tonight and a parent template (<code>claude-code-my-workflow</code>) you can fork on Monday.</li>
+<li class="fragment">Walking you through a workflow I’ve built on top of agentic AI — one that <strong>plans before acting, reviews its own work, and verifies before shipping</strong>.</li>
+<li class="fragment">Demonstrating it live on real materials I’m actually working on — manuscript improvement, replication check, simulated peer review.</li>
+<li class="fragment">Sharing the repo (<code>Claude-Mini</code>) and the parent template (<code>claude-code-my-workflow</code>) so you can clone, fork, or just borrow ideas.</li>
 </ol>
+<div class="fragment">
+<p>If something works for you, take it. If something doesn’t, leave it.</p>
+</div>
 </section></section>
 <section>
 <section id="tool-landscape" class="title-slide slide level1 claudeorange center">
@@ -1342,7 +1357,7 @@ Pedro H. C. Sant’Anna
 <li class="fragment">Adapted from Dhuliawala et al.&nbsp;2023, <em>Chain-of-Verification Reduces Hallucination in LLMs</em> (<a href="https://arxiv.org/abs/2309.11495">arXiv:2309.11495</a>).</li>
 </ul>
 <div class="fragment">
-<p><strong>Why this matters:</strong> in my rejected-paper story, the bug was a number, not a citation — but with CoVe, <em>citation</em> misattribution is the next class of error this catches. Different agent. Different blind spots.</p>
+<p><strong>Why this matters in practice:</strong> I once spent an evening figuring out that I’d cited the wrong paper for a mechanism I was discussing — referee caught it. CoVe-style verification catches that class of mistake, because the verifier doesn’t share the writer’s confidence in the original draft.</p>
 </div>
 </section>
 <section id="three-patterns-three-failure-modes" class="slide level2 compact">
@@ -1521,19 +1536,11 @@ Pedro H. C. Sant’Anna
 <h1>Part 5 — Research + Replication</h1>
 
 </section>
-<section id="back-to-the-paper-i-lost" class="slide level2 compact">
-<h2>Back to the paper I lost</h2>
-<blockquote>
-<p><em>(Reminder from the cold open: I had a paper rejected at REStud because <strong>a single number</strong> in Table 3 didn’t match the .csv I shipped. <strong>Eight hours of debugging.</strong> That’s the story.)</em></p>
-</blockquote>
-<blockquote>
-<p><em>Now here’s the skill that would have caught it.</em></p>
-</blockquote>
+<section id="a-small-reflection" class="slide level2 compact">
+<h2>A small reflection</h2>
+<p>A few years back, I had a manuscript bounce because a single number in a table didn’t match the .csv I shipped — silent filter I’d added months earlier and forgotten about. Took me a long evening to find it.</p>
 <div class="fragment">
-<p>Here’s the skill. It would have caught it in 90 seconds.</p>
-</div>
-<div class="fragment">
-<p>Watch.</p>
+<p>I now run this kind of check on every paper before submission. <strong>Doesn’t always catch everything</strong>, but it catches more than I would on a re-read. Let me show you what it looks like.</p>
 </div>
 </section>
 <section id="why-this-part-lands-hardest-for-applied-causal-work" class="slide level2 compact">
@@ -1685,16 +1692,16 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="what-youre-about-to-see-1" class="slide level2 compact">
 <h2>What you’re about to see</h2>
-<blockquote>
-<p><strong>Watch the moment a number you trusted turns out to be wrong.</strong></p>
-</blockquote>
 <ul>
-<li class="fragment">A real (sanitized) <code>manuscript-claims.md</code> with 4 numerical claims.</li>
-<li class="fragment">A real <code>analyze.R</code> script that allegedly produced them.</li>
+<li class="fragment">A <code>manuscript-claims.md</code> with 4 numerical claims (sanitized — looks like a real paper draft).</li>
+<li class="fragment">An <code>analyze.R</code> script that allegedly produced them.</li>
 <li class="fragment">I run <code>/audit-reproducibility manuscript-claims.md analyze.R</code>.</li>
 <li class="fragment">The agent reads both, runs the script, compares to claims.</li>
-<li class="fragment"><strong>One claim diverges. Agent surfaces it.</strong> It’s the kind of bug that re-reading the manuscript would never catch.</li>
+<li class="fragment">One claim diverges — the kind of bug re-reading the manuscript wouldn’t catch.</li>
 </ul>
+<div class="fragment">
+<p>This works <em>most</em> of the time. Sometimes the agent reports false positives or misses things. It’s a check, not a guarantee.</p>
+</div>
 </section>
 <section id="the-4-numerical-claims-preview" class="slide level2 compact">
 <h2>The 4 numerical claims (preview)</h2>
@@ -1789,13 +1796,12 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <li class="fragment">The agent surfaced exactly <em>which line</em> of the script produces the divergent number.</li>
 </ul>
 </section>
-<section id="why-this-matters-in-2026" class="slide level2 compact">
-<h2>Why this matters in 2026</h2>
+<section id="why-this-lands-for-me" class="slide level2 compact">
+<h2>Why this lands for me</h2>
 <ul>
-<li class="fragment">This is what AEA Data Editors do — for <strong>every accepted paper</strong>.</li>
-<li class="fragment">Doing it BEFORE submission means: you fix in private, not in public.</li>
-<li class="fragment">The cost of a desk-reject because of a numerical discrepancy is <strong>several months of your life</strong>.</li>
-<li class="fragment">This skill costs ~5 minutes per run.</li>
+<li class="fragment">AEA Data Editors do this for every accepted paper. So do JF / REStud reviewers.</li>
+<li class="fragment">Catching a discrepancy <em>before</em> submission means fixing in private rather than in public.</li>
+<li class="fragment">The skill costs me ~5 minutes per run. Doesn’t always find something — but when it does, it’s saved me real time.</li>
 </ul>
 </section>
 <section id="what-it-doesnt-replace" class="slide level2 compact">
@@ -1807,17 +1813,16 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <li class="fragment">✅ <strong>The boring 70%.</strong> All of which is mechanical and previously slow.</li>
 </ul>
 </section>
-<section id="how-to-start-on-monday" class="slide level2 compact">
-<h2>How to start, on Monday</h2>
+<section id="if-you-want-to-try-this" class="slide level2 compact">
+<h2>If you want to try this</h2>
 <ol type="1">
-<li class="fragment"><strong>Pick your most recent submitted paper.</strong></li>
-<li class="fragment"><strong>Run <code>/audit-reproducibility</code></strong> on its manuscript + replication code.</li>
-<li class="fragment"><strong>What does it find?</strong></li>
-<li class="fragment">If it finds something — fix and re-submit a corrigendum if needed.</li>
-<li class="fragment">Now run it on every paper before submission, going forward.</li>
+<li class="fragment">Pick a paper you’ve already submitted somewhere.</li>
+<li class="fragment">Run <code>/audit-reproducibility</code> on the manuscript + replication code.</li>
+<li class="fragment">See what comes up.</li>
+<li class="fragment">If something comes up — decide what to do with it.</li>
 </ol>
 <div class="fragment">
-<p>You’ll find at least one issue on a previous submission. I always do.</p>
+<p>In my own runs, I usually find something — sometimes a real issue, sometimes a false alarm. Both are useful: the false alarms tell me what the agent is bad at, which helps me write better skills next time.</p>
 </div>
 </section>
 <section id="take-a-10-minute-break-1" class="slide level2 emoryblue">
@@ -1837,15 +1842,15 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h1>Part 6 — Refereeing + Review Simulation</h1>
 
 </section>
-<section id="what-if-every-paper-got-a-peer-review-before-you-submitted-it" class="slide level2 compact">
-<h2>What if every paper got a peer review <em>before</em> you submitted it?</h2>
+<section id="a-pre-submission-check-that-surprised-me" class="slide level2 compact">
+<h2>A pre-submission check that surprised me</h2>
 <ul>
-<li class="fragment">Not in the “I emailed it to my co-author” sense.</li>
-<li class="fragment">An <em>editor</em> who selects two referees with different perspectives, who write structured reports, and an <em>editorial decision</em> with an explicit revision plan.</li>
-<li class="fragment">Twenty minutes. Not weeks.</li>
+<li class="fragment">I started using this skill expecting it to be useful for catching surface stuff (typos, clarity).</li>
+<li class="fragment">It turns out the more interesting use is the <strong>disposition modeling</strong> — simulating that a credibility-skeptic referee would read your paper differently than a policy-relevance referee, and seeing what each would surface.</li>
+<li class="fragment">The output isn’t <em>the</em> peer review. It’s a structured <em>practice</em> peer review: an editor + two referees with different priors + an editorial-decision template.</li>
 </ul>
 <div class="fragment">
-<p>That’s what we’re about to show.</p>
+<p>Twenty minutes. Useful as a dress rehearsal — not a substitute for real referees.</p>
 </div>
 </section>
 <section id="why-this-works-and-where-it-doesnt" class="slide level2 compact">
@@ -1975,17 +1980,17 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="what-youre-about-to-see-2" class="slide level2 compact">
 <h2>What you’re about to see</h2>
-<blockquote>
-<p><strong>Watch a simulated AER editor surface a concern a real editor would have surfaced — about a paper I haven’t published yet.</strong></p>
-</blockquote>
 <ul>
-<li class="fragment">A real (sanitized) manuscript snippet — intro + identification section, ~3 pages. A staggered-DiD application paper.</li>
+<li class="fragment">A sanitized manuscript snippet — intro + identification section, ~3 pages, a staggered-DiD application.</li>
 <li class="fragment">I run <code>/review-paper --peer AER</code>.</li>
-<li class="fragment">The <strong>editor agent</strong> does desk review (with a WebSearch novelty probe).</li>
-<li class="fragment">The editor selects <strong>two referees with different dispositions</strong> from the AER pool.</li>
+<li class="fragment">The <strong>editor agent</strong> does a desk review (with a WebSearch novelty probe).</li>
+<li class="fragment">The editor picks <strong>two referees with different dispositions</strong> from the AER pool.</li>
 <li class="fragment">The two referees fan out <strong>in parallel</strong>.</li>
-<li class="fragment">The editor synthesizes both reports → <strong>editorial decision</strong> (FATAL / ADDRESSABLE / TASTE).</li>
+<li class="fragment">The editor synthesizes → <strong>editorial decision</strong> (FATAL / ADDRESSABLE / TASTE).</li>
 </ul>
+<div class="fragment">
+<p>Sometimes the simulated review surfaces something I hadn’t thought of. Sometimes it’s noise. <strong>It’s a useful first pass.</strong></p>
+</div>
 </section>
 <section id="the-choreographed-time-budget-1" class="slide level2 compact">
 <h2>The choreographed time-budget</h2>
@@ -2310,14 +2315,17 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <p>The diagram is the whole talk in one picture.</p>
 </div>
 </section>
-<section id="what-you-have-right-now" class="slide level2 compact">
-<h2>What you have right now</h2>
+<section id="what-we-just-covered" class="slide level2 compact">
+<h2>What we just covered</h2>
 <ul>
-<li class="fragment">A clear mental model of where each layer lives + why</li>
-<li class="fragment">Concrete pictures of three live demos (manuscript improvement, replication audit, simulated peer review)</li>
-<li class="fragment">A repo (<code>Claude-Mini</code>) you can clone tonight</li>
-<li class="fragment">A parent template (<code>claude-code-my-workflow</code>) you can fork on Monday</li>
+<li class="fragment">A mental model for where each piece of the stack lives + why</li>
+<li class="fragment">Three concrete demos from my own workflow</li>
+<li class="fragment">A repo you can clone if you want the materials</li>
+<li class="fragment">A parent template you can fork when you’re ready</li>
 </ul>
+<div class="fragment">
+<p>If even <em>one</em> of these stuck, I’ll consider the four hours well spent.</p>
+</div>
 </section></section>
 <section>
 <section id="cross-tool-strategies" class="title-slide slide level1 claudeorange center">
@@ -2416,16 +2424,16 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h1>Resources + start</h1>
 
 </section>
-<section id="one-thing-to-do-tonight" class="slide level2 compact">
-<h2>One thing to do tonight</h2>
+<section id="if-you-only-do-one-thing-this-week" class="slide level2 compact">
+<h2>If you only do one thing this week</h2>
 <blockquote>
-<p><strong>Open the directory of your most-active paper. Write a <code>CLAUDE.md</code>. 30 minutes.</strong></p>
+<p>Open the directory of a paper you’re working on. Try writing a <code>CLAUDE.md</code>. ~30 minutes.</p>
 </blockquote>
 <div class="fragment">
-<p>That’s it. The single highest-leverage action from these 4 hours. Once <code>CLAUDE.md</code> exists, the whole rest of this stack composes onto it.</p>
+<p>That’s the smallest experiment I’d recommend. Once it exists, everything else in this stack has somewhere to anchor.</p>
 </div>
 <div class="fragment">
-<p>(Logistics: clone <a href="https://github.com/pedrohcgs/Claude-Mini"><code>Claude-Mini</code></a> for slides + demos; fork <a href="https://github.com/pedrohcgs/claude-code-my-workflow"><code>claude-code-my-workflow</code></a> when you’re ready for the full template. But neither of those is the thing that changes a paper.)</p>
+<p>(If you want the slides and demos: clone <a href="https://github.com/pedrohcgs/Claude-Mini"><code>Claude-Mini</code></a>. Full template: fork <a href="https://github.com/pedrohcgs/claude-code-my-workflow"><code>claude-code-my-workflow</code></a>. But neither of those changes a paper by itself.)</p>
 </div>
 </section>
 <section id="when-youre-ready-three-places-to-extend" class="slide level2 compact">
@@ -2472,14 +2480,14 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <section id="thank-you" class="slide level2 emoryblue">
 <h2>Thank you</h2>
 <blockquote>
-<p>Four hours of your time. I appreciate it.</p>
+<p>Thanks for spending four hours of your day with me. I’d genuinely love to hear what works for you.</p>
 </blockquote>
 <div class="fragment">
 <p><strong>Materials:</strong> <a href="https://github.com/pedrohcgs/Claude-Mini">github.com/pedrohcgs/Claude-Mini</a></p>
 <p><strong>Reach me:</strong> pedro.santanna@emory.edu · <a href="https://psantanna.com">psantanna.com</a> · <a href="https://github.com/pedrohcgs"><span class="citation" data-cites="pedrohcgs">@pedrohcgs</span></a></p>
 </div>
 <div class="fragment">
-<p><strong>Q&amp;A starts now.</strong></p>
+<p><strong>Q&amp;A — let’s talk.</strong></p>
 </div>
 </section>
 <section class="slide level2">
