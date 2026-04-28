@@ -1518,6 +1518,53 @@ Pedro H. C. Sant’Anna
 <li class="fragment"><strong>The hook caught a real issue at commit time</strong> that no agent would have caught — count drift across documentation.</li>
 </ul>
 </section>
+<section id="a-workflow-i-keep-coming-back-to-deep-audit" class="slide level2 claudeorange">
+<h2>A workflow I keep coming back to: <code>/deep-audit</code></h2>
+</section>
+<section id="deep-audit-multi-agent-orchestration-on-my-own-work" class="slide level2 compact">
+<h2><code>/deep-audit</code> — multi-agent orchestration on my own work</h2>
+<p>When I finish a non-trivial chunk of work — a new lecture, a paper revision, even <strong>this deck</strong> — I run <code>/deep-audit</code>. Here’s what it does:</p>
+<ol type="1">
+<li class="fragment"><strong>Phase 0 (mechanical):</strong> deterministic checks first — does it render? do internal links resolve? are tables consistent?</li>
+<li class="fragment"><strong>Phase 1 (4 parallel agents)</strong> in fresh contexts:
+<ul>
+<li class="fragment">one for <strong>correctness</strong> (claims match disk reality)</li>
+<li class="fragment">one for <strong>link health</strong> (every URL resolves to claimed content)</li>
+<li class="fragment">one for <strong>pedagogy + visual</strong> (does it teach? does it look right?)</li>
+<li class="fragment">one for <strong>practicality</strong> (does it actually work end-to-end?)</li>
+</ul></li>
+<li class="fragment"><strong>Phase 2:</strong> I triage findings — genuine bugs vs false alarms.</li>
+<li class="fragment"><strong>Phase 3:</strong> fix. Loop if needed.</li>
+</ol>
+<div class="fragment">
+<p>I ran this on the deck you’re looking at right now, last week.</p>
+</div>
+</section>
+<section id="what-deep-audit-found-in-this-deck-last-week" class="slide level2 compact">
+<h2>What <code>/deep-audit</code> found in this deck (last week)</h2>
+<ul>
+<li class="fragment"><strong>2 P0 ship-blockers:</strong> a stale ATT value on one slide that contradicted the demo’s R script; a <code>--peer JF</code> reference that disagreed with <code>--peer AER</code> everywhere else.</li>
+<li class="fragment"><strong>3 broken external URLs</strong> I’d added without verifying.</li>
+<li class="fragment"><strong>Multiple missing demo materials</strong> — <code>data/clean.rds</code> didn’t exist; the R script would have errored live.</li>
+<li class="fragment"><strong>Pedagogy issues:</strong> demo stakes that read as sales pitch; closing slides that trailed off into a URL dump.</li>
+<li class="fragment"><strong>A few false alarms</strong> — agent thought one of my GitHub URLs was 404 when it was actually fine. Worth knowing the agent’s blind spots.</li>
+</ul>
+<div class="fragment">
+<p>I’m a bit embarrassed by some of these. <strong>The agent caught what I missed.</strong> That’s the point.</p>
+</div>
+</section>
+<section id="why-this-works-for-me" class="slide level2 compact">
+<h2>Why this works for me</h2>
+<ul>
+<li class="fragment"><strong>Independence.</strong> Each audit agent runs in a <em>fresh context</em> — it never saw me write the deck. So it can’t unconsciously confirm my framing.</li>
+<li class="fragment"><strong>Specialization.</strong> Four narrow lenses each beat one broad reviewer. The link-health agent doesn’t get distracted by pedagogy.</li>
+<li class="fragment"><strong>Lived experience.</strong> I’ve used this dozens of times now. <strong>Most runs find at least one thing I’d be embarrassed to ship.</strong></li>
+<li class="fragment"><strong>Cheap.</strong> ~10 min per pass. Worth the trade for the catches.</li>
+</ul>
+<div class="fragment">
+<p>This isn’t a magic trick. It’s an orchestration <em>pattern</em> applied to my own work, on a quick cadence. <strong>The pattern is reusable</strong> — you can build your own audit skill with the lenses <em>you</em> care about.</p>
+</div>
+</section>
 <section id="coming-in-parts-5-6" class="slide level2 compact">
 <h2>Coming in Parts 5 + 6</h2>
 <ul>
@@ -2370,6 +2417,31 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </ul>
 <div class="fragment">
 <p><strong>Heuristic:</strong> cross-tool for <em>one in ten</em> tasks — the high-stakes ones. Not as a default.</p>
+</div>
+</section>
+<section id="what-it-looks-like-in-practice" class="slide level2 compact">
+<h2>What it looks like in practice</h2>
+<p>The <code>codex:adversarial-review</code> skill in <code>claude-code-my-workflow</code> runs this:</p>
+<pre><code>1. I finish a non-trivial change in Claude Code.
+2. I invoke /codex:adversarial-review on the diff.
+3. Codex reads the diff in a fresh context (it never saw my prompts).
+4. Codex returns: things it would push back on, things it'd want me to verify.
+5. I read both views and decide.</code></pre>
+<div class="fragment">
+<p><strong>No tool gets the last word.</strong> The cross-tool review is <em>information</em>, not <em>authority</em>.</p>
+</div>
+</section>
+<section id="a-small-story-from-this-week" class="slide level2 compact">
+<h2>A small story from this week</h2>
+<ul>
+<li class="fragment">I asked Claude to do a substantial refactor — about 200 lines across a couple of files.</li>
+<li class="fragment">I read the diff. It looked fine to me.</li>
+<li class="fragment">I ran <code>/codex:adversarial-review</code> on it before pushing.</li>
+<li class="fragment">Codex flagged <strong>three things Claude had quietly changed</strong> that I hadn’t noticed in my read — one was actually a regression I would have shipped.</li>
+<li class="fragment">Took an extra 90 seconds. Saved me a follow-up commit.</li>
+</ul>
+<div class="fragment">
+<p><strong>This isn’t every commit.</strong> I do it on the changes I care about most. The discipline is knowing when to spend the extra 90 seconds — and when not to.</p>
 </div>
 </section>
 <section id="a-live-mini-demo-if-time" class="slide level2 compact">

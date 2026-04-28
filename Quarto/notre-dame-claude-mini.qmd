@@ -1167,6 +1167,54 @@ Choreography: `demos/03-orchestration/README.md`.
 - **The hook caught a real issue at commit time** that no agent would have caught — count drift across documentation.
 :::
 
+## A workflow I keep coming back to: `/deep-audit` {.claudeorange}
+
+## `/deep-audit` — multi-agent orchestration on my own work {.compact}
+
+When I finish a non-trivial chunk of work — a new lecture, a paper revision, even **this deck** — I run `/deep-audit`. Here's what it does:
+
+::: {.incremental}
+1. **Phase 0 (mechanical):** deterministic checks first — does it render? do internal links resolve? are tables consistent?
+2. **Phase 1 (4 parallel agents)** in fresh contexts:
+   - one for **correctness** (claims match disk reality)
+   - one for **link health** (every URL resolves to claimed content)
+   - one for **pedagogy + visual** (does it teach? does it look right?)
+   - one for **practicality** (does it actually work end-to-end?)
+3. **Phase 2:** I triage findings — genuine bugs vs false alarms.
+4. **Phase 3:** fix. Loop if needed.
+:::
+
+. . .
+
+I ran this on the deck you're looking at right now, last week.
+
+## What `/deep-audit` found in this deck (last week) {.compact}
+
+::: {.incremental}
+- **2 P0 ship-blockers:** a stale ATT value on one slide that contradicted the demo's R script; a `--peer JF` reference that disagreed with `--peer AER` everywhere else.
+- **3 broken external URLs** I'd added without verifying.
+- **Multiple missing demo materials** — `data/clean.rds` didn't exist; the R script would have errored live.
+- **Pedagogy issues:** demo stakes that read as sales pitch; closing slides that trailed off into a URL dump.
+- **A few false alarms** — agent thought one of my GitHub URLs was 404 when it was actually fine. Worth knowing the agent's blind spots.
+:::
+
+. . .
+
+I'm a bit embarrassed by some of these. **The agent caught what I missed.** That's the point.
+
+## Why this works for me {.compact}
+
+::: {.incremental}
+- **Independence.** Each audit agent runs in a *fresh context* — it never saw me write the deck. So it can't unconsciously confirm my framing.
+- **Specialization.** Four narrow lenses each beat one broad reviewer. The link-health agent doesn't get distracted by pedagogy.
+- **Lived experience.** I've used this dozens of times now. **Most runs find at least one thing I'd be embarrassed to ship.**
+- **Cheap.** ~10 min per pass. Worth the trade for the catches.
+:::
+
+. . .
+
+This isn't a magic trick. It's an orchestration *pattern* applied to my own work, on a quick cadence. **The pattern is reusable** — you can build your own audit skill with the lenses *you* care about.
+
 ## Coming in Parts 5 + 6 {.compact}
 
 ::: {.incremental}
@@ -1893,6 +1941,36 @@ The plugin `codex:adversarial-review` (in `claude-code-my-workflow`) is exactly 
 . . .
 
 **Heuristic:** cross-tool for *one in ten* tasks — the high-stakes ones. Not as a default.
+
+## What it looks like in practice {.compact}
+
+The `codex:adversarial-review` skill in `claude-code-my-workflow` runs this:
+
+```
+1. I finish a non-trivial change in Claude Code.
+2. I invoke /codex:adversarial-review on the diff.
+3. Codex reads the diff in a fresh context (it never saw my prompts).
+4. Codex returns: things it would push back on, things it'd want me to verify.
+5. I read both views and decide.
+```
+
+. . .
+
+**No tool gets the last word.** The cross-tool review is *information*, not *authority*.
+
+## A small story from this week {.compact}
+
+::: {.incremental}
+- I asked Claude to do a substantial refactor — about 200 lines across a couple of files.
+- I read the diff. It looked fine to me.
+- I ran `/codex:adversarial-review` on it before pushing.
+- Codex flagged **three things Claude had quietly changed** that I hadn't noticed in my read — one was actually a regression I would have shipped.
+- Took an extra 90 seconds. Saved me a follow-up commit.
+:::
+
+. . .
+
+**This isn't every commit.** I do it on the changes I care about most. The discipline is knowing when to spend the extra 90 seconds — and when not to.
 
 ## A live-mini-demo (if time) {.compact}
 
