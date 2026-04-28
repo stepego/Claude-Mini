@@ -485,6 +485,10 @@ That's enough. Stop there.
 
 We'll get to rule files in 5 minutes.
 
+. . .
+
+There's evidence behind this. Gloaguen et al. (2026, ETH Zurich + INSAIT) built a 138-instance benchmark across 12 real Python repos and found that **LLM-generated `AGENTS.md` / `CLAUDE.md` files actually *reduce* task success ~3% and inflate steps + cost by 20%+**. Human-written ones gave only ~4% gains, and *only* when narrowly scoped to non-inferable details. The lesson, in their words: *"omit LLM-generated context files entirely."* So: write yours by hand, prune ruthlessly, and don't ask Claude to draft it for you.
+
 # Rules and hooks (preview) {.claudeorange}
 
 ## When CLAUDE.md gets too long {.compact}
@@ -843,6 +847,21 @@ Different layer of the stack. **Skills tell Claude *how* to think; MCPs give Cla
 . . .
 
 Most academic workflows are **skill-heavy**. MCPs become valuable when you connect Claude to **live external data** you don't already have in your repo. Further reading: [`ai-mba.io/tutorials/skills-vs-mcps`](https://ai-mba.io/tutorials/skills-vs-mcps).
+
+## Where everything fits {.compact}
+
+`CLAUDE.md`, skills, MCPs, plugins. People mix them up. Here's the map:
+
+| Piece | Where it lives | What it is | When it loads |
+|-------|----------------|-----------|---------------|
+| **`CLAUDE.md`** | Repo root (also `~/.claude/CLAUDE.md` for personal global) | **Always-on** rules + conventions | Every session, automatically |
+| **Skills** | `.claude/skills/<name>/` (repo) or `~/.claude/skills/` (global) | **Workflows** triggered by phrases you'd actually type | When you hint at the trigger |
+| **MCPs** | External process + config entry | **Access** to systems Claude can't otherwise reach | When you invoke / auto-discovered tools |
+| **Plugins** | `~/.claude/plugins/` (after `/plugin install`) | Someone else's bundle of the above (skills + maybe MCPs + agents + hooks) | Behaves like its components, once installed |
+
+. . .
+
+**Don't memorize the table.** The mental shortcut: `CLAUDE.md` = always-on rules · skills = on-demand workflows · MCPs = external access · plugins = pre-built packages of the others.
 
 ## Community skills worth knowing about {.compact}
 

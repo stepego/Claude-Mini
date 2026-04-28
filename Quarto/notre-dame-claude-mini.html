@@ -731,6 +731,9 @@ Pedro H. C. Sant’Anna
 <div class="fragment">
 <p>We’ll get to rule files in 5 minutes.</p>
 </div>
+<div class="fragment">
+<p>There’s evidence behind this. Gloaguen et al.&nbsp;(2026, ETH Zurich + INSAIT) built a 138-instance benchmark across 12 real Python repos and found that <strong>LLM-generated <code>AGENTS.md</code> / <code>CLAUDE.md</code> files actually <em>reduce</em> task success ~3% and inflate steps + cost by 20%+</strong>. Human-written ones gave only ~4% gains, and <em>only</em> when narrowly scoped to non-inferable details. The lesson, in their words: <em>“omit LLM-generated context files entirely.”</em> So: write yours by hand, prune ruthlessly, and don’t ask Claude to draft it for you.</p>
+</div>
 </section></section>
 <section>
 <section id="rules-and-hooks-preview" class="title-slide slide level1 claudeorange center">
@@ -1148,6 +1151,55 @@ Pedro H. C. Sant’Anna
 </table>
 <div class="fragment">
 <p>Most academic workflows are <strong>skill-heavy</strong>. MCPs become valuable when you connect Claude to <strong>live external data</strong> you don’t already have in your repo. Further reading: <a href="https://ai-mba.io/tutorials/skills-vs-mcps"><code>ai-mba.io/tutorials/skills-vs-mcps</code></a>.</p>
+</div>
+</section>
+<section id="where-everything-fits" class="slide level2 compact">
+<h2>Where everything fits</h2>
+<p><code>CLAUDE.md</code>, skills, MCPs, plugins. People mix them up. Here’s the map:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 32%">
+<col style="width: 22%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Piece</th>
+<th>Where it lives</th>
+<th>What it is</th>
+<th>When it loads</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>CLAUDE.md</code></strong></td>
+<td>Repo root (also <code>~/.claude/CLAUDE.md</code> for personal global)</td>
+<td><strong>Always-on</strong> rules + conventions</td>
+<td>Every session, automatically</td>
+</tr>
+<tr class="even">
+<td><strong>Skills</strong></td>
+<td><code>.claude/skills/&lt;name&gt;/</code> (repo) or <code>~/.claude/skills/</code> (global)</td>
+<td><strong>Workflows</strong> triggered by phrases you’d actually type</td>
+<td>When you hint at the trigger</td>
+</tr>
+<tr class="odd">
+<td><strong>MCPs</strong></td>
+<td>External process + config entry</td>
+<td><strong>Access</strong> to systems Claude can’t otherwise reach</td>
+<td>When you invoke / auto-discovered tools</td>
+</tr>
+<tr class="even">
+<td><strong>Plugins</strong></td>
+<td><code>~/.claude/plugins/</code> (after <code>/plugin install</code>)</td>
+<td>Someone else’s bundle of the above (skills + maybe MCPs + agents + hooks)</td>
+<td>Behaves like its components, once installed</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Don’t memorize the table.</strong> The mental shortcut: <code>CLAUDE.md</code> = always-on rules · skills = on-demand workflows · MCPs = external access · plugins = pre-built packages of the others.</p>
 </div>
 </section>
 <section id="community-skills-worth-knowing-about" class="slide level2 compact">
