@@ -34,6 +34,8 @@ These are the source of truth. If a claim in the talk seemed surprising, check t
 
 - **[Paul Goldsmith-Pinkham — Claude Code mini-series at Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** *(March 2026, Markus' Academy, 5 episodes)*. Applied-econ angle. Topics: getting started, data analysis (Census), web scraping (SEC EDGAR), large datasets (Parquet/DuckDB), writing & thinking. **The most authoritative public material on this topic for our field.**
 - **[Claes Bäckman — Claude Code in VS Code, For Academic Economists](https://claesbackman.com/claude-code-guide.html)** — Written practical guide (~3,500 words). Setup → recommended extensions (R / Stata / Python / LaTeX) → file formats → CLAUDE.md and skills → git → performance. **Recommended companion** to this talk: written-form, IDE-focused, complementary to Goldsmith-Pinkham's video format.
+- **[Aniket Panjwani — YouTube channel](https://www.youtube.com/channel/UCNWk2F6OuWR-UdWF1GzEVCQ)** *(ongoing, 2026)*. Northwestern PhD economist. Free 3-hour course for beginners + practical videos: *[AI Agents for Economic Research](https://www.youtube.com/watch?v=YPv9BqweQIo)*, *[Should economists use Claude Code, Codex, or Cursor?](https://www.youtube.com/watch?v=6cIlJlypOAI)*, plus a Stata-specific guide. Pairs well with Goldsmith-Pinkham — different teaching style, more tool-comparison content. Site: [aniketpanjwani.com](https://aniketpanjwani.com/).
+- **[Mihail Velikov — AI in Business & Economic Research wiki](https://velikov-mihail.github.io/ai-econ-wiki/)** *(Penn State Smeal, ongoing)*. Curated knowledge base, ~147 articles organized into 10 sections: Foundations, Prompt Engineering, AI Agents, Claude Code Skills, Data Analysis, Academic Publishing, Finance & Econometrics, Tool Comparisons, Institutional, Productivity. **The best single landing page if you want one curator's reading list across the whole space.**
 
 ### Forks of `claude-code-my-workflow`
 
@@ -87,6 +89,15 @@ For finance + accounting journal policies, refer to the journals' own author-ins
 
 - **Dhuliawala, S. et al.** (2023). *Chain-of-Verification Reduces Hallucination in Large Language Models.* [arXiv:2309.11495](https://arxiv.org/abs/2309.11495). Source of the CoVe / `/verify-claims` pattern.
 - **Stock, J. & Yogo, M.** (2005). *Testing for Weak Instruments in Linear IV Regression.* In Andrews, D.W.K. (ed.), *Identification and Inference for Econometric Models*. Source of the F > 10 weak-instrument heuristic referenced in Part 6's demo.
+- **Andrews, I.** (2026). *Some Thoughts on AI and Research.* [MIT note, April 3 2026](https://economics.mit.edu/sites/default/files/2026-04/IA%20AI%20note_1.pdf). Source of the "bottleneck has shifted from generating output to evaluating it" framing in Part 1.
+
+### Field-level framing on AI agents in economics
+
+These don't appear in the deck but are the most useful one-stop reads on *why* agentic AI matters for economics research, written by economists for economists.
+
+- **Korinek, A.** (2025). *AI Agents for Economic Research.* [NBER Working Paper 34202](https://www.nber.org/papers/w34202). The canonical "where the field is" piece. Documents what agents do well (literature review, code generation, data analysis, workflow orchestration) and what they don't.
+- **Grundl, S.** (2026). *Claude Code as an Empirical Economist: Like Humans but Without the Tails.* [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6219138). Compares Claude Code (Opus 4.5) to human economists on causal inference tasks under matched instructions. Reports + code at [claude-code-economist.com](https://claude-code-economist.com).
+- **Yin, Z. et al.** (2024). *Should We Respect LLMs? A Cross-Lingual Study on the Influence of Prompt Politeness on LLM Performance.* [arXiv:2402.14531](https://arxiv.org/abs/2402.14531). Empirical micro-result: impolite prompts hurt LLM performance, but extreme politeness doesn't help — there's a middle band, and it varies by language.
 
 ---
 

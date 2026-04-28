@@ -177,6 +177,10 @@ I'll be honest: not all of what I show today is going to be relevant to all of y
 
 . . .
 
+The way I think about this: as agents get better at *generating*, the binding constraint quietly shifts to *evaluating* what they just produced (Andrews, 2026). The workflow is built around that shift.
+
+. . .
+
 If something works for you, take it. If something doesn't, leave it.
 
 # Tool landscape {.claudeorange}
