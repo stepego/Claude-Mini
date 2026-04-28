@@ -61,6 +61,7 @@ These are the source of truth. If a claim in the talk seemed surprising, check t
 ## Cross-tool
 
 - **[Codex plugin for Claude Code](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186)** *(OpenAI Developer Community, 2026)*. Built by VB Srivastav and the OpenAI team. Three use cases: standard Codex review, adversarial review, second-pass delegation. **Source of the `/codex:adversarial-review` pattern shown in Part 7.**
+- **[`codex-setup.md`](codex-setup.md)** *(this repo)* — step-by-step install + first-use guide for the Codex plugin in VS Code. Marketplace add → plugin install → `/codex:setup` → `!codex login` → first adversarial review. **Print or bookmark; this is the practical companion to the Part 7 cross-tool slides.**
 
 ---
 
