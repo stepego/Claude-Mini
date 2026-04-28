@@ -66,7 +66,7 @@ Print this. Carry it. Run through every checkpoint.
 - [ ] Test color profile — Emory blue + Anthropic orange should both render correctly.
 - [ ] Connect to Wi-Fi. Run a speed test (target: > 10 Mbps for live demos).
 - [ ] Open the deck in Safari (or Chrome — whichever rendered cleaner in dry-runs).
-- [ ] Open Demo 5a's pre-recorded fallback in another tab — **the most-likely-to-fail demo gets pre-staged backup**.
+- [ ] Open `demos/05-peer-review/expected-decision.md` in a side-pane — **the most-likely-to-fail demo gets pre-staged verbal fallback**.
 - [ ] Set up backup laptop next to main: mirrored deck, same demo materials, ready to swap if main fails.
 - [ ] Quick mic test — voice level check.
 
