@@ -74,6 +74,6 @@ If the talk is running long, **skip this and use the time for Q&A** — better t
 
 ---
 
-## No pre-recorded fallback
+## No fallback — optional demo
 
-Optional demo doesn't get a fallback. Description-by-slide is sufficient if it doesn't run.
+This demo is explicitly skippable if the talk is running long. If Codex plugin isn't loaded or the demo errors, just describe the pattern verbally with the slide on screen.

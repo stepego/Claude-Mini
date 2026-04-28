@@ -1,7 +1,7 @@
 # Demo 03 — Orchestration: critic-fixer loop + hook gate
 
 **Part of:** Notre Dame Watch-Along, Part 4 (~3 min live)
-**Status:** Choreography drafted; pre-recorded fallback to be created in Week 3.
+**Status:** Choreography drafted. **No video fallback** — verbal narration over `expected-*.md` if the live demo aborts (see Fallback strategy below).
 
 ---
 
@@ -95,7 +95,7 @@ git status
 | Time | Trigger | Action |
 |------|---------|--------|
 | 60s into Part A | Critic-fixer loop hasn't started | Skip Part A; go straight to Part B (hook gate). |
-| 60s into Part B | Hook didn't fire as expected | Skip Part B; play `pre-recorded.mp4` (full 3-min demo). |
+| 60s into Part B | Hook didn't fire as expected | Skip Part B; describe verbally: "this 200-line Python runs every commit, no exceptions — same gate whether tired or rested." |
 | Either part fails | Internet / Claude API issue | Verbal fallback (see "Fallback strategy" below). |
 
 ---

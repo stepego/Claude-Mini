@@ -1,7 +1,7 @@
 # Demo 04 — Replication audit (HEADLINE for finance/accounting)
 
 **Part of:** Notre Dame Watch-Along, Part 5 (~15 min live)
-**Status:** Choreography drafted; pre-recorded fallback to be created in Week 3.
+**Status:** Choreography drafted. **No video fallback** — verbal narration over `expected-*.md` if the live demo aborts (see Fallback strategy below).
 
 ---
 

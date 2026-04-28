@@ -1,7 +1,7 @@
 # Demo 01 — End-to-End: improve a manuscript section
 
 **Part of:** Notre Dame Watch-Along, Part 2 (30 min total; demo runs ~25 min)
-**Status:** Choreography drafted; pre-recorded fallback to be created in Week 3.
+**Status:** Choreography drafted. **No video fallback** — verbal narration over `expected-*.md` if the live demo aborts (see Fallback strategy below).
 
 ---
 

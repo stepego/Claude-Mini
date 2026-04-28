@@ -38,7 +38,7 @@ Print this. Carry it. Run through every checkpoint.
 - [ ] Charge both laptops to 100% overnight
 - [ ] Test the actual presentation: open the deck, advance to Part 5, run `/audit-reproducibility` on the demo material — does it produce the planted-discrepancy output?
 - [ ] Same test for Demo 5a (`/review-paper --peer AER`)
-- [ ] Pre-recorded `.mp4` files: open one offline (turn off Wi-Fi), play it. Confirm playback.
+- [ ] All `expected-*.md` files (in `demos/<id>/`) accessible offline; verbal narration rehearsed for at least one demo (Demo 4 or 5).
 
 ### Pinned versions (record before bed)
 - `claude-code-my-workflow` SHA: ____________________

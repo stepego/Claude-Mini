@@ -584,7 +584,7 @@ The next 25 minutes is **infrastructure**, not prose.
 
 Switching to the IDE + terminal. Watch the screen, not the slides.
 
-Demo script: `demos/01-end-to-end/README.md`. **No pre-recorded fallback.**
+Demo script: `demos/01-end-to-end/README.md`. **No video fallback by design** — verbal narration over `expected-output.md`.
 
 Abort trigger: if **review fanout** hasn't fired by T+15, kill the live demo and walk through `demos/01-end-to-end/expected-output.md` verbally — read the planted issues each agent should have surfaced.
 :::
