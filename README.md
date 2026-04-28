@@ -12,7 +12,7 @@
 ## What this repo contains
 
 - **[`Quarto/notre-dame-claude-mini.qmd`](Quarto/notre-dame-claude-mini.qmd)** — the 4-hour Quarto RevealJS lecture deck.
-- **[`demos/`](demos/)** — six pre-staged demo bundles (one per part that has a live demo). Each contains a `README.md` with literal commands, the source material, expected output, and a pre-recorded fallback.
+- **[`demos/`](demos/)** — six pre-staged demo bundles (one per part that has a live demo). Each contains a `README.md` with literal commands, the source material, an `expected-*.md` answer key, and a verbal-fallback strategy if the live demo aborts.
 - **[`exercises/`](exercises/)** — printable handouts for the Part 3 hands-on skill-design exercise.
 - **[`handouts/`](handouts/)** — take-home PDFs (one-page summary, starter guide, resources).
 - **[`speaker-notes/`](speaker-notes/)** — slide-by-slide script, demo choreography, timing targets, day-of pre-flight checklist.

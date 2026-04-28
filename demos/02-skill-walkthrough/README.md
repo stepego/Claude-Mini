@@ -1,7 +1,7 @@
 # Demo 02 — Skill walkthrough: `/preregister`
 
 **Part of:** Notre Dame Watch-Along, Part 3 (~10 min walkthrough, embedded in 30-min Part)
-**Status:** Choreography drafted. No pre-recorded fallback (low-risk demo: opens a file + invokes a skill on a fake input).
+**Status:** Choreography drafted. **No video fallback** — low-risk demo (opens a file + invokes a skill on a fake input).
 
 ---
 

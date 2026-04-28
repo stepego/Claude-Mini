@@ -114,4 +114,4 @@ Track your real-clock against these targets during dry-runs. If you're off by > 
 
 **If a demo hits hard ceiling: stop the demo, switch to its `expected-*.md` file, narrate verbally, move on.** Better to lose 2 min of demo than 10 min of confused-audience time. The `expected-*.md` files are the speaker-script for failed demos.
 
-**Verbal-fallback strategy (no pre-recorded videos, by design):** every demo's expected output lives in its bundle (`demos/01-end-to-end/expected-output.md`, `demos/04-replication/expected-discrepancies.md`, `demos/05-peer-review/expected-decision.md`). Pre-talk: open the relevant file in a side-pane BEFORE running the demo. T-1 sec to switch.
+**Verbal-fallback strategy:** every demo's expected output lives in its bundle (`demos/01-end-to-end/expected-output.md`, `demos/04-replication/expected-discrepancies.md`, `demos/05-peer-review/expected-decision.md`). Pre-talk: open the relevant file in a side-pane BEFORE running the demo. T-1 sec to switch.

@@ -72,7 +72,7 @@ There is no automated `quality_score.py` for this repo (intentionally lean). App
 
 Per the talk plan (`quality_reports/plans/piped-frolicking-turing.md` in the parent repo):
 
-- Every live demo has a **pre-recorded fallback** at `demos/<demo-id>/pre-recorded.mp4`.
+- Every live demo has a **verbal fallback strategy** documented in its `demos/<demo-id>/README.md`, narrating over the bundled `expected-*.md` answer key (no video fallbacks, by design).
 - Every live demo has a **literal-commands script** at `demos/<demo-id>/README.md`.
 - Every live demo has an **abort trigger** documented at a specific time-mark — if not reached, play the recording.
 - Don't pull updates to `claude-code-my-workflow` during the week of the talk. Pin the version.
