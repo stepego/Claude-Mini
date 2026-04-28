@@ -1924,7 +1924,7 @@ The orchestration story extends: **multi-agent across tools**, not just within C
 
 . . .
 
-The plugin `codex:adversarial-review` (in `claude-code-my-workflow`) is exactly this. **Different tool reviewing different tool's work.**
+The Codex plugin for Claude Code ([`openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc), shipped by OpenAI) is exactly this. **A different tool reviewing the first tool's work.**
 
 ## When cross-tool actually helps {.compact}
 
@@ -1946,9 +1946,40 @@ The plugin `codex:adversarial-review` (in `claude-code-my-workflow`) is exactly 
 
 **Heuristic:** cross-tool for *one in ten* tasks — the high-stakes ones. Not as a default.
 
+## Codex plugin: setup in 4 commands {.compact}
+
+In any Claude Code session inside VS Code:
+
+```bash
+/plugin marketplace add openai/codex-plugin-cc   # one-time, account-wide
+/plugin install codex@openai-codex
+/reload-plugins
+/codex:setup                                     # checks for Codex CLI; offers to install if missing
+```
+
+. . .
+
+If `/codex:setup` says you need to authenticate: `!codex login` opens a browser for OAuth.
+
+. . .
+
+Canonical source: [`github.com/openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) · Take-home walkthrough: `Claude-Mini/handouts/codex-setup.md`.
+
+## Three modes, three different jobs {.compact}
+
+| Command | What it does | When I reach for it |
+|---|---|---|
+| `/codex:review` | Read-only review of your diff | Sanity pass on a substantive change |
+| `/codex:adversarial-review` | Pressure-tests the *approach* — assumptions, tradeoffs, alternatives | Before shipping a design choice I'm not sure about |
+| `/codex:rescue` | Hands a task to Codex (investigate / fix / continue) | When Claude's stuck and I want a different angle |
+
+. . .
+
+All three: `--wait` (foreground) or `--background`. Track background runs with `/codex:status` and `/codex:result`.
+
 ## What it looks like in practice {.compact}
 
-The `codex:adversarial-review` skill in `claude-code-my-workflow` runs this:
+The `/codex:adversarial-review` flow specifically — the cross-tool review I run most:
 
 ```
 1. I finish a non-trivial change in Claude Code.
@@ -2021,12 +2052,12 @@ Built into Claude Code itself, no fork needed:
 
 ## Cross-tool: Codex plugin (Part 7's earlier demo) {.compact}
 
-Built by OpenAI's VB Srivastav and team. Source: [OpenAI Developer Community announcement](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186).
+Canonical: [`github.com/openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) (OpenAI) · Announcement: [OpenAI Developer Community](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186).
 
 ::: {.incremental}
 - "It is Codex, just invoked from inside Claude Code" — reuses local Codex CLI auth, config, MCP setup.
-- Three use cases: (1) standard Codex review, (2) adversarial / skeptical review, (3) second-pass delegation when you want a different agent's eyes.
-- We saw use case 2 in the optional Part 7 demo (`/codex:adversarial-review`).
+- Three use cases: `/codex:review` (standard), `/codex:adversarial-review` (challenge the approach), `/codex:rescue` (delegate a task to Codex when Claude's stuck).
+- We saw `/codex:adversarial-review` in the optional Part 7 demo. Setup walkthrough in [`handouts/codex-setup.md`](https://github.com/pedrohcgs/Claude-Mini/blob/main/handouts/codex-setup.md).
 :::
 
 # Resources + start {.claudeorange}

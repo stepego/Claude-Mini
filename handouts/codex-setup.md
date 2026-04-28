@@ -44,6 +44,7 @@ This registers OpenAI's plugin marketplace. You only do this once per machine.
 
 ```
 /plugin install codex@openai-codex
+/reload-plugins
 ```
 
 Confirm with:
@@ -52,7 +53,7 @@ Confirm with:
 /plugin list
 ```
 
-You should see `codex@openai-codex` listed and a new family of slash commands: `/codex:setup`, `/codex:review`, `/codex:adversarial-review`, `/codex:status`, `/codex:result`, `/codex:cancel`, `/codex:rescue`.
+You should see `codex@openai-codex` listed and a new family of slash commands: `/codex:setup`, `/codex:review`, `/codex:adversarial-review`, `/codex:rescue`, `/codex:status`, `/codex:result`, `/codex:cancel`. You should also see a `codex:codex-rescue` subagent in `/agents`.
 
 ---
 
@@ -83,6 +84,22 @@ Re-run `/codex:setup` to confirm green.
 ```
 
 This makes Claude Code automatically prompt you to run a Codex review at the end of every coding turn. Off by default. Some find it useful as a discipline; others find it noisy. Recommendation: leave it **disabled** and invoke manually on the changes you actually care about.
+
+---
+
+## Three modes, three different jobs
+
+Once installed, the plugin gives you three distinct entry points. They sound similar but solve different problems:
+
+| Command | What it does | When to reach for it |
+|---------|--------------|----------------------|
+| `/codex:review` | Standard read-only Codex review of your diff. Same quality as running `/review` inside Codex directly. Not steerable; no custom focus text. | Sanity pass on a substantive change. The default "second opinion." |
+| `/codex:adversarial-review` | Steerable challenge review that questions the *approach* — assumptions, tradeoffs, alternatives, failure modes. Takes free-form focus text. | Before shipping a design choice you're uncertain about. Pressure-test the path, not just the implementation. |
+| `/codex:rescue` | Hands a task to Codex through the `codex:codex-rescue` subagent: investigate a bug, try a fix, continue a previous Codex thread, or take a faster/cheaper pass with a smaller model. | When Claude is stuck. Instead of arguing with Claude, delegate the specific stuck task to Codex and read what comes back. |
+
+All three support `--wait` (foreground) and `--background`. Background runs are tracked with `/codex:status` and read back with `/codex:result`. `/codex:rescue` additionally supports `--resume` (continue Codex's prior thread for this repo), `--fresh` (start clean), and `--model` / `--effort` (e.g., `--model gpt-5.4-mini --effort medium`, or the `spark` alias for `gpt-5.3-codex-spark`).
+
+The rest of this handout focuses on `/codex:adversarial-review` because it's the one most relevant to the cross-tool review pattern in Part 7. The same `--wait` / `--background` mechanics apply to all three.
 
 ---
 

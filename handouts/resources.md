@@ -62,8 +62,9 @@ These are the source of truth. If a claim in the talk seemed surprising, check t
 
 ## Cross-tool
 
-- **[Codex plugin for Claude Code](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186)** *(OpenAI Developer Community, 2026)*. Built by VB Srivastav and the OpenAI team. Three use cases: standard Codex review, adversarial review, second-pass delegation. **Source of the `/codex:adversarial-review` pattern shown in Part 7.**
-- **[`codex-setup.md`](codex-setup.md)** *(this repo)* — step-by-step install + first-use guide for the Codex plugin in VS Code. Marketplace add → plugin install → `/codex:setup` → `!codex login` → first adversarial review. **Print or bookmark; this is the practical companion to the Part 7 cross-tool slides.**
+- **[`openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc)** *(OpenAI, 2026)* — the canonical Codex plugin for Claude Code. README has full command reference, examples, and changelog. Three command families: `/codex:review` (standard), `/codex:adversarial-review` (challenges the approach), `/codex:rescue` (delegate a stuck task). **Authoritative source; bookmark it.**
+- **[OpenAI Developer Community announcement](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186)** — original announcement post by VB Srivastav and the OpenAI team. Useful for the framing, but the GitHub README is more current.
+- **[`codex-setup.md`](codex-setup.md)** *(this repo)* — step-by-step install + first-use guide for the Codex plugin in VS Code. Marketplace add → plugin install → `/reload-plugins` → `/codex:setup` → `!codex login` → first adversarial review. Includes the three-modes section and a flag reference. **Print or bookmark; this is the practical companion to the Part 7 cross-tool slides.**
 
 ---
 

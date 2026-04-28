@@ -2400,7 +2400,7 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 3. Claude flags issues from a different angle than Codex would.
 4. You see both views before deciding.</code></pre>
 <div class="fragment">
-<p>The plugin <code>codex:adversarial-review</code> (in <code>claude-code-my-workflow</code>) is exactly this. <strong>Different tool reviewing different tool’s work.</strong></p>
+<p>The Codex plugin for Claude Code (<a href="https://github.com/openai/codex-plugin-cc"><code>openai/codex-plugin-cc</code></a>, shipped by OpenAI) is exactly this. <strong>A different tool reviewing the first tool’s work.</strong></p>
 </div>
 </section>
 <section id="when-cross-tool-actually-helps" class="slide level2 compact">
@@ -2422,9 +2422,60 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <p><strong>Heuristic:</strong> cross-tool for <em>one in ten</em> tasks — the high-stakes ones. Not as a default.</p>
 </div>
 </section>
+<section id="codex-plugin-setup-in-4-commands" class="slide level2 compact">
+<h2>Codex plugin: setup in 4 commands</h2>
+<p>In any Claude Code session inside VS Code:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href=""></a><span class="ex">/plugin</span> marketplace add openai/codex-plugin-cc   <span class="co"># one-time, account-wide</span></span>
+<span id="cb17-2"><a href=""></a><span class="ex">/plugin</span> install codex@openai-codex</span>
+<span id="cb17-3"><a href=""></a><span class="ex">/reload-plugins</span></span>
+<span id="cb17-4"><a href=""></a><span class="ex">/codex:setup</span>                                     <span class="co"># checks for Codex CLI; offers to install if missing</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p>If <code>/codex:setup</code> says you need to authenticate: <code>!codex login</code> opens a browser for OAuth.</p>
+</div>
+<div class="fragment">
+<p>Canonical source: <a href="https://github.com/openai/codex-plugin-cc"><code>github.com/openai/codex-plugin-cc</code></a> · Take-home walkthrough: <code>Claude-Mini/handouts/codex-setup.md</code>.</p>
+</div>
+</section>
+<section id="three-modes-three-different-jobs" class="slide level2 compact">
+<h2>Three modes, three different jobs</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>What it does</th>
+<th>When I reach for it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>/codex:review</code></td>
+<td>Read-only review of your diff</td>
+<td>Sanity pass on a substantive change</td>
+</tr>
+<tr class="even">
+<td><code>/codex:adversarial-review</code></td>
+<td>Pressure-tests the <em>approach</em> — assumptions, tradeoffs, alternatives</td>
+<td>Before shipping a design choice I’m not sure about</td>
+</tr>
+<tr class="odd">
+<td><code>/codex:rescue</code></td>
+<td>Hands a task to Codex (investigate / fix / continue)</td>
+<td>When Claude’s stuck and I want a different angle</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>All three: <code>--wait</code> (foreground) or <code>--background</code>. Track background runs with <code>/codex:status</code> and <code>/codex:result</code>.</p>
+</div>
+</section>
 <section id="what-it-looks-like-in-practice" class="slide level2 compact">
 <h2>What it looks like in practice</h2>
-<p>The <code>codex:adversarial-review</code> skill in <code>claude-code-my-workflow</code> runs this:</p>
+<p>The <code>/codex:adversarial-review</code> flow specifically — the cross-tool review I run most:</p>
 <pre><code>1. I finish a non-trivial change in Claude Code.
 2. I invoke /codex:adversarial-review on the diff.
 3. Codex reads the diff in a fresh context (it never saw my prompts).
@@ -2487,11 +2538,11 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 </section>
 <section id="cross-tool-codex-plugin-part-7s-earlier-demo" class="slide level2 compact">
 <h2>Cross-tool: Codex plugin (Part 7’s earlier demo)</h2>
-<p>Built by OpenAI’s VB Srivastav and team. Source: <a href="https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186">OpenAI Developer Community announcement</a>.</p>
+<p>Canonical: <a href="https://github.com/openai/codex-plugin-cc"><code>github.com/openai/codex-plugin-cc</code></a> (OpenAI) · Announcement: <a href="https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186">OpenAI Developer Community</a>.</p>
 <ul>
 <li class="fragment">“It is Codex, just invoked from inside Claude Code” — reuses local Codex CLI auth, config, MCP setup.</li>
-<li class="fragment">Three use cases: (1) standard Codex review, (2) adversarial / skeptical review, (3) second-pass delegation when you want a different agent’s eyes.</li>
-<li class="fragment">We saw use case 2 in the optional Part 7 demo (<code>/codex:adversarial-review</code>).</li>
+<li class="fragment">Three use cases: <code>/codex:review</code> (standard), <code>/codex:adversarial-review</code> (challenge the approach), <code>/codex:rescue</code> (delegate a task to Codex when Claude’s stuck).</li>
+<li class="fragment">We saw <code>/codex:adversarial-review</code> in the optional Part 7 demo. Setup walkthrough in <a href="https://github.com/pedrohcgs/Claude-Mini/blob/main/handouts/codex-setup.md"><code>handouts/codex-setup.md</code></a>.</li>
 </ul>
 </section></section>
 <section>
