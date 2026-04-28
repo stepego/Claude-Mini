@@ -584,9 +584,9 @@ The next 25 minutes is **infrastructure**, not prose.
 
 Switching to the IDE + terminal. Watch the screen, not the slides.
 
-Demo script: `demos/01-end-to-end/README.md`. Pre-recorded fallback at `demos/01-end-to-end/pre-recorded.mp4` (5 min, edited).
+Demo script: `demos/01-end-to-end/README.md`. **No pre-recorded fallback.**
 
-Abort trigger: if **review fanout** hasn't fired by T+15, kill the live demo and play the recording.
+Abort trigger: if **review fanout** hasn't fired by T+15, kill the live demo and walk through `demos/01-end-to-end/expected-output.md` verbally — read the planted issues each agent should have surfaced.
 :::
 
 > [Pedro switches to the IDE. Live demo runs ~25 min.]
@@ -1371,7 +1371,7 @@ These are the kinds of bugs that produce "the script ran but the numbers are sli
 
 Switch to terminal. Run the audit.
 
-If T+10 hasn't surfaced the discrepancy, we play `demos/04-replication/pre-recorded.mp4` for the remainder. The recording shows the same flow at 1.5x with the discrepancy moment annotated on screen.
+If T+10 hasn't surfaced the discrepancy, kill the live demo and walk through `demos/04-replication/expected-discrepancies.md` verbally — the planted bug is `filter(year < 2020)` at line 18 of `analyze.R`; manuscript says N = 14,562, script produces N = 14,489.
 
 Choreography: `demos/04-replication/README.md`.
 :::
@@ -1589,7 +1589,7 @@ Every MAJOR concern in a referee report from this pipeline must include:
 
 Switch to terminal. Run `/review-paper --peer AER`.
 
-This is **the** demo. The editorial decision moment is what we're aiming for. If T+18 hasn't fired, we play `pre-recorded.mp4` for the remainder. **The recording compresses the 18-min lifecycle to 5 min with annotations on the editor → referees → synthesis transitions.**
+This is **the** demo. The editorial decision moment is what we're aiming for. If T+18 hasn't fired, kill the live demo and walk through `demos/05-peer-review/expected-decision.md` verbally — the AER profile picks CREDIBILITY + POLICY referees with documented planted concerns.
 
 Choreography: `demos/05-peer-review/README.md`.
 :::

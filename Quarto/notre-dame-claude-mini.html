@@ -881,8 +881,8 @@ Pedro H. C. Sant’Anna
 <div class="demobox">
 <p><strong>Live demo</strong></p>
 <p>Switching to the IDE + terminal. Watch the screen, not the slides.</p>
-<p>Demo script: <code>demos/01-end-to-end/README.md</code>. Pre-recorded fallback at <code>demos/01-end-to-end/pre-recorded.mp4</code> (5 min, edited).</p>
-<p>Abort trigger: if <strong>review fanout</strong> hasn’t fired by T+15, kill the live demo and play the recording.</p>
+<p>Demo script: <code>demos/01-end-to-end/README.md</code>. <strong>No pre-recorded fallback.</strong></p>
+<p>Abort trigger: if <strong>review fanout</strong> hasn’t fired by T+15, kill the live demo and walk through <code>demos/01-end-to-end/expected-output.md</code> verbally — read the planted issues each agent should have surfaced.</p>
 </div>
 <blockquote>
 <p>[Pedro switches to the IDE. Live demo runs ~25 min.]</p>
@@ -1771,7 +1771,7 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <div class="demobox">
 <p><strong>Live demo handoff</strong></p>
 <p>Switch to terminal. Run the audit.</p>
-<p>If T+10 hasn’t surfaced the discrepancy, we play <code>demos/04-replication/pre-recorded.mp4</code> for the remainder. The recording shows the same flow at 1.5x with the discrepancy moment annotated on screen.</p>
+<p>If T+10 hasn’t surfaced the discrepancy, kill the live demo and walk through <code>demos/04-replication/expected-discrepancies.md</code> verbally — the planted bug is <code>filter(year &lt; 2020)</code> at line 18 of <code>analyze.R</code>; manuscript says N = 14,562, script produces N = 14,489.</p>
 <p>Choreography: <code>demos/04-replication/README.md</code>.</p>
 </div>
 <blockquote>
@@ -2056,7 +2056,7 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <div class="demobox">
 <p><strong>Live demo handoff</strong></p>
 <p>Switch to terminal. Run <code>/review-paper --peer AER</code>.</p>
-<p>This is <strong>the</strong> demo. The editorial decision moment is what we’re aiming for. If T+18 hasn’t fired, we play <code>pre-recorded.mp4</code> for the remainder. <strong>The recording compresses the 18-min lifecycle to 5 min with annotations on the editor → referees → synthesis transitions.</strong></p>
+<p>This is <strong>the</strong> demo. The editorial decision moment is what we’re aiming for. If T+18 hasn’t fired, kill the live demo and walk through <code>demos/05-peer-review/expected-decision.md</code> verbally — the AER profile picks CREDIBILITY + POLICY referees with documented planted concerns.</p>
 <p>Choreography: <code>demos/05-peer-review/README.md</code>.</p>
 </div>
 <blockquote>

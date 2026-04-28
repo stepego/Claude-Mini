@@ -9,8 +9,8 @@ Print this. Carry it. Run through every checkpoint.
 ### Tech
 - [ ] All slides rendered to HTML; tested in Safari + Chrome (some fonts differ)
 - [ ] All 5 live demos rehearsed end-to-end on the **actual presentation laptop**, twice in a row, no manual intervention beyond choreographed commands
-- [ ] All 5 pre-recorded fallback `.mp4` files in `demos/<id>/pre-recorded.mp4`, accessible OFFLINE
-- [ ] Backup laptop fully configured (same Claude version, same `Claude-Mini` clone, same `claude-code-my-workflow` v1.8.1 pin, same Quarto extension)
+- [ ] All 5 demo bundles' `expected-*.md` files reviewed; verbal narration practiced (no video fallbacks — by design)
+- [ ] Backup laptop fully configured (same Claude version, same `Claude-Mini` clone, same `claude-code-my-workflow` pin, same Quarto extension)
 - [ ] `claude /status` confirms logged in on **both** laptops
 - [ ] Anthropic plan tier still grants auto mode (test with `claude --permission-mode auto`)
 
@@ -100,9 +100,9 @@ You've rehearsed this twice end-to-end. Trust the rehearsal. The demos either wo
 
 | Failure | Action |
 |---------|--------|
-| Wi-Fi dies | Hotspot from phone (have credentials saved). Pre-recorded videos accessible offline already — fall back if hotspot too slow. |
+| Wi-Fi dies | Hotspot from phone (have credentials saved). All `expected-*.md` files are local — verbal fallback works offline. |
 | Projector hiccup | Backup laptop is mirrored; swap. Continue from where you left off. |
-| Demo stalls past abort point | Pre-recorded video for that demo is already in another tab. Switch tabs, narrate over the playback. |
+| Demo stalls past abort point | Switch to the demo's `expected-*.md` file (already in a side-pane). Narrate verbally what the agent would have produced. Concrete + lower-risk than a video that might lose audio sync. |
 | Audience confused | Pause. Ask: "show of hands — does the orchestrator-loop diagram make sense?" Re-explain if not. **Better to lose 2 min on clarity than 30 min on confusion.** |
 | Audience hostile to a claim | Acknowledge, don't argue. "That's a legitimate concern — let me come back to it in Part 7's honesty section." Move on. |
 | Running long at break point | Cut Part 7's optional Demo 6 (cross-tool). Cut Part 6's Demo 5b length (narrate). Keep the headlines. |

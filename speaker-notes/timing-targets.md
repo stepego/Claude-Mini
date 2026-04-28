@@ -112,4 +112,6 @@ Track your real-clock against these targets during dry-runs. If you're off by > 
 | Demo 5b (Part 6 response letter) | 8 min | 6 min | T+6 if mapping not visible |
 | Demo 6 (Part 7 cross-tool) | 3 min | 2 min | OPTIONAL — skip if behind |
 
-**If a demo hits hard ceiling without recording fallback ready: stop the demo, narrate what would have happened, move on.** Better to lose 2 min of demo than 10 min of confused-audience time.
+**If a demo hits hard ceiling: stop the demo, switch to its `expected-*.md` file, narrate verbally, move on.** Better to lose 2 min of demo than 10 min of confused-audience time. The `expected-*.md` files are the speaker-script for failed demos.
+
+**Verbal-fallback strategy (no pre-recorded videos, by design):** every demo's expected output lives in its bundle (`demos/01-end-to-end/expected-output.md`, `demos/04-replication/expected-discrepancies.md`, `demos/05-peer-review/expected-decision.md`). Pre-talk: open the relevant file in a side-pane BEFORE running the demo. T-1 sec to switch.

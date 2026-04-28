@@ -33,7 +33,7 @@ Take the editorial output from Demo 5a. Show the response-mapping flow.
 - [ ] `claude-code-my-workflow` cloned at `~/Documents/GitHub/claude-code-my-workflow`.
 - [x] **AER profile** ships in v1.8.0 — already in `.claude/references/journal-profiles.md`. No v1.8.1 prerequisite needed for this demo.
 - [ ] `manuscript-snippet.tex` placed in this directory: a sanitized intro + identification section from a Pedro working paper (or a stylized DiD application paper), ~3 pages.
-- [ ] Pre-recorded fallback `pre-recorded.mp4` for both demos accessible offline.
+- [ ] `expected-decision.md` reviewed pre-talk; `manuscript-snippet.tex` ready in side-pane.
 
 ---
 
@@ -140,8 +140,8 @@ Switch back to slides.
 
 | Time | Demo | Trigger | Action |
 |------|------|---------|--------|
-| T+10 | 5a | Referees haven't started | Kill 5a, play recorded portion. Skip to 5b briefly. |
-| T+18 | 5a | Editorial decision not produced | Kill, play recorded portion of synthesis. |
+| T+10 | 5a | Referees haven't started | Kill 5a; switch to `expected-decision.md` side-pane; narrate referees + synthesis verbally. Skip to 5b briefly. |
+| T+18 | 5a | Editorial decision not produced | Kill 5a; narrate the synthesis verbally with `expected-decision.md` on screen. |
 | T+5 | 5b | Concern mapping stalled | Skip 5b; narrate the output verbally with `expected-decision.md` open. |
 
 ---
@@ -159,11 +159,12 @@ Decision: **option 2** — paper at R&R round 2 with referee names + specific fi
 
 ---
 
-## Pre-recorded fallback
+## Fallback strategy (no video)
 
-`pre-recorded.mp4` (~10 min total covering both demos). To be produced in Week 3.
+If Demo 5a fails to produce an editorial decision by T+18, **walk through `expected-decision.md` verbally** with the file open in a side-pane:
 
-The recording compresses the 28 minutes to 10 min with on-screen labels at:
-- Disposition selection (T+5 of demo 5a)
-- Editor synthesis (T+15 of demo 5a)
-- Concern classification (mid-demo 5b)
+> *"The AER profile picks CREDIBILITY + POLICY referees. Referee 1 would flag pre-trends sparsity; referee 2 would flag magnitude interpretation in pp not absolute terms. Editor synthesis: 4 ADDRESSABLE concerns, 0 FATAL, decision = Major Revision with revision plan."*
+
+If Demo 5b fails: just describe verbally, with `expected-decision.md` open: *"The skill would have classified each editorial concern as Addressed / Partial / Deferred / Disagreement and drafted a response paragraph for each."*
+
+**Pre-talk prep:** open `expected-decision.md` AND `manuscript-snippet.tex` in side-panes before invoking either demo.

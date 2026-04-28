@@ -24,7 +24,7 @@ This is the headline demo for finance + accounting. The audience leaves understa
 - [ ] **Planted bug confirmed** — see `expected-discrepancies.md`.
 - [ ] R installed; `Rscript --version` works on the presentation laptop.
 - [ ] Required R packages (`fixest`, `dplyr`, `readr`) installed.
-- [ ] Pre-recorded fallback `pre-recorded.mp4` accessible offline.
+- [ ] `expected-discrepancies.md` reviewed pre-talk; `manuscript-claims.md` open in side-pane during the demo.
 
 ---
 
@@ -132,8 +132,8 @@ Switch back to slides.
 | Time | Trigger | Action |
 |------|---------|--------|
 | T+5  | R script hasn't started running | Pedro narrates: "the agent is reading the script line by line — let's give it 30 more seconds." Continue if it starts. |
-| T+10 | Discrepancy not yet surfaced | Kill the live demo. Switch to `pre-recorded.mp4`. Narrate over the recording. |
-| Network failure | Agent can't pull dependencies | `pre-recorded.mp4` covers the full demo. |
+| T+10 | Discrepancy not yet surfaced | Kill the live demo. Switch to `expected-discrepancies.md` + `analyze.R:18` side-by-side. Narrate the bug verbally (see "Fallback strategy" below). |
+| Network failure | Agent can't pull dependencies | Verbal fallback (see "Fallback strategy" below). |
 
 ---
 
@@ -149,8 +149,12 @@ This makes the audience think "huh, that's exactly the kind of thing I'd miss" �
 
 ---
 
-## Pre-recorded fallback
+## Fallback strategy (no video)
 
-`pre-recorded.mp4` (~5 min, edited from clean rehearsal). To be produced in Week 3.
+If `/audit-reproducibility` hasn't surfaced the discrepancy by T+10, **walk through `expected-discrepancies.md` verbally** with the file open in a side-pane:
 
-The recording compresses the 3-min R wait to 30 sec with a `[fast-forward]` on-screen indicator. Discrepancy moment is annotated.
+> *"The script would have run R, compared 4 numerical claims to outputs, and surfaced exactly one discrepancy: manuscript says N = 14,562; script produces N = 14,489 — because of the `filter(year < 2020)` at line 18 of `analyze.R`, which silently drops COVID-era observations not mentioned in the manuscript. **Diff: 73 observations, exactly the cold-open story.**"*
+
+Pull `analyze.R` line 18 on screen too — the bug is one line.
+
+**Pre-talk prep:** open `expected-discrepancies.md` and `analyze.R` (line 18 visible) in side-panes BEFORE running the demo.

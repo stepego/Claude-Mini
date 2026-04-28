@@ -26,7 +26,7 @@ The audience watches:
 - [ ] Manuscript material file `manuscript-section.tex` exists in this directory (sanitized snippet from a Pedro working paper).
 - [ ] **Planted issues confirmed** — see `expected-output.md`.
 - [ ] Internet works; `claude /status` shows logged-in.
-- [ ] Pre-recorded fallback `pre-recorded.mp4` accessible offline.
+- [ ] `expected-output.md` reviewed pre-talk so verbal narration is fluent.
 
 ---
 
@@ -105,7 +105,7 @@ Pedro switches back to slide deck. The "Coming back from the demo" slide handles
 | Time | Trigger | Action |
 |------|---------|--------|
 | T+8  | Plan still not visible | Pedro narrates "the agent is reading the bibliography file (4MB) — this is the plan-mode research step." Continue. |
-| T+15 | Review fanout has not fired | KILL live demo. Switch tabs to pre-recorded video. Narrate over the recording: "this is what would have happened next." |
+| T+15 | Review fanout has not fired | KILL live demo. Switch to `expected-output.md` side-pane. Narrate aloud: "Three agents would have surfaced these — proofreader: X; domain-reviewer: Y; claim-verifier: Z." |
 | T+22 | Score not produced | Skip score; narrate "in a real run we'd see the score here — see `expected-output.md` for the artifact list." |
 
 ---
@@ -118,8 +118,12 @@ NOT: a memory of the specific edits Claude made. (The edits are demo material; t
 
 ---
 
-## Pre-recorded fallback
+## Fallback strategy (no video)
 
-`pre-recorded.mp4` (~5 min, edited from a clean rehearsal). To be produced in Week 3 dry-run.
+If the live demo aborts at T+15, **walk through `expected-output.md` verbally** — split-screen the file alongside the in-progress agent transcript. Read aloud:
 
-The recording shows the full flow at 1.5x speed with on-screen annotations at the three checkpoints (plan, fanout, score).
+> *"This is what the multi-agent fanout would have produced — the proofreader would have flagged the tangled second sentence; the domain-reviewer would have flagged the missing state-cycle covariate; the claim-verifier would have caught the misattributed Card & Krueger 1994 citation."*
+
+The audience absorbs the **shape of what happened** even when the live demo doesn't complete.
+
+**Pre-talk prep:** open `expected-output.md` in a side-pane in the editor before the demo starts. T-30 sec, you can switch to it instantly.

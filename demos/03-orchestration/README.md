@@ -96,7 +96,7 @@ git status
 |------|---------|--------|
 | 60s into Part A | Critic-fixer loop hasn't started | Skip Part A; go straight to Part B (hook gate). |
 | 60s into Part B | Hook didn't fire as expected | Skip Part B; play `pre-recorded.mp4` (full 3-min demo). |
-| Either part fails | Internet / Claude API issue | `pre-recorded.mp4` covers both parts at 1.5x. |
+| Either part fails | Internet / Claude API issue | Verbal fallback (see "Fallback strategy" below). |
 
 ---
 
@@ -108,8 +108,11 @@ Critic-fixer first because it's an **agent** pattern (slow-but-smart). Hook gate
 
 ---
 
-## Pre-recorded fallback
+## Fallback strategy (no video)
 
-`pre-recorded.mp4` (~3 min). To be produced in Week 3 dry-run.
+If either Part A (critic-fixer) or Part B (hook gate) fails:
 
-The recording shows both patterns at 1.0x speed with on-screen labels at the role-switches (critic→fixer, fixer→critic re-audit, hook fires).
+- **Part A failure:** show `slide-with-bug.tex` and `slide-with-bug.qmd` side-by-side. Narrate: *"The critic would flag that the Beamer source has the full Hajek formula and the Quarto copy has `\\cdots`. The fixer would sync it. The critic re-audits and approves."*
+- **Part B failure:** show the `check-skill-integrity.py` script briefly; narrate: *"This 200-line Python runs every commit, no exceptions — same gate whether I'm tired or rested."*
+
+Total fallback time: ~60 sec each.
