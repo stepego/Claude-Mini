@@ -42,6 +42,9 @@ $selection-bg: $emorygold !default;
 .reveal .slides section {
   padding: 0.5em 1em;
   top: 0 !important;
+  // Hard safety: nothing leaks past slide borders. If content overflows,
+  // it gets clipped at the 1600x900 viewport instead of bleeding off.
+  overflow: hidden;
 }
 
 .reveal a {
@@ -57,9 +60,9 @@ $selection-bg: $emorygold !default;
 
 .reveal p {
   font-weight: 300;
-  margin-top: 0.5em;
-  margin-bottom: 0.35em;
-  line-height: 1.45;  // Balanced line height for readability
+  margin-top: 0.55em;
+  margin-bottom: 0.45em;
+  line-height: 1.5;  // More even paragraph rhythm
 }
 
 // Reduce space between bold headers and following lists
@@ -186,17 +189,17 @@ $selection-bg: $emorygold !default;
   display: inline-block;
 }
 
-// Lists - balanced spacing for readability without overflow
+// Lists - VERY generous breathing room (user request 2026-04-29 round 2)
 .reveal ul {
   font-weight: 300;
   padding-left: 1.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0.9em;
+  margin-bottom: 0.9em;
 
   li {
-    margin-bottom: 0.35em;  // Tighter spacing to prevent overflow
-    line-height: 1.4;
-    padding-left: 0.3em;
+    margin-bottom: 0.95em;  // Much bigger gap between bullets
+    line-height: 1.55;
+    padding-left: 0.4em;
   }
 
   li::marker {
@@ -207,12 +210,12 @@ $selection-bg: $emorygold !default;
 
 .reveal ul ul {
   list-style: none;
-  margin-top: 0.3em;
-  margin-bottom: 0.3em;
+  margin-top: 0.45em;
+  margin-bottom: 0.45em;
   padding-left: 1.2em;
 
   li {
-    margin-bottom: 0.25em;
+    margin-bottom: 0.55em;  // bumped for sub-bullet breathing room
     position: relative;
     padding-left: 0.2em;
   }
@@ -229,13 +232,13 @@ $selection-bg: $emorygold !default;
 .reveal ol {
   font-weight: 300;
   padding-left: 1.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-top: 0.9em;
+  margin-bottom: 0.9em;
 
   li {
-    margin-bottom: 0.35em;
-    line-height: 1.4;
-    padding-left: 0.3em;
+    margin-bottom: 0.95em;
+    line-height: 1.55;
+    padding-left: 0.4em;
   }
 
   li::marker {
@@ -513,34 +516,35 @@ $selection-bg: $emorygold !default;
   font-size: 115%;
 }
 
+// .smaller — 85% font but KEEP generous breathing room (relative to font size).
+// Use this for dense slides where we need both readable spacing AND content fit.
 .smaller {
   font-size: 85%;
 
-  // Tighter spacing for smaller slides
   p {
-    margin-top: 0.35em;
-    margin-bottom: 0.3em;
-    line-height: 1.35;
+    margin-top: 0.55em;
+    margin-bottom: 0.55em;
+    line-height: 1.5;
   }
 
   ul, ol {
-    margin-top: 0.35em;
-    margin-bottom: 0.35em;
+    margin-top: 0.65em;
+    margin-bottom: 0.65em;
 
     li {
-      margin-bottom: 0.25em;
-      line-height: 1.35;
+      margin-bottom: 0.7em;  // generous rhythm at smaller font
+      line-height: 1.5;
     }
   }
 
   ul ul li {
-    margin-bottom: 0.2em;
+    margin-bottom: 0.4em;
   }
 
   .highlightbox, .methodbox, .keybox, .assumptionbox {
-    padding: 0.5em 0.9em;
-    margin: 0.6em 0;
-    line-height: 1.35;
+    padding: 0.6em 1em;
+    margin: 0.7em 0;
+    line-height: 1.5;
   }
 }
 
@@ -569,20 +573,21 @@ $selection-bg: $emorygold !default;
   }
 }
 
-// Compact spacing for dense slides
+// Compact spacing — even .compact slides get breathing room now.
+// Was very-tight (0.25em); now "comfortably spaced" (0.7em).
 .compact {
   p {
-    margin-top: 0.4em;
-    margin-bottom: 0.4em;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
   }
 
   ul, ol {
-    margin-top: 0.3em;
-    margin-bottom: 0.5em;
+    margin-top: 0.6em;
+    margin-bottom: 0.7em;
 
     li {
-      margin-bottom: 0.25em;
-      line-height: 1.4;
+      margin-bottom: 0.7em;  // user-requested generous bullet rhythm
+      line-height: 1.5;
     }
   }
 }

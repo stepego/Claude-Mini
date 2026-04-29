@@ -1,15 +1,15 @@
 ---
 title: "Agentic AI for Academic Research"
-subtitle: "A Watch-Along Seminar for Business-School Faculty"
+subtitle: "A Watch-Along Claude Code Mini-Course"
 author: "Pedro H. C. Sant'Anna"
-institute: "Emory University · Visiting Notre Dame Mendoza"
-date: 2026-04-27
+institute: "Emory University"
+date: 2026-04-30
 date-format: "MMMM YYYY"
 format:
   clean-revealjs:
     theme: claude-mini.scss
     logo: ../Figures/emory.png
-    footer: "Claude-Mini · Notre Dame Watch-Along · Pedro H. C. Sant'Anna"
+    footer: "Claude-Mini  · Pedro H. C. Sant'Anna"
     slide-number: true
     chalkboard: true
     preview-links: auto
@@ -45,26 +45,15 @@ theme_claude_mini <- theme_minimal(base_size = 14) +
 
 # Agentic AI for Academic Research {.emoryblue}
 
-## A 4-hour Watch-Along · Notre Dame Mendoza · Spring 2026 {.compact}
-
-> Pedro H. C. Sant'Anna · Emory University
-
-. . .
-
-Mostly: how I've been using this in my own research. What works, what doesn't, what I'm still figuring out.
 
 ## Where I'm coming from {.compact}
 
-A few facts about my last 18 months:
+A few facts about my last months:
 
-::: {.incremental}
 - **5 kids at home** (one of them very small)
 - **3 papers in revision** at top journals
 - **3 more papers** in active drafting
 - A **new PhD course** I'm teaching for the first time
-:::
-
-. . .
 
 Something had to give. I started experimenting with Claude Code. **I'm still figuring it out.** Today is me sharing where I am.
 
@@ -72,14 +61,10 @@ Something had to give. I started experimenting with Claude Code. **I'm still fig
 
 Think of agentic AI as a **super-RA**:
 
-::: {.incremental}
 - It reads your files. Runs your code. Edits on disk. Calls external services.
 - It can plan steps before acting, and review its own work.
 - **You still drive.** You still check. You still take responsibility for what ships.
 - But it expands what's possible — *if* you put in the practice.
-:::
-
-. . .
 
 Faster, better, more reliable. **With practice.**
 
@@ -92,30 +77,25 @@ Faster, better, more reliable. **With practice.**
 
 ## How you get better at this {.compact}
 
-::: {.incremental}
 - **Experimentation.** Try small things first. See what breaks.
 - **On-the-job practice.** Use it on a paper you're already writing.
 - **Digging in.** Read other people's setups. Steal what works.
 - **Expanding the frontier.** Once it works for X, ask whether it can also do Y.
-:::
 
-. . .
-
-**The first time, you'll find errors.** You'll be picking on the wrong stuff. That's normal — that's the practice. Over time you build know-how, and the agents get better at the things *you* care about.
+- **The first time, you'll find errors.** You'll be picking on the wrong stuff — that's normal, that's the practice.
+- Over time you build know-how. The agents get better at the things *you* care about.
 
 ## What we're going to do today {.compact}
 
 I'll show you how I've been using it. **Three live demos** drawn from my actual workflow:
 
-::: {.incremental}
 - A **manuscript section** I'm trying to improve
 - A **replication check** on numbers in a paper draft
 - A **simulated peer review** on a working paper
-:::
 
-. . .
-
-You're welcome to clone the repo. You're welcome to skip it. **Mainly: I'd love to hear what works for you afterward.**
+- You're welcome to **clone the repo**.
+- You're welcome to **skip it**.
+- Mainly: **I'd love to hear what works for you afterward.**
 
 ## Roadmap (4 hours, watch-along) {.compact}
 
@@ -137,56 +117,41 @@ You're welcome to clone the repo. You're welcome to skip it. **Mainly: I'd love 
 
 ## What I think matters most {.compact}
 
-::: {.incremental}
 - In my experience, the highest-leverage file I write in this stack is **not code**. It's a one-page file called `CLAUDE.md`.
 - Everything else — skills, rules, hooks, multi-agent review — kind of derives from it.
 - I'll spend the next 40 minutes showing you what's in mine and how to think about yours.
-:::
 
 ## A few things have shifted {.compact}
 
-::: {.incremental}
 - **Replication scrutiny has gone up.** AEA Data Editor checks every accepted paper; REStud + EJ run formal verification; the field-specific journals are heading the same direction.
 - **Referee reports got more methodical.** Pre-trends sensitivity, identification robustness, "what would change my mind" — the bar keeps rising.
 - **Agentic AI matured fast.** "Tool-using" went from research preview (2024) to production (2025). It's not a chatbot anymore. The gap between *chatbot* and *agent* is roughly the gap between *spreadsheet* and *programming language*.
-:::
-
-. . .
 
 These don't make this stuff *necessary*. They just make the upside of having a workflow bigger.
 
 ## Where I think this might land {.compact}
 
-::: {.incremental}
 - Most academics I talk to use AI tools as **chat replacements** — basically a better Google.
 - That's fine, but it leaves a lot of capability on the table.
 - The leap from chatbot-AI to agentic-AI is genuinely big — *if* you set things up to take advantage of it.
-:::
-
-. . .
 
 I'll be honest: not all of what I show today is going to be relevant to all of you. Take what fits.
 
 ## What I'll be doing {.compact}
 
-::: {.incremental}
 1. Walking you through a workflow I've built on top of agentic AI — one that **plans before acting, reviews its own work, and verifies before shipping**.
 2. Demonstrating it live on real materials I'm actually working on — manuscript improvement, replication check, simulated peer review.
 3. Sharing the repo (`Claude-Mini`) and the parent template (`claude-code-my-workflow`) so you can clone, fork, or just borrow ideas.
-:::
 
-. . .
-
-The way I think about this: as agents get better at *generating*, the binding constraint quietly shifts to *evaluating* what they just produced (Andrews, 2026). The workflow is built around that shift.
-
-. . .
-
-If something works for you, take it. If something doesn't, leave it.
+- As agents get better at *generating*, the binding constraint quietly shifts to **evaluating** what they just produced (Andrews, 2026).
+- The workflow is built around that shift.
+- If something works for you, take it. If something doesn't, leave it.
 
 # Tool landscape {.claudeorange}
 
 ## The three big players (April 2026) {.compact}
 
+::: {.wide-table}
 | | Claude Code | Codex (OpenAI) | Gemini CLI |
 |---|---|---|---|
 | **Best for** | Repo-context tasks, multi-file refactor, agent orchestration | Structured completion, focused narrow tasks | Multimodal (image / PDF heavy) |
@@ -194,19 +159,22 @@ If something works for you, take it. If something doesn't, leave it.
 | **Subagent / multi-agent** | First-class | Via plugin | Limited |
 | **Hooks / lifecycle events** | Yes (extensive) | Limited | No |
 | **My experience** | Daily driver | Cross-tool audits | Occasional, multimodal-only |
+:::
 
 ## What this talk uses {.compact}
 
 We'll be in **Claude Code** for everything live. Two reasons:
 
-::: {.incremental}
 1. The infrastructure (skills, rules, agents, hooks) is the most mature here in April 2026.
 2. The cross-tool pattern at the end (Part 7) uses **Claude reviewing Codex output** — same primitives generalize.
-:::
 
-. . .
+If you're already in another tool, most concepts port:
 
-If you're already in another tool: most concepts port. The CLAUDE.md → instructions-file pattern works in Cursor (`.cursorrules`), Aider (`.aider.conf.yml`), and continue.dev (`.continue/config.json`). Nothing here is Claude-exclusive in *concept*.
+- **Cursor** — `.cursorrules`
+- **Aider** — `.aider.conf.yml`
+- **continue.dev** — `.continue/config.json`
+
+Nothing here is Claude-exclusive in *concept*.
 
 ## What "agentic" actually means {.compact}
 
@@ -218,8 +186,6 @@ If you're already in another tool: most concepts port. The CLAUDE.md → instruc
 > *"Edit the abstract to mention the panel-data dimension."*
 >
 > *"Here's a revision: [text]"*
-
-. . .
 
 You: copy → paste → save → check the bib → repeat.
 :::
@@ -234,14 +200,10 @@ You: copy → paste → save → check the bib → repeat.
 >
 > *Opens the file → reads the abstract → writes the edit → saves → runs the bibliography check → opens the result → reports back.*
 
-. . .
-
 You: read the diff. Approve.
 :::
 
 ::::
-
-. . .
 
 The difference isn't **intelligence**. It's **the ability to act** — and to **verify it acted correctly**.
 
@@ -283,25 +245,17 @@ When "Claude is supposed to" must become "this thing actually happens."
 
 ::::
 
-. . .
-
 The next four parts walk through these. Today's talk in one sentence: **a workflow is the pattern that connects them.**
 
 # CLAUDE.md as control center {.claudeorange}
 
-## The single most important file in this stack
+## The single most important file in this stack {.compact}
 
 `CLAUDE.md` lives at your project root.
 
-. . .
-
 It loads automatically at the start of every Claude session.
 
-. . .
-
 It tells the agent **what your project is**, **what the rules are**, and **what good looks like** — *before* the agent does anything.
-
-. . .
 
 It's ~150 lines. It changes everything downstream.
 
@@ -323,18 +277,14 @@ TEXINPUTS=../Preambles:$TEXINPUTS xelatex -interaction=nonstopmode file.tex
 quarto render file.qmd
 ```
 
-. . .
-
 I'll open the actual file in a moment.
 
-## What that gives Claude
+## What that gives Claude {.compact}
 
-::: {.incremental}
 - **Folder structure** → knows where to put things, what to read
 - **Commands** → knows the exact LaTeX flags, knows `quarto render` over `pandoc`
 - **Quality thresholds** → won't ship below 80/100 score; will halt and ask
 - **Source-of-truth contract** → won't edit Quarto without syncing Beamer
-:::
 
 ## Live walkthrough — the actual `CLAUDE.md` {auto-animate=true}
 
@@ -350,21 +300,15 @@ After the tour: delete the `## Commands` section. Re-open Claude. Ask: "render t
 
 ## Three sections that always pull weight {.compact}
 
-::: {.incremental}
 1. **Commands you'd type** — exact CLI invocations Claude can't infer (build flags, tool versions, environment variables).
 2. **Folder structure** — where things live, with one-line "what's here" notes per directory.
 3. **Quality thresholds + source-of-truth contracts** — non-negotiables. "Never edit X without syncing Y."
-:::
 
 ## Three sections that look helpful but aren't {.compact}
 
-::: {.incremental}
 - ❌ A list of every package you use. Claude knows R packages.
 - ❌ "Write clean code." Claude knows.
 - ❌ A re-summary of files Claude can read. Skip — Claude reads them.
-:::
-
-. . .
 
 **Test:** if removing the line caused Claude to make a mistake, keep it. If not, cut it.
 
@@ -379,8 +323,6 @@ After the tour: delete the `## Commands` section. Re-open Claude. Ask: "render t
 #    YES → keep the line
 #    NO  → delete it
 ```
-
-. . .
 
 This isn't a metaphor — it's a debugging method. Run it on your own CLAUDE.md once a quarter.
 
@@ -400,27 +342,19 @@ This isn't a metaphor — it's a debugging method. Run it on your own CLAUDE.md 
 
 ## Specificity wins {.compact}
 
-::: {.incremental}
 - ❌ "Use good R code style."
 - ✅ "Use `fixest::feols`, not `lm`. Cluster SE at firm level. `set.seed(20260427)` once at top of `00_run_all.R`."
-:::
 
-::: {.incremental}
 - ❌ "Be careful with citations."
 - ✅ "Citations: `\citep{key}` for parenthetical, `\citet{key}` for narrative. All keys must exist in `Bibliography_base.bib` before commit."
-:::
 
 ## Specificity wins, part 2 {.compact}
 
-::: {.incremental}
 - ❌ "Write clean Python."
 - ✅ "Use `pandas` for data, `pyarrow` for serialization. Type hints required for public functions. Black formatter. `pytest -xvs` is the test runner."
-:::
 
-::: {.incremental}
 - ❌ "The folder structure is intuitive."
 - ✅ "data/raw/ — never modified after download. data/clean/ — outputs of `02_clean.R` only. results/ — read-only, regenerated by `00_run_all.R`."
-:::
 
 ## An applied-causal example (your CLAUDE.md, draft 1) {.compact}
 
@@ -445,8 +379,6 @@ This isn't a metaphor — it's a debugging method. Run it on your own CLAUDE.md 
 - Pre-trends test: Rscript scripts/04_pretrends.R (Roth 2022, Rambachan-Roth 2023)
 - Replication audit: /audit-reproducibility paper.tex scripts/
 ```
-
-. . .
 
 That's enough. Stop there.
 
@@ -475,19 +407,18 @@ That's enough. Stop there.
 
 ## Length budget {.compact}
 
-::: {.incremental}
 - **Aim for 100-200 lines.** That's where most working CLAUDE.md files live.
 - **Hard ceiling: ~300.** Past that, important rules get lost.
 - **If yours is over 300:** something belongs in a *rule file* (path-scoped), not the universal CLAUDE.md.
-:::
-
-. . .
 
 We'll get to rule files in 5 minutes.
 
-. . .
+**There's evidence behind this.** Gloaguen et al. (2026, ETH Zurich + INSAIT) — 138-instance benchmark across 12 Python repos:
 
-There's evidence behind this. Gloaguen et al. (2026, ETH Zurich + INSAIT) built a 138-instance benchmark across 12 real Python repos and found that **LLM-generated `AGENTS.md` / `CLAUDE.md` files actually *reduce* task success ~3% and inflate steps + cost by 20%+**. Human-written ones gave only ~4% gains, and *only* when narrowly scoped to non-inferable details. The lesson, in their words: *"omit LLM-generated context files entirely."* So: write yours by hand, prune ruthlessly, and don't ask Claude to draft it for you.
+- **LLM-generated `AGENTS.md` / `CLAUDE.md` files** *reduce* task success ~3%; inflate steps + cost 20%+.
+- **Human-written ones** gave only ~4% gains — and *only* when narrowly scoped to non-inferable details.
+- The authors' lesson: *"omit LLM-generated context files entirely."*
+- So: **write yours by hand**, prune ruthlessly, don't ask Claude to draft it.
 
 # Rules and hooks (preview) {.claudeorange}
 
@@ -495,11 +426,9 @@ There's evidence behind this. Gloaguen et al. (2026, ETH Zurich + INSAIT) built 
 
 The fix: **path-scoped rule files** under `.claude/rules/`.
 
-::: {.incremental}
 - A rule file is just like CLAUDE.md, but loads **only** when Claude touches a matching file.
 - `.claude/rules/r-code-conventions.md` with `paths: "*.R"` → loads only when an `.R` file is in play.
 - Keeps CLAUDE.md focused on universal stuff. Specialty knowledge waits for its moment.
-:::
 
 ## A rule example {.compact}
 
@@ -519,24 +448,18 @@ When asked to extend an analysis:
 If the original numbers don't replicate, STOP and report what differs.
 ```
 
-. . .
-
 This rule auto-loads when Claude opens any `.R` / `.do` / `.py` file. Outside that scope, the rule isn't in context — staying lean.
 
 ## Hooks: deterministic enforcement {.compact}
 
 CLAUDE.md and rules are **advisory** — Claude reads them and (usually) follows them.
 
-. . .
-
 **Hooks** are scripts that fire deterministically at lifecycle events. They don't ask Claude — they enforce.
 
-::: {.incremental}
 - `PreToolUse` — before any tool runs (block dangerous patterns)
 - `PostToolUse` — after tool completes (sanity check, log, notify)
 - `Stop` — when Claude is about to stop responding (verify, remind)
 - `PreCompact` — before context auto-compaction (save plan to disk)
-:::
 
 ## A hook example {.compact}
 
@@ -549,19 +472,13 @@ if responses_since_last_log_update > 50:
     print("Session log is stale. Update quality_reports/session_logs/", file=sys.stderr)
 ```
 
-. . .
-
 This isn't AI judgment — it's a Python script. Deterministic. Runs every Stop, no exceptions.
 
 ## What's coming next {.compact}
 
-::: {.incremental}
 - **Part 2** (next, 30 min): see all of the above run end-to-end on a real manuscript section.
 - **Part 4** (later, 25 min): when multi-agent helps, when it hurts.
 - **Part 5 + 6** (after lunch): the headline demos — replication audit + simulated peer review.
-:::
-
-. . .
 
 Take a 30-second stretch. We're going to a live demo.
 
@@ -571,21 +488,17 @@ Take a 30-second stretch. We're going to a live demo.
 
 ## What you're about to see {.compact}
 
-::: {.incremental}
 - A real working-paper introduction. ~3 paragraphs. Has known issues (one citation misattribution, one awkward sentence, one missing covariate mention).
 - I ask Claude: *"Improve the introduction of this paper."*
 - We watch the **full lifecycle** — plan → spec → approve → implement → multi-agent review → fix → verify → score.
-:::
 
 ## What to watch for, not what to listen to {.compact}
 
 The next 25 minutes is **infrastructure**, not prose.
 
-::: {.incremental}
 - I'll narrate at three checkpoints: **plan appears**, **review fans out**, **score reports**.
 - The agent's edit suggestions matter less than **how the agent arrived at them**.
 - If Claude gets one of the edits wrong, that's *good* — you'll see the review loop catch it.
-:::
 
 ## The full lifecycle (preview) {.compact}
 
@@ -602,12 +515,10 @@ The next 25 minutes is **infrastructure**, not prose.
 
 ## What I want you to notice {.compact}
 
-::: {.incremental}
 1. **Plan mode is read-only.** Claude can't edit until I approve. This is the safety boundary.
 2. **The review fanout is parallel.** Three agents in three contexts — no cross-contamination.
 3. **The verifier never sees my prompt.** It checks the work in a fresh context (Chain-of-Verification, Dhuliawala et al. 2023).
 4. **The score is from a deterministic Python script**, not the agent's self-evaluation. Numerical, reproducible.
-:::
 
 ## To the editor {auto-animate=true}
 
@@ -624,8 +535,6 @@ Abort trigger: if **review fanout** hasn't fired by T+15, kill the live demo and
 > [Pedro switches to the IDE. Live demo runs ~25 min.]
 
 ## Coming back from the demo {.compact}
-
-. . .
 
 What you just saw — in one sentence:
 
@@ -671,29 +580,21 @@ who did what, when — for collaborators
 
 ::::
 
-. . .
-
 **Six artifacts from one prompt.** None of them existed when I typed it.
 
 ## Why this matters for B-school work {.compact}
 
-::: {.incremental}
 - **R&R round 2 = "what did I change since round 1?"** This audit trail answers it automatically.
 - **Co-author collaboration**: the next person opens the spec + session log and resumes without a 30-min sync call.
 - **Replication packages**: the same lifecycle generates them on the analysis side (Part 5).
-:::
 
 ## What this didn't do {.compact}
 
 Honesty matters here.
 
-::: {.incremental}
 - ❌ **It didn't write a better paper than I would have.** The agent's edits are *suggestions*, not authority.
 - ❌ **It didn't catch every issue.** One subtle error is best caught by a reading mind, not a fast one.
 - ✅ **It caught most of the surface stuff in 25 minutes**, freeing me to spend the next hour on *substance*.
-:::
-
-. . .
 
 The point isn't replacement. It's **leverage on the boring 70%**.
 
@@ -701,11 +602,9 @@ The point isn't replacement. It's **leverage on the boring 70%**.
 
 We just saw the full lifecycle.
 
-::: {.incremental}
 - **Part 3 (next, 30 min):** what's a *skill*? How do you write your own? You'll sketch one.
 - **Part 4 (after break, 25 min):** the orchestration story — when does multi-agent help, when does it hurt?
 - **Part 5 + 6 (after lunch):** the two headline demos — replication audit + simulated peer review.
-:::
 
 ---
 
@@ -713,25 +612,19 @@ We just saw the full lifecycle.
 
 ## What is a skill, really? {.compact}
 
-::: {.incremental}
 - A **skill** is a Markdown file at `.claude/skills/<name>/SKILL.md`.
 - It has YAML frontmatter (when does Claude trigger it?) and a body (what to do).
 - It auto-loads when a relevant prompt is detected — or you invoke it explicitly with `/<name>`.
 - That's it. **No code, no installation, no plugin system.**
-:::
-
-. . .
 
 A skill is just a written instruction — but a *triggerable, version-controlled, reusable* one.
 
 ## What a skill is NOT {.compact}
 
-::: {.incremental}
 - ❌ A plugin (no compilation, no extension API)
 - ❌ A chat template (skills can read files, run code, call other skills)
 - ❌ A prompt library entry (those are static; skills run *workflows*)
 - ❌ Magic (you'll see exactly what's in one in 90 seconds)
-:::
 
 ## Anatomy of a skill {.compact}
 
@@ -752,8 +645,6 @@ allowed-tools: ["Read", "Write", "Bash"]
 ### Phase 4 — Output (write to disk; report)
 ```
 
-. . .
-
 That's a real skill template. **Frontmatter ≤ 4 fields. Body = numbered phases.** Other fields (`argument-hint`, `disable-model-invocation`) are optional polish — not required.
 
 ## Why this beats writing the workflow into your prompts {.compact}
@@ -773,8 +664,6 @@ That's a real skill template. **Frontmatter ≤ 4 fields. Body = numbered phases
 - **AsPredicted** — 9-question short form
 - **AEA RCT Registry** — required for AEA-journal field experiments since 2018
 
-. . .
-
 It refuses to draft if your description contains *results* — preregistration is forward-looking by definition.
 
 ## Live walkthrough: the actual SKILL.md {auto-animate=true}
@@ -792,44 +681,34 @@ It refuses to draft if your description contains *results* — preregistration i
 
 ## Why this skill, for this audience {.compact}
 
-::: {.incremental}
 - **Pre-registration is the #1 referee ask** in finance experiments (JF, RFS) and accounting field/lab work (TAR, JAR, JAE).
 - **AEA RCT Registry** is mandatory for AEA-journal field interventions; many B-school field studies don't realize they qualify.
 - **The MUST/SHOULD/MAY annotation discipline** is exactly the framing reviewers expect — directional hypothesis, named estimator, ex-ante exclusions, sample-size stopping rule.
-:::
 
 ## Three things to notice in the SKILL.md {.compact}
 
-::: {.incremental}
 1. **Trigger phrases in the description** — "preregister", "OSF", "AsPredicted", "AEA RCT", "PAP", "preanalysis plan". Why so many? See *Effective triggers* below.
 2. **`disable-model-invocation: true`** — this skill writes a *commitment document*; it must be user-intent.
 3. **Cross-check phase** — refuses to mark "ready" if hypothesis isn't directional, estimator isn't named, exclusions aren't ex-ante.
-:::
 
 ## Effective trigger descriptions {.compact}
 
 A skill triggers when its `description` matches the user's prompt. So the description must contain the words your future self / your co-author would actually use.
 
-::: {.incremental}
 - ❌ `description: A preregistration tool.` — too generic; never triggers
 - ❌ `description: Pre-registers a study.` — singular, formal; misses real usage
 - ✅ `description: Draft a preregistration document (OSF, AsPredicted, AEA RCT Registry style). Use when user says "preregister", "draft a preregistration", "OSF preregistration", "AsPredicted", "AEA RCT registry", "PAP", "preanalysis plan".`
-:::
 
-. . .
-
-I learned this the hard way: **my first version of `/preregister` never triggered**, because I called it "a preregistration tool." Now I just pack the description with **the words I'd actually type into Claude**.
+- I learned this the hard way: **my first `/preregister` never triggered**.
+- I called it *"a preregistration tool."* Nobody types that phrase.
+- Now I pack the description with **the words I'd actually type into Claude**.
 
 ## Skills vs MCPs (a quick aside) {.compact}
 
 A common question: "How is a skill different from an MCP?"
 
-::: {.incremental}
 - **A skill** is a **Markdown instruction** Claude reads in-context. Triggered by user phrases. Lives in your repo as a `.md` file.
 - **An MCP** (Model Context Protocol) is a **runtime tool integration** — a separate process that connects Claude to external services (databases, APIs, file systems, Notion, JIRA, your home Postgres).
-:::
-
-. . .
 
 Different layer of the stack. **Skills tell Claude *how* to think; MCPs give Claude *more things* to talk to.**
 
@@ -844,9 +723,9 @@ Different layer of the stack. **Skills tell Claude *how* to think; MCPs give Cla
 | "Audit reproducibility against the R script" | ✅ | — |
 | "Query our shared Postgres database of working-paper revisions" | — | ✅ |
 
-. . .
-
-Most academic workflows are **skill-heavy**. MCPs become valuable when you connect Claude to **live external data** you don't already have in your repo. Further reading: [`ai-mba.io/tutorials/skills-vs-mcps`](https://ai-mba.io/tutorials/skills-vs-mcps).
+- Most academic workflows are **skill-heavy**.
+- MCPs become valuable when you connect Claude to **live external data** you don't already have in your repo.
+- Further reading: [`ai-mba.io/tutorials/skills-vs-mcps`](https://ai-mba.io/tutorials/skills-vs-mcps).
 
 ## Where everything fits {.compact}
 
@@ -859,56 +738,47 @@ Most academic workflows are **skill-heavy**. MCPs become valuable when you conne
 | **MCPs** | External process + config entry | **Access** to systems Claude can't otherwise reach | When you invoke / auto-discovered tools |
 | **Plugins** | `~/.claude/plugins/` (after `/plugin install`) | Someone else's bundle of the above (skills + maybe MCPs + agents + hooks) | Behaves like its components, once installed |
 
-. . .
+**Don't memorize the table.** Use this mental shortcut:
 
-**Don't memorize the table.** The mental shortcut: `CLAUDE.md` = always-on rules · skills = on-demand workflows · MCPs = external access · plugins = pre-built packages of the others.
+- **`CLAUDE.md`** → always-on rules
+- **Skills** → on-demand workflows
+- **MCPs** → external access
+- **Plugins** → pre-built packages of the others
 
 ## Community skills worth knowing about {.compact}
 
 Beyond `claude-code-my-workflow`'s 30 skills, two community skills are highly relevant for this audience:
 
-::: {.incremental}
 - [**`jusi-aalto/crossref`**](https://github.com/jusi-aalto/crossref) — validates bibliographic references against the Crossref REST API; returns canonical APA citations with DOIs + match-confidence + diff flags. **Pairs naturally with `/verify-claims`.**
 - [**`jusi-aalto/strategic-revision`**](https://github.com/jusi-aalto/strategic-revision) — peer-review response planning specifically for empirical accounting + finance R&R rounds. Models reviewer requests as a directed acyclic graph (NetworkX). We'll see this again in Part 6.
-:::
 
 # Hands-on: sketch your own skill {.claudeorange}
 
 ## Your turn (10 minutes) {.compact}
 
-::: {.incremental}
 - Each handout has a 1-page **skill template** + 6 sample use cases (finance, accounting, econ, teaching, admin).
 - Pick **one** use case (or your own).
 - Fill in: name, description (with trigger phrases!), 3-step workflow.
 - Don't try to make it run. Just draft.
 - We'll workshop 1-2 volunteers' sketches at the end.
-:::
-
-. . .
 
 **You have until [time].** Go.
 
 ## Sample use cases (pick one) {.compact}
 
-::: {.incremental}
 1. **DiD pre-trends scaffolder.** Given a panel + treatment-timing variable, produce a pre-trends figure + Roth (2022) sensitivity table + a 1-paragraph methods-section summary.
 2. **AEA-style table formatter.** Standardize regression output: AEA convention (no significance stars), 3-decimal coefficients, robust/clustered SE annotation, observation count, R², F-stat.
 3. **Referee-letter parser.** Map each numbered concern in a referee report to a specific revision file/line; classify (Addressed / Partial / Deferred / Disagreement).
 4. **Teaching — grading rubric applier.** Apply a fixed rubric to a student PS or replication-project submission; produce a per-criterion score + comment.
 5. **Admin — letter-of-support template.** Given a student name + program + my prior knowledge of them, draft a structured recommendation letter.
 6. **Your own.** Anything you do at least 3 times a year.
-:::
 
 ## What makes a good first skill {.compact}
 
-::: {.incremental}
 - **Repetitive task** — you do it more than 3 times a year
 - **Has a structure** — there's a "right way" you can specify
 - **Has a verifiable output** — you'll know if the agent got it wrong
 - **Is small** — 1-3 phases. The first skill is the smallest skill that's useful.
-:::
-
-. . .
 
 Most failures: trying to cram too much into skill #1. Aim small.
 
@@ -924,44 +794,32 @@ If no volunteers: I have two pre-drafted I can walk through (one finance, one ac
 
 # Design principles {.claudeorange}
 
-## Reusability
+## Reusability {.compact}
 
-::: {.incremental}
 - **Specific enough to do something useful**, **general enough to apply more than once**.
 - Trap: writing a skill that only solves *this paper's* problem. Re-frame to the *class of problems*.
 - Test: would your co-author / next-year-you actually invoke this?
-:::
 
 ## Specificity (in the description AND the body) {.compact}
 
-::: {.incremental}
 - **In the description**: trigger phrases people actually say, examples of when to use it, when *not* to use it.
 - **In the body**: literal commands, exact filenames, named estimators. "Run an analysis" → no. "Run `Rscript scripts/02_main.R` and read the output of `Sys.time()`" → yes.
-:::
 
 ## Built-in verification {.compact}
 
 The best skills don't just *do* — they *check*.
 
-::: {.incremental}
 - `/preregister` refuses to mark MUST sections complete if hypothesis isn't directional.
 - `/audit-reproducibility` (Part 5) compares numerical claims to script outputs with tolerance thresholds.
 - `/checkpoint` reads `git status` to verify state before writing the snapshot.
-:::
-
-. . .
 
 A skill without a verification step is a fancy macro. A skill *with* one is a workflow.
 
 ## Cost-of-creation, honestly {.compact}
 
-::: {.incremental}
 - A first skill: **30-60 minutes** to draft, test, iterate.
 - A polished skill: **2-4 hours** including verification, examples, edge-case handling.
 - A production skill (used by colleagues): **half a day** for full doc + tests.
-:::
-
-. . .
 
 If you're spending less than 30 min, you're under-investing in the description. If more than 4 hours on draft #1, you're over-engineering.
 
@@ -969,21 +827,14 @@ If you're spending less than 30 min, you're under-investing in the description. 
 
 > **After a year, you stop *writing* skills and start *composing* them.**
 
-. . .
-
-That's the moment the leverage compounds. A skill that invokes another skill that invokes a third — your "default workflow" becomes Claude + your own repo of skills, and writing the next paper becomes choosing which skills to chain.
-
-. . .
-
-I'm there now. It took a year. **Each skill is a written commitment to how you do this kind of work** — future-you can read it.
+- A skill that invokes another that invokes a third — your "default workflow" becomes **Claude + your own repo of skills**.
+- Writing the next paper becomes **choosing which skills to chain**.
+- I'm there now. It took a year.
+- **Each skill is a written commitment to how you do this kind of work** — future-you can read it.
 
 ## Take a 10-minute break {.emoryblue}
 
-. . .
-
 Back at [time]. Bathroom + coffee + check email.
-
-. . .
 
 After the break: **orchestration** — when does multi-agent help, when does it hurt?
 
@@ -993,13 +844,9 @@ After the break: **orchestration** — when does multi-agent help, when does it 
 
 ## The honest framing {.compact}
 
-::: {.incremental}
 - Most "AI for research" demos online ship **the first agent output**.
 - That's not a workflow — it's a draft.
 - The leverage comes from running the loop: **implement → verify → review → fix → re-verify → score**.
-:::
-
-. . .
 
 A model alone is impressive. **A model in a loop is useful.**
 
@@ -1019,19 +866,13 @@ You saw this shape in Part 2's demo. Now we generalize.
        └── Score < threshold → loop back to step 3 (max 5 rounds)
 ```
 
-. . .
-
 The point isn't the specific 6 steps. It's that **steps 2 and 5 have to be deterministic** — and that the loop runs *automatically* until quality clears.
 
 ## Where this lives in the template {.compact}
 
-::: {.incremental}
 - The orchestrator is a **pattern**, not a daemon. There's no background process running it.
 - Specific skills implement it: `/commit`, `/qa-quarto`, `/review-paper --adversarial`, `/slide-excellence`, `/create-lecture`, `/data-analysis`, `/review-paper --peer`.
 - Plan approval does NOT auto-trigger the loop. **You invoke a skill; the skill runs the pattern within its own scope.**
-:::
-
-. . .
 
 Honesty matters: this is a contract that skills implement, not a magic background service.
 
@@ -1039,47 +880,37 @@ Honesty matters: this is a contract that skills implement, not a magic backgroun
 
 ## Three patterns where multi-agent earns its keep {.compact}
 
-::: {.incremental}
 1. **Parallel independent work** — three papers to summarize, ten regression specs to estimate, six sections to proofread. No coordination needed; each agent reads its file and reports back.
 2. **Critic + fixer pairs** — one agent finds problems (read-only); a different agent applies fixes. They alternate until the critic says "approved." Eliminates the "I just wrote this code, it looks fine to me" trap.
 3. **Fresh-context verification** — a verifier agent that has never seen your draft answers verification questions from the source material alone. It can't self-confirm a hallucinated claim because it doesn't know the claim was made.
-:::
 
 ## Pattern 1: parallel independent work {.compact}
 
-::: {.incremental}
 - Three referee reports come in. You spawn three agents in parallel: one per report.
 - Each reads its assigned report + the manuscript. Returns a structured response sketch.
 - You synthesize.
-:::
-
-. . .
 
 **When it works:** the tasks are genuinely independent. **When it breaks:** the tasks need to share context (then it's serial, not parallel).
 
 ## Pattern 2: critic-fixer loop {.compact}
 
-::: {.incremental}
 - The **critic** reads the artifact (Beamer source, Quarto target, manuscript section). Read-only — it cannot edit.
 - The **fixer** receives the critic's findings and applies them.
 - They alternate. Critic re-audits after each fixer pass. Loop until APPROVED (or max 5 rounds).
-:::
-
-. . .
 
 **Why two agents and not one:** the agent that *wrote* the fix shouldn't be the one judging it. Role separation = honest review.
 
 ## Pattern 3: fresh-context verification (CoVe) {.compact}
 
-::: {.incremental}
 - The verifier never sees the draft. It only sees: claims, verification questions, source material.
 - Architecturally enforced via context forking — the verifier *cannot* know what was originally written.
 - Adapted from Dhuliawala et al. 2023, *Chain-of-Verification Reduces Hallucination in LLMs* ([arXiv:2309.11495](https://arxiv.org/abs/2309.11495)).
-:::
 
-. . .
+**Why this matters in practice:**
 
-**Why this matters in practice:** I once spent an evening figuring out that I'd cited the wrong paper for a mechanism I was discussing — referee caught it. CoVe-style verification catches that class of mistake, because the verifier doesn't share the writer's confidence in the original draft.
+- I once spent an evening figuring out that I'd cited the wrong paper for a mechanism I was discussing — **referee caught it**.
+- CoVe-style verification catches that class of mistake.
+- The verifier doesn't share the writer's confidence in the original draft.
 
 ## Three patterns, three failure modes {.compact}
 
@@ -1093,38 +924,26 @@ Honesty matters: this is a contract that skills implement, not a magic backgroun
 
 ## The decomposition trap {.compact}
 
-::: {.incremental}
 - "Spawn 5 agents to refactor this codebase" — sounds good, fails badly.
 - Each agent works on a slice; slices interact; no agent has the whole picture.
 - You get 5 partial fixes that conflict and an integration nightmare.
-:::
-
-. . .
 
 **Rule:** multi-agent is for tasks where the *decomposition is clear*. If you can't write the decomposition in 2 sentences, don't fan out.
 
 ## A concrete failure mode {.compact}
 
-::: {.incremental}
 - I once asked: "spawn 3 agents to add fixed effects to my regression in three different ways."
 - Agent 1: firm FE. Agent 2: industry × year FE. Agent 3: matched-sample.
 - Each rewrote the script in its own image. Three branches. Two days reconciling.
 - I should have run them **serially** — one branch, one decision per round.
-:::
-
-. . .
 
 **The lesson:** parallel ≠ better. Parallel = right for *independent* work; serial = right for *interacting* work.
 
 ## When ONE agent is enough {.compact}
 
-::: {.incremental}
 - Most editing tasks. **One agent + the orchestrator loop is fine.**
 - Most analysis tasks. Multi-agent on a regression script is over-engineering.
 - Quick fixes. The cost of fanning out exceeds the benefit if the task takes < 5 minutes.
-:::
-
-. . .
 
 **Heuristic:** add a second agent only when you can articulate exactly what *that agent* sees that the first one couldn't.
 
@@ -1138,31 +957,23 @@ Honesty matters: this is a contract that skills implement, not a magic backgroun
 | `.claude/rules/*.md` | Tells Claude what's required for *specific files* | Advisory + path-scoped |
 | `.claude/hooks/*.py` | Runs a Python script at lifecycle events | **Deterministic — runs every time, no exceptions** |
 
-. . .
-
 Hooks are how you turn "Claude is supposed to..." into "this thing actually happens."
 
 ## A real hook in this template {.compact}
 
 `.claude/hooks/log-reminder.py` — fires on every Stop event.
 
-::: {.incremental}
 - If the session log under `quality_reports/session_logs/` hasn't been touched in N response cycles, prints a stderr reminder.
 - Doesn't block Claude — just nudges.
 - Net effect: session logs get updated. Cross-session continuity becomes habit, not afterthought.
-:::
 
 ## Another: pre-commit gates {.compact}
 
 `/commit` Step 0b runs `scripts/check-surface-sync.sh` + `check-skill-integrity.py` BEFORE writing the commit.
 
-::: {.incremental}
 - Surface-sync: count assertions across 6 documents must match disk
 - Skill-integrity: 4 mechanical parity classes (frontmatter ↔ body, etc.)
 - Either fails → commit halts, user fixes, retries
-:::
-
-. . .
 
 This isn't AI judgment. It's a Python script. **The same gate runs whether I'm tired or rested.**
 
@@ -1184,19 +995,16 @@ Choreography: `demos/03-orchestration/README.md`.
 
 ## What you saw {.compact}
 
-::: {.incremental}
 - **Two agents, one task, one approval.** That's the shape.
 - The fixer can't approve itself — different role, different context.
 - **The hook caught a real issue at commit time** that no agent would have caught — count drift across documentation.
-:::
 
-## A workflow I keep coming back to: `/deep-audit` {.claudeorange}
+# A workflow I keep coming back to: `/deep-audit` {.claudeorange}
 
 ## `/deep-audit` — multi-agent orchestration on my own work {.compact}
 
 When I finish a non-trivial chunk of work — a new lecture, a paper revision, even **this deck** — I run `/deep-audit`. Here's what it does:
 
-::: {.incremental}
 1. **Phase 0 (mechanical):** deterministic checks first — does it render? do internal links resolve? are tables consistent?
 2. **Phase 1 (4 parallel agents)** in fresh contexts:
    - one for **correctness** (claims match disk reality)
@@ -1205,47 +1013,33 @@ When I finish a non-trivial chunk of work — a new lecture, a paper revision, e
    - one for **practicality** (does it actually work end-to-end?)
 3. **Phase 2:** I triage findings — genuine bugs vs false alarms.
 4. **Phase 3:** fix. Loop if needed.
-:::
-
-. . .
 
 I ran this on the deck you're looking at right now, last week.
 
 ## What `/deep-audit` found in this deck (last week) {.compact}
 
-::: {.incremental}
 - **2 P0 ship-blockers:** a stale ATT value on one slide that contradicted the demo's R script; a `--peer JF` reference that disagreed with `--peer AER` everywhere else.
 - **3 broken external URLs** I'd added without verifying.
 - **Multiple missing demo materials** — `data/clean.rds` didn't exist; the R script would have errored live.
 - **Pedagogy issues:** demo stakes that read as sales pitch; closing slides that trailed off into a URL dump.
 - **A few false alarms** — agent thought one of my GitHub URLs was 404 when it was actually fine. Worth knowing the agent's blind spots.
-:::
-
-. . .
 
 I'm a bit embarrassed by some of these. **The agent caught what I missed.** That's the point.
 
 ## Why this works for me {.compact}
 
-::: {.incremental}
 - **Independence.** Each audit agent runs in a *fresh context* — it never saw me write the deck. So it can't unconsciously confirm my framing.
 - **Specialization.** Four narrow lenses each beat one broad reviewer. The link-health agent doesn't get distracted by pedagogy.
 - **Lived experience.** I've used this dozens of times now. **Most runs find at least one thing I'd be embarrassed to ship.**
 - **Cheap.** ~10 min per pass. Worth the trade for the catches.
-:::
 
-. . .
-
-This isn't a magic trick. It's an orchestration *pattern* applied to my own work, on a quick cadence. **The pattern is reusable** — you can build your own audit skill with the lenses *you* care about.
+- **It's not a magic trick** — just an orchestration *pattern* applied to my own work on a quick cadence.
+- **The pattern is reusable.** Build your own audit skill with the lenses *you* care about.
 
 ## Coming in Parts 5 + 6 {.compact}
 
-::: {.incremental}
 - **Part 5 (45 min, after lunch)**: orchestration applied to **replication audit** — the headline demo for finance/accounting.
 - **Part 6 (45 min)**: orchestration applied to **simulated peer review** — Editor + 2 referees + editorial decision.
-:::
-
-. . .
 
 Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fresh-context). Same primitives, bigger scope.
 
@@ -1257,32 +1051,22 @@ Both demos use Pattern 1 (parallel) + Pattern 2 (critic-fixer) + Pattern 3 (fres
 
 A few years back, I had a manuscript bounce because a single number in a table didn't match the .csv I shipped — silent filter I'd added months earlier and forgotten about. Took me a long evening to find it.
 
-. . .
-
 I now run this kind of check on every paper before submission. **Doesn't always catch everything**, but it catches more than I would on a re-read. Let me show you what it looks like.
 
 ## Why this part lands hardest for applied-causal work {.compact}
 
-::: {.incremental}
 - **AEA Data Editor** position created 2018; operational replication-package verification since 2019. Every accepted AEA paper (AER / AEJs / P&P) goes through a numerical reproduction check.
 - **AEA Data and Code Availability Policy** is strict — a single non-reproducing number is grounds for revision.
 - **Top-5 econ + REStud + EJ** all run formal verification at acceptance.
 - The trend extends: more journals, tighter tolerances, faster cycles.
-:::
-
-. . .
 
 This is no longer "good practice." It's increasingly **a real desk-reject and post-acceptance-revision hazard**.
 
 ## What the AEA Data Editor checks {.compact}
 
-::: {.incremental}
 - Every numerical claim in the manuscript must reproduce from the shipped code + data.
 - Tolerance: typically 4 decimal places on point estimates; exact match on N, R², degrees of freedom.
 - Discrepancies → **major revision required to fix** — even after acceptance.
-:::
-
-. . .
 
 You don't want to discover the discrepancy *after* the editor's email.
 
@@ -1292,11 +1076,7 @@ The repo's `.claude/rules/replication-protocol.md` says:
 
 > *When asked to extend an analysis: FIRST replicate the original numbers. THEN extend. NEVER ship a script that produces numbers that don't match the paper.*
 
-. . .
-
 This rule auto-loads on `*.R`, `*.do`, `*.py`. Claude reads it at the start of every analysis session.
-
-. . .
 
 It's a rule, not a hook — Claude can override with reason. But the default is replication-first.
 
@@ -1313,20 +1093,14 @@ clean.rds      ──by──> scripts/R/02_clean.R
 02_clean.R     ──reads──> data/raw/
 ```
 
-. . .
-
 A bug in `02_clean.R` invalidates Table 2. **Reviewing the manuscript without touching the code misses this class of error.**
 
 ## What `/review-paper` does about it {.compact}
 
-::: {.incremental}
 - Detects script references in the manuscript (`\input{scripts/...}`, `%% source: scripts/...`, table names matching script outputs).
 - Auto-invokes `/review-r` on each referenced script (code-quality review).
 - Auto-invokes `/audit-reproducibility` on the paper ↔ outputs pair (numeric verification).
 - Surfaces cross-artifact findings at the top of the review report.
-:::
-
-. . .
 
 This isn't a feature you trigger. It's the **default for `/review-paper`** when scripts are detected.
 
@@ -1344,8 +1118,6 @@ This isn't a feature you trigger. It's the **default for `/review-paper`** when 
 |---|---|---|
 | Table 2, N = 14,562 | scripts/R/03_analyze.R:18 | Script output: N = 14,489 (silent year < 2020 filter) |
 ```
-
-. . .
 
 This block goes at the **top of the review report**. The paper-side findings come after — because if the numbers don't reproduce, paper-side polish is moot.
 
@@ -1373,14 +1145,10 @@ replication-package/
 
 ## What the workflow gives you {.compact}
 
-::: {.incremental}
 - `/data-analysis` scaffolds this structure on a new project.
 - Numbered scripts (`01_*`, `02_*`, etc.) — implicit dependency order; AEA Data Editor loves it.
 - `00_run_all.R` is the entry point — a Data Editor runs it once, no flags, expects matching outputs.
 - `sessionInfo.txt` captured automatically = R version + package versions reproducible.
-:::
-
-. . .
 
 You don't have to remember any of this. The skill enforces the structure.
 
@@ -1388,7 +1156,6 @@ You don't have to remember any of this. The skill enforces the structure.
 
 `.claude/rules/r-code-conventions.md` (v1.6.x) Section 8 — **Numerical Discipline**:
 
-::: {.incremental}
 - No floating-point `==` comparison
 - CDF clamping with named epsilon (`eps <- 1e-12`)
 - Integer literals for counts (`1L`, not `1`)
@@ -1396,35 +1163,26 @@ You don't have to remember any of this. The skill enforces the structure.
 - Deterministic bootstrap seeding (`set.seed(YYYYMMDD)` once at the top)
 - Explicit `na.rm` (no defaults)
 - No `T`/`F` shorthands
-:::
 
-. . .
-
-These are the kinds of bugs that produce "the script ran but the numbers are slightly off" — which is exactly what AEA Data Editors catch.
+These are the bugs that produce *"the script ran but the numbers are slightly off"* — exactly what AEA Data Editors catch.
 
 ## A bug class /audit-reproducibility catches that I'd miss {.compact}
 
-::: {.incremental}
 - I write `subset(df, year >= 2010)` in the cleaning script.
 - Manuscript reports N = 14,562.
 - Three months later, I add `& year < 2020` to drop COVID-era observations for a robustness check.
 - Forget to update the manuscript; new N is 14,489 — manuscript still says 14,562.
 - **I'd never catch this on re-read.** The skill catches it in 5 seconds.
-:::
 
 # Live demo: replication audit {.claudeorange}
 
 ## What you're about to see {.compact}
 
-::: {.incremental}
 - A `manuscript-claims.md` with 4 numerical claims (sanitized — looks like a real paper draft).
 - An `analyze.R` script that allegedly produced them.
 - I run `/audit-reproducibility manuscript-claims.md analyze.R`.
 - The agent reads both, runs the script, compares to claims.
 - One claim diverges — the kind of bug re-reading the manuscript wouldn't catch.
-:::
-
-. . .
 
 This works *most* of the time. Sometimes the agent reports false positives or misses things. It's a check, not a guarantee.
 
@@ -1455,7 +1213,7 @@ This works *most* of the time. Sometimes the agent reports false positives or mi
 | 8 | Generate report | T+12 |
 | 9 | Wrap | T+15 |
 
-## Watch the discrepancy moment
+## Watch the discrepancy moment {auto-animate=true}
 
 ::: {.demobox}
 **Live demo handoff**
@@ -1473,51 +1231,38 @@ Choreography: `demos/04-replication/README.md`.
 
 What you saw:
 
-::: {.incremental}
 - The agent read `manuscript-claims.md` — extracted the 4 numerical claims into a checklist.
 - The agent ran `analyze.R` — captured all output.
 - For each claim, compared to the corresponding script output with **explicit tolerance thresholds**.
 - Three claims passed. **One failed.** (Planted: N = 14,562 vs. actual 14,489.)
 - The agent surfaced exactly *which line* of the script produces the divergent number.
-:::
 
 ## Why this lands for me {.compact}
 
-::: {.incremental}
 - AEA Data Editors do this for every accepted paper. So do JF / REStud reviewers.
 - Catching a discrepancy *before* submission means fixing in private rather than in public.
 - The skill costs me ~5 minutes per run. Doesn't always find something — but when it does, it's saved me real time.
-:::
 
 ## What it doesn't replace {.compact}
 
-::: {.incremental}
 - ❌ **Conceptual review.** The skill checks numbers, not whether the question is interesting.
 - ❌ **Identification audits.** It doesn't ask "is parallel trends plausible here?"
 - ❌ **Editorial judgment.** It can't tell you the result is too small to publish.
 - ✅ **The boring 70%.** All of which is mechanical and previously slow.
-:::
 
 ## If you want to try this {.compact}
 
-::: {.incremental}
 1. Pick a paper you've already submitted somewhere.
 2. Run `/audit-reproducibility` on the manuscript + replication code.
 3. See what comes up.
 4. If something comes up — decide what to do with it.
-:::
 
-. . .
-
-In my own runs, I usually find something — sometimes a real issue, sometimes a false alarm. Both are useful: the false alarms tell me what the agent is bad at, which helps me write better skills next time.
+- I usually find something — sometimes a real issue, sometimes a false alarm.
+- Both are useful: false alarms tell you what the agent is bad at — which helps you write better skills next time.
 
 ## Take a 10-minute break {.emoryblue}
 
-. . .
-
 Back at [time]. Final stretch — three live demos in the next 70 minutes.
-
-. . .
 
 After the break: **Part 6 — refereeing + review simulation.**
 
@@ -1527,61 +1272,45 @@ After the break: **Part 6 — refereeing + review simulation.**
 
 ## A pre-submission check that surprised me {.compact}
 
-::: {.incremental}
 - I started using this skill expecting it to be useful for catching surface stuff (typos, clarity).
 - It turns out the more interesting use is the **disposition modeling** — simulating that a credibility-skeptic referee would read your paper differently than a policy-relevance referee, and seeing what each would surface.
 - The output isn't *the* peer review. It's a structured *practice* peer review: an editor + two referees with different priors + an editorial-decision template.
-:::
-
-. . .
 
 Twenty minutes. Useful as a dress rehearsal — not a substitute for real referees.
 
 ## Why this works (and where it doesn't) {.compact}
 
-::: {.incremental}
 - ✅ **Surface-level + structural issues:** missing citations, unclear identification, weak first-stage, framing drift.
 - ✅ **Referee-perspective stress-tests:** a "credibility skeptic" reads it differently than a "policy relevance" reviewer.
 - ❌ **Substantive contribution.** The simulation can't tell you the result is *interesting*. That's the editor's actual job.
 - ❌ **Field-specific norms** beyond what's in the journal profile.
-:::
-
-. . .
 
 Use it as a **dress rehearsal**, not a substitute for real referees.
 
 ## The shape of what's coming {.compact}
+
+**One prompt → three agents → one revision plan.**
 
 ```
                        ┌──────────────────┐
                        │   /review-paper  │
                        │     --peer AER   │
                        └────────┬─────────┘
-                                │
-                       ┌────────▼────────┐
-                       │     EDITOR      │  desk review +
-                       │     AGENT       │  novelty probe
-                       └────────┬────────┘
-                       picks two referees
+                       ┌────────▼─────────┐
+                       │  EDITOR AGENT    │  desk + novelty
+                       └────────┬─────────┘
+                          picks two referees
                           ◄──── ▼ ────►
-              ┌──────────────────┐  ┌──────────────────┐
-              │  REFEREE 1       │  │  REFEREE 2       │
-              │  (CREDIBILITY)   │  │  (POLICY)        │
-              │  parallel-trends │  │  magnitude in pp │
-              │  robustness      │  │  external valid. │
-              └────────┬─────────┘  └─────────┬────────┘
-                       │ different dispositions │
-                       ▼ non-overlapping concerns ▼
+            ┌──────────────────┐    ┌──────────────────┐
+            │   REFEREE 1      │    │   REFEREE 2      │
+            │  (CREDIBILITY)   │    │     (POLICY)     │
+            └────────┬─────────┘    └─────────┬────────┘
+                     ▼     non-overlapping    ▼
                        ┌──────────────────┐
-                       │     EDITOR       │  synthesizes
-                       │   editorial      │  → FATAL /
-                       │   decision       │    ADDRESSABLE /
-                       └──────────────────┘    TASTE
+                       │  EDITOR DECISION │ → FATAL /
+                       │                  │   ADDRESSABLE /
+                       └──────────────────┘   TASTE
 ```
-
-. . .
-
-**One prompt. Three agents. One revision plan.** You'll see this run live in the next slide.
 
 ## The 6-way disposition taxonomy {.compact}
 
@@ -1596,21 +1325,15 @@ Every applied-empirics referee has a *type*. We model them explicitly.
 | THEORY | "Where's the mechanism?" |
 | SKEPTIC | "What's the strongest case against this?" |
 
-. . .
-
 Two referees with **deliberately different dispositions** stress-tests the paper from non-overlapping angles.
 
 ## Journal calibration {.compact}
 
 The editor reads `.claude/references/journal-profiles.md` and adjusts:
 
-::: {.incremental}
 - **Disposition pool weights** per journal (AER skews CREDIBILITY + POLICY; APSR skews THEORY; AJPS skews CREDIBILITY + MEASUREMENT)
 - **Domain-referee dimension weights** (AER raises Contribution; QJE raises Identification)
 - **Methods-referee paper-type rubrics** (formal-theory weights model-novelty; survey-experiment weights design + balance)
-:::
-
-. . .
 
 A simulated AER review *should* feel different from a simulated AJPS review. **The journal is the prior.**
 
@@ -1618,14 +1341,10 @@ A simulated AER review *should* feel different from a simulated AJPS review. **T
 
 In `claude-code-my-workflow/.claude/references/journal-profiles.md` (v1.8.0):
 
-::: {.incremental}
 - **Econ top-5:** AER, QJE, JPE, ECMA, ReStud
 - **Political science top-3:** APSR, AJPS, JOP (added v1.8.0)
 - **Coming for ND talk:** **JF + JAR** (v1.8.1, this week)
 - **Sociology, public health, psych:** template + skeleton — your fork-and-extend
-:::
-
-. . .
 
 Each profile is ~40 lines. Adding your home journal: 30 minutes once.
 
@@ -1635,26 +1354,20 @@ Every MAJOR concern in a referee report from this pipeline must include:
 
 > **What would change my mind:** [specific test, estimator, robustness check, or evidence that would resolve this concern]
 
-::: {.incremental}
 - This is a discipline, not a feature. Without it, "I'm worried about endogeneity" is taste; with it, "I'd be convinced if you ran an IV with X as instrument" is actionable.
 - Same discipline for both referee agents (domain + methods).
 - Without this constraint, the simulated reports drift toward un-actionable adversarialism.
-:::
 
 # Live demo: `/review-paper --peer` {.claudeorange}
 
 ## What you're about to see {.compact}
 
-::: {.incremental}
 - A sanitized manuscript snippet — intro + identification section, ~3 pages, a staggered-DiD application.
 - I run `/review-paper --peer AER`.
 - The **editor agent** does a desk review (with a WebSearch novelty probe).
 - The editor picks **two referees with different dispositions** from the AER pool.
 - The two referees fan out **in parallel**.
 - The editor synthesizes → **editorial decision** (FATAL / ADDRESSABLE / TASTE).
-:::
-
-. . .
 
 Sometimes the simulated review surfaces something I hadn't thought of. Sometimes it's noise. **It's a useful first pass.**
 
@@ -1689,22 +1402,16 @@ Choreography: `demos/05-peer-review/README.md`.
 
 ## What you should have caught {.compact}
 
-::: {.incremental}
 - The **disposition pairs were different** (e.g., one CREDIBILITY, one EXTERNAL-VALIDITY / POLICY) — generating non-overlapping concerns.
 - Each MAJOR concern had a **"What would change my mind"** clause — actionable.
 - The editor's synthesis classified concerns: **FATAL** (rejection unless mind-changed) / **ADDRESSABLE** (revise+resubmit territory) / **TASTE** (referee preference, not the paper's fault).
 - The decision wasn't "accept" or "reject" — it was a **revision plan**.
-:::
 
 ## A 30-second pause {.compact}
 
 > *I just got an editorial decision on a paper I haven't published yet. From a simulated **AER** editor. With two referee reports. In ~20 minutes.*
 
-. . .
-
 That's the demo. **The next demo is what you do next** — turning that editorial decision into a structured revision plan.
-
-. . .
 
 Let's go.
 
@@ -1716,18 +1423,14 @@ You just saw a simulated peer review. The other half of the workflow:
 
 > *Now I have a real referee report I disagree with. How do I respond?*
 
-. . .
-
 `/respond-to-referees` parses a referee report and maps each concern to a specific revision in the manuscript.
 
 ## What it produces {.compact}
 
-::: {.incremental}
 - **Concern-by-concern table:** referee text → classification (Addressed / Partial / Deferred / Disagreement) → manuscript location of the response.
 - **Drafted response prose** for each concern, polite-but-firm, in the project's voice.
 - **A coverage summary** at the top: X addressed, Y partial, Z deferred, W disagreement.
 - **Revision-letter scaffold** ready to upload.
-:::
 
 ## Why classification matters for R&R {.compact}
 
@@ -1736,8 +1439,6 @@ You just saw a simulated peer review. The other half of the workflow:
 - **Deferred** — you didn't do the thing this round. Explain *why deferred* (out of scope, future work, infeasible).
 - **Disagreement** — you don't think the thing should be done. **Explain courteously and substantively.**
 
-. . .
-
 Top journal editors want to see all four categories used appropriately. **Avoiding "Disagreement" looks evasive.**
 
 ## A concrete example — the referee's concern {.compact}
@@ -1745,8 +1446,6 @@ Top journal editors want to see all four categories used appropriately. **Avoidi
 A referee writes:
 
 > *"The first-stage F-statistic of 9 is well below the conventional weak-instrument threshold (Stock & Yogo 2005). The IV results should not be interpreted causally."*
-
-. . .
 
 A real concern. The kind of concern that, on a bad day, you spend three hours drafting a response to.
 
@@ -1758,21 +1457,15 @@ A real concern. The kind of concern that, on a bad day, you spend three hours dr
 >
 > **Drafted response:** "We thank the referee for raising the weak-instrument concern. We now report Anderson-Rubin confidence intervals (Online Appendix B.3) which are robust to weak instruments; the result is qualitatively similar with much wider intervals. We have added a footnote on p. 14 noting the limitation explicitly."
 
-. . .
-
 **Three hours → ten seconds.** You still review and edit. But the scaffolding is done.
 
 ## Alternative: `strategic-revision` (jusi-aalto) {.compact}
 
 A community Claude skill from outside our template. Different approach than ours.
 
-::: {.incremental}
 - Where `/respond-to-referees` produces concern-by-concern drafted responses, [`jusi-aalto/strategic-revision`](https://github.com/jusi-aalto/strategic-revision) treats reviewer requests as a **directed acyclic graph**.
 - It identifies dependencies (e.g., "Referee 2's concern about the IV depends on resolving Referee 1's concern about sample selection first"), validates the DAG with NetworkX, and sequences work into execution blocks with co-author assignments.
 - Worth knowing about; whether it fits your workflow depends on how complex your typical R&R round is.
-:::
-
-. . .
 
 **Different tool for different sub-task:** `/respond-to-referees` for the *prose*; `strategic-revision` for the *project plan*.
 
@@ -1797,20 +1490,16 @@ Choreography: `demos/05-peer-review/README.md`.
 
 ## What just happened {.compact}
 
-::: {.incremental}
 - The skill read both files.
 - For each concern in the editorial decision: classified it; drafted a response; pointed at the manuscript location where the response should land.
 - **Output is a structured Markdown response document** — not a finished revision letter, but the scaffolding for one.
 - Net time saved: 4-6 hours per R&R round.
-:::
 
 ## The "What would change my mind" symmetry {.compact}
 
-::: {.incremental}
 - The referee agent attaches "what would change my mind" to MAJOR concerns.
 - The response agent must engage with that explicitly: did the revision do *that thing*? If yes, claim it. If not, explain why.
 - This forces a **disciplined R&R conversation** — the same kind real journals try to enforce, often with mixed success.
-:::
 
 # Wrap-up {.claudeorange}
 
@@ -1818,45 +1507,31 @@ Choreography: `demos/05-peer-review/README.md`.
 
 In 45 minutes:
 
-::: {.incremental}
 - A simulated peer review of a real working paper, with two differently-disposed referees + an editorial decision
 - A drafted response to that editorial decision, with concern-classification + revision mapping
 - All saved to disk as a reproducible audit trail
-:::
-
-. . .
 
 The cost: **~30 min of wall-clock time and one prompt.**
 
 ## Where this fits in your actual workflow {.compact}
 
-::: {.incremental}
 - **Pre-submission:** dress rehearsal. Catches the obvious 80%; surfaces the 10% that needs work; misses the 10% that needs a real referee.
 - **R&R round 2:** classification scaffolding when you have 8 referee concerns and 2 weeks to respond.
 - **Co-author conflict:** "the simulated review flagged exactly what my co-author has been pushing on. They're right; here's the data."
-:::
 
 ## What it does NOT do {.compact}
 
-::: {.incremental}
 - ❌ Predict whether your paper will be accepted at JF.
 - ❌ Tell you the paper isn't novel (the editor agent has a WebSearch novelty probe, but it's heuristic — not a substitute for real desk review).
 - ❌ Replace the deep, paper-changing engagement of a great real referee.
-:::
-
-. . .
 
 It's a **first pass**. The substance of peer review is still human.
 
 ## Coming up: the close (25 min) {.compact}
 
-::: {.incremental}
 - **Cross-tool strategies** — using Claude vs. Codex to audit each other.
 - **Ecosystem tour** — clo-author, claudeblattman, MixtapeTools, and what to read next.
 - **Three things to do Monday morning.**
-:::
-
-. . .
 
 We're 3h35min in. Final stretch.
 
@@ -1874,8 +1549,6 @@ We're 3h35min in. Final stretch.
 | `.claude/agents/` | Specialized review personas (proofreader, referees) | Parts 2, 6 |
 | `.claude/hooks/` | Deterministic lifecycle enforcement | Part 4 |
 
-. . .
-
 Five layers. None of them are AI-magical. **All of them are written instructions.**
 
 ## How they connect {.compact}
@@ -1883,38 +1556,26 @@ Five layers. None of them are AI-magical. **All of them are written instructions
 ```
                    ┌─────────────────────────┐
                    │      CLAUDE.md          │  always loaded
-                   │   (project universals)  │
                    └────────────┬────────────┘
-                                │
         ┌───────────────────────┼───────────────────────┐
-        │                       │                       │
    path-scoped              triggered               lifecycle
    ┌────▼────┐           ┌─────▼─────┐          ┌─────▼─────┐
    │  rules  │           │  skills   │          │   hooks   │
-   └────┬────┘           └─────┬─────┘          └───────────┘
-        │                      │
-        │                  ┌───▼───┐
-        │                  │ agents │
-        │                  └────────┘
-        │
-   loaded only when
-   matching files touched
+   └─────────┘           └─────┬─────┘          └───────────┘
+                               │
+                          ┌────▼────┐
+                          │ agents  │
+                          └─────────┘
 ```
-
-. . .
 
 The diagram is the whole talk in one picture.
 
 ## What we just covered {.compact}
 
-::: {.incremental}
 - A mental model for where each piece of the stack lives + why
 - Three concrete demos from my own workflow
 - A repo you can clone if you want the materials
 - A parent template you can fork when you're ready
-:::
-
-. . .
 
 If even *one* of these stuck, I'll consider the four hours well spent.
 
@@ -1922,13 +1583,9 @@ If even *one* of these stuck, I'll consider the four hours well spent.
 
 ## Why use more than one AI tool {.compact}
 
-::: {.incremental}
 - **No single tool is best at everything.** Claude shines on repo-context tasks; Codex shines on focused-completion problems; Gemini on multimodal.
 - **A tool reviewing its own work has confirmation bias.** A different tool, different training data, different failure modes — independent review.
 - **Cost arbitrage.** Cheap Haiku-class models for triage; Opus-class for the hard part; Codex for the tasks where it's strictly better.
-:::
-
-. . .
 
 The orchestration story extends: **multi-agent across tools**, not just within Claude.
 
@@ -1941,27 +1598,19 @@ The orchestration story extends: **multi-agent across tools**, not just within C
 4. You see both views before deciding.
 ```
 
-. . .
-
 The Codex plugin for Claude Code ([`openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc), shipped by OpenAI) is exactly this. **A different tool reviewing the first tool's work.**
 
 ## When cross-tool actually helps {.compact}
 
-::: {.incremental}
 - **Refactors with subtle correctness implications** — different tools see different bugs.
 - **Code in languages you don't read fluently** — your one tool agreeing with itself isn't reassurance.
 - **High-stakes one-shot tasks** — you'd rather pay 2x to get 2x review than re-do it.
-:::
 
 ## When it doesn't {.compact}
 
-::: {.incremental}
 - **Routine work.** Cost-of-orchestration > value-of-second-opinion. Use one tool, save the round trip.
 - **Genuinely ambiguous decisions** (taste, style). Two tools voting doesn't tell you which is right.
 - **Speed-critical iteration loops.** Cross-tool adds 30 sec / iteration. On a 50-iteration day = 25 min lost.
-:::
-
-. . .
 
 **Heuristic:** cross-tool for *one in ten* tasks — the high-stakes ones. Not as a default.
 
@@ -1976,11 +1625,7 @@ In any Claude Code session inside VS Code:
 /codex:setup                                     # checks for Codex CLI; offers to install if missing
 ```
 
-. . .
-
 If `/codex:setup` says you need to authenticate: `!codex login` opens a browser for OAuth.
-
-. . .
 
 Canonical source: [`github.com/openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) · Take-home walkthrough: `Claude-Mini/handouts/codex-setup.md`.
 
@@ -1991,8 +1636,6 @@ Canonical source: [`github.com/openai/codex-plugin-cc`](https://github.com/opena
 | `/codex:review` | Read-only review of your diff | Sanity pass on a substantive change |
 | `/codex:adversarial-review` | Pressure-tests the *approach* — assumptions, tradeoffs, alternatives | Before shipping a design choice I'm not sure about |
 | `/codex:rescue` | Hands a task to Codex (investigate / fix / continue) | When Claude's stuck and I want a different angle |
-
-. . .
 
 All three: `--wait` (foreground) or `--background`. Track background runs with `/codex:status` and `/codex:result`.
 
@@ -2008,23 +1651,18 @@ The `/codex:adversarial-review` flow specifically — the cross-tool review I ru
 5. I read both views and decide.
 ```
 
-. . .
-
 **No tool gets the last word.** The cross-tool review is *information*, not *authority*.
 
 ## A small story from this week {.compact}
 
-::: {.incremental}
 - I asked Claude to do a substantial refactor — about 200 lines across a couple of files.
 - I read the diff. It looked fine to me.
 - I ran `/codex:adversarial-review` on it before pushing.
 - Codex flagged **three things Claude had quietly changed** that I hadn't noticed in my read — one was actually a regression I would have shipped.
 - Took an extra 90 seconds. Saved me a follow-up commit.
-:::
 
-. . .
-
-**This isn't every commit.** I do it on the changes I care about most. The discipline is knowing when to spend the extra 90 seconds — and when not to.
+- **This isn't every commit** — I do it on the changes I care about most.
+- The discipline: knowing when to spend the extra 90 seconds, and when not to.
 
 ## A live-mini-demo (if time) {.compact}
 
@@ -2052,32 +1690,26 @@ Two complements I'd point you at first:
 - **[Paul Goldsmith-Pinkham × Princeton](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/)** — Yale finance prof, 5-episode video series for applied economists. **Different format, different angle, longer form.** Watch over a Saturday morning.
 - **[Claes Bäckman's written guide](https://claesbackman.com/claude-code-guide.html)** — ~3,500-word practical companion: setup, R/Stata/Python/LaTeX, CLAUDE.md, skills, git, performance.
 
-. . .
-
 Six more high-quality projects (clo-author, strategic-revision, crossref, claudeblattman, MixtapeTools, autoresearch, AI MBA) are in `handouts/resources.md` — won't fit on a slide; will fit on your reference card.
 
 ## Anthropic-shipped utilities {.compact}
 
 Built into Claude Code itself, no fork needed:
 
-::: {.incremental}
 - **`/team-onboarding`** ([Week 15 digest](https://code.claude.com/docs/en/whats-new/2026-w15)) — package your local setup into a replayable guide for collaborators. **Recommend for lab groups.**
 - **`/autofix-pr`** — runs Claude Code on a GitHub PR, applying CI-style fixes
 - **`/powerup`** — interactive lessons (Anthropic's tutorial system)
 - **Ultraplan** ([docs](https://code.claude.com/docs/en/ultraplan)) — cloud-based plan editing, sync to local
 - **`/loop` self-pacing** — recurring or self-paced background tasks
 - **`/less-permission-prompts`** — diagnose permission-prompt fatigue
-:::
 
 ## Cross-tool: Codex plugin (Part 7's earlier demo) {.compact}
 
 Canonical: [`github.com/openai/codex-plugin-cc`](https://github.com/openai/codex-plugin-cc) (OpenAI) · Announcement: [OpenAI Developer Community](https://community.openai.com/t/introducing-codex-plugin-for-claude-code/1378186).
 
-::: {.incremental}
 - "It is Codex, just invoked from inside Claude Code" — reuses local Codex CLI auth, config, MCP setup.
 - Three use cases: `/codex:review` (standard), `/codex:adversarial-review` (challenge the approach), `/codex:rescue` (delegate a task to Codex when Claude's stuck).
 - We saw `/codex:adversarial-review` in the optional Part 7 demo. Setup walkthrough in [`handouts/codex-setup.md`](https://github.com/pedrohcgs/Claude-Mini/blob/main/handouts/codex-setup.md).
-:::
 
 # Resources + start {.claudeorange}
 
@@ -2085,11 +1717,7 @@ Canonical: [`github.com/openai/codex-plugin-cc`](https://github.com/openai/codex
 
 > Open the directory of a paper you're working on. Try writing a `CLAUDE.md`. ~30 minutes.
 
-. . .
-
 That's the smallest experiment I'd recommend. Once it exists, everything else in this stack has somewhere to anchor.
-
-. . .
 
 (If you want the slides and demos: clone [`Claude-Mini`](https://github.com/pedrohcgs/Claude-Mini). Full template: fork [`claude-code-my-workflow`](https://github.com/pedrohcgs/claude-code-my-workflow). But neither of those changes a paper by itself.)
 
@@ -2097,57 +1725,43 @@ That's the smallest experiment I'd recommend. Once it exists, everything else in
 
 When the CLAUDE.md habit is in place — these are next, in priority order:
 
-::: {.incremental}
 1. **Pick one repetitive task you do 3+ times a year. Write it as a skill.** (Sample use cases on the handout.)
 2. **Run `/audit-reproducibility`** on your most recent submitted paper. Find the issue. Fix it before someone else does.
 3. **Try `/review-paper --peer AER`** (or your target journal) on a current draft. Treat the simulated review as a dress rehearsal.
-:::
-
-. . .
 
 These are *menu*, not assignments. Pick one when it's the right week.
 
 ## Honest closing {.compact}
 
-::: {.incremental}
 - This workflow has saved me **probably 100+ hours** in the last year.
 - It's also occasionally **infuriating** — agents misunderstanding, hooks firing inconveniently, demos failing live.
 - The leverage is real. The friction is also real. **You'll calibrate by doing.**
 - The community of academics adopting this is small but growing fast. **You're early.**
-:::
 
 ## Resources for going deeper {.compact}
 
 **Anthropic canon (read first if pressed for time):**
 
-::: {.incremental}
 - [Best Practices](https://code.claude.com/docs/en/best-practices) — short, current, very good
 - [What's New](https://code.claude.com/docs/en/whats-new) — weekly feature digest
 - [Permission modes](https://code.claude.com/docs/en/permission-modes), [Hooks](https://code.claude.com/docs/en/hooks-guide), [Memory / CLAUDE.md](https://code.claude.com/docs/en/memory), [Skills](https://code.claude.com/docs/en/skills)
-:::
 
 ## Resources for going deeper (community + academic) {.compact}
 
-::: {.incremental}
 - **Goldsmith-Pinkham mini-series:** [bcf.princeton.edu/events/paul-goldsmith-pinkham...](https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/) — 5 episodes, applied-econ angle
 - **The `claude-code-my-workflow` guide:** [psantanna.com/claude-code-my-workflow](https://psantanna.com/claude-code-my-workflow) — full walkthrough
 - **TROUBLESHOOTING.md** in the same repo — most issues catalogued
 - **Hugo Sant'Anna's `clo-author`:** [github.com/hugosantanna/clo-author](https://github.com/hugosantanna/clo-author) — paper-authoring-focused fork
 - **AI MBA tutorials:** [ai-mba.io](https://ai-mba.io) — B-school audience materials
 - **Take-home `Claude-Mini/handouts/resources.md`** — every link from this talk in one file
-:::
 
 ## Thank you {.emoryblue}
 
 > Thanks for spending four hours of your day with me. I'd genuinely love to hear what works for you.
 
-. . .
-
 **Materials:** [github.com/pedrohcgs/Claude-Mini](https://github.com/pedrohcgs/Claude-Mini)
 
 **Reach me:** pedro.santanna@emory.edu · [psantanna.com](https://psantanna.com) · [@pedrohcgs](https://github.com/pedrohcgs)
-
-. . .
 
 **Q&A — let's talk.**
 
