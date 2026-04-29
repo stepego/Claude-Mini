@@ -349,9 +349,11 @@ Pedro H. C. Sant’Anna
 <section id="a-few-things-have-shifted" class="slide level2 compact">
 <h2>A few things have shifted</h2>
 <ul>
-<li><strong>Replication scrutiny has gone up.</strong> AEA Data Editor checks every accepted paper; REStud + EJ run formal verification; the field-specific journals are heading the same direction.</li>
-<li><strong>Referee reports got more methodical.</strong> Pre-trends sensitivity, identification robustness, “what would change my mind” — the bar keeps rising.</li>
-<li><strong>Agentic AI matured fast.</strong> “Tool-using” went from research preview (2024) to production (2025). It’s not a chatbot anymore. The gap between <em>chatbot</em> and <em>agent</em> is roughly the gap between <em>spreadsheet</em> and <em>programming language</em>.</li>
+<li><strong>Replication scrutiny has gone up.</strong> AEA Data Editor checks every accepted paper.</li>
+<li>REStud + EJ run formal verification; field journals are heading the same direction.</li>
+<li><strong>Referee reports got more methodical</strong> — pre-trends sensitivity, identification robustness, <em>“what would change my mind”</em>.</li>
+<li><strong>Agentic AI matured fast.</strong> “Tool-using” went from research preview (2024) to production (2025).</li>
+<li>The gap between <em>chatbot</em> and <em>agent</em> ≈ <em>spreadsheet</em> vs <em>programming language</em>.</li>
 </ul>
 <p>These don’t make this stuff <em>necessary</em>. They just make the upside of having a workflow bigger.</p>
 </section>
@@ -367,9 +369,9 @@ Pedro H. C. Sant’Anna
 <section id="what-ill-be-doing" class="slide level2 compact">
 <h2>What I’ll be doing</h2>
 <ol type="1">
-<li>Walking you through a workflow I’ve built on top of agentic AI — one that <strong>plans before acting, reviews its own work, and verifies before shipping</strong>.</li>
-<li>Demonstrating it live on real materials I’m actually working on — manuscript improvement, replication check, simulated peer review.</li>
-<li>Sharing the repo (<code>Claude-Mini</code>) and the parent template (<code>claude-code-my-workflow</code>) so you can clone, fork, or just borrow ideas.</li>
+<li>Walking through a workflow that <strong>plans before acting, reviews its own work, and verifies before shipping</strong>.</li>
+<li>Demonstrating it live on real materials — manuscript improvement, replication check, simulated peer review.</li>
+<li>Sharing the repo (<code>Claude-Mini</code>) and the parent template (<code>claude-code-my-workflow</code>) — clone, fork, or just borrow ideas.</li>
 </ol>
 <ul>
 <li>As agents get better at <em>generating</em>, the binding constraint quietly shifts to <strong>evaluating</strong> what they just produced (Andrews, 2026).</li>
@@ -1155,8 +1157,14 @@ Pedro H. C. Sant’Anna
 <h2>Community skills worth knowing about</h2>
 <p>Beyond <code>claude-code-my-workflow</code>’s 30 skills, two community skills are highly relevant for this audience:</p>
 <ul>
-<li><a href="https://github.com/jusi-aalto/crossref"><strong><code>jusi-aalto/crossref</code></strong></a> — validates bibliographic references against the Crossref REST API; returns canonical APA citations with DOIs + match-confidence + diff flags. <strong>Pairs naturally with <code>/verify-claims</code>.</strong></li>
-<li><a href="https://github.com/jusi-aalto/strategic-revision"><strong><code>jusi-aalto/strategic-revision</code></strong></a> — peer-review response planning specifically for empirical accounting + finance R&amp;R rounds. Models reviewer requests as a directed acyclic graph (NetworkX). We’ll see this again in Part 6.</li>
+<li><a href="https://github.com/jusi-aalto/crossref"><strong><code>jusi-aalto/crossref</code></strong></a> — validates bibliographic references against the Crossref REST API.
+<ul>
+<li>Returns canonical APA citations with DOIs + match-confidence + diff flags. <strong>Pairs naturally with <code>/verify-claims</code>.</strong></li>
+</ul></li>
+<li><a href="https://github.com/jusi-aalto/strategic-revision"><strong><code>jusi-aalto/strategic-revision</code></strong></a> — peer-review response planning for empirical accounting + finance R&amp;R rounds.
+<ul>
+<li>Models reviewer requests as a directed acyclic graph (NetworkX). We’ll see this again in Part 6.</li>
+</ul></li>
 </ul>
 </section></section>
 <section>
@@ -1308,9 +1316,18 @@ Pedro H. C. Sant’Anna
 <section id="three-patterns-where-multi-agent-earns-its-keep" class="slide level2 compact">
 <h2>Three patterns where multi-agent earns its keep</h2>
 <ol type="1">
-<li><strong>Parallel independent work</strong> — three papers to summarize, ten regression specs to estimate, six sections to proofread. No coordination needed; each agent reads its file and reports back.</li>
-<li><strong>Critic + fixer pairs</strong> — one agent finds problems (read-only); a different agent applies fixes. They alternate until the critic says “approved.” Eliminates the “I just wrote this code, it looks fine to me” trap.</li>
-<li><strong>Fresh-context verification</strong> — a verifier agent that has never seen your draft answers verification questions from the source material alone. It can’t self-confirm a hallucinated claim because it doesn’t know the claim was made.</li>
+<li><strong>Parallel independent work</strong> — e.g., three papers to summarize, ten specs to estimate, six sections to proofread.
+<ul>
+<li>Each agent reads its file and reports back. No coordination needed.</li>
+</ul></li>
+<li><strong>Critic + fixer pairs</strong> — one finds problems (read-only); a different one applies fixes.
+<ul>
+<li>They alternate until the critic says <em>“approved.”</em> Eliminates the “I wrote this; it looks fine to me” trap.</li>
+</ul></li>
+<li><strong>Fresh-context verification</strong> — verifier never saw your draft.
+<ul>
+<li>Answers verification questions from source material alone. Can’t self-confirm a hallucinated claim.</li>
+</ul></li>
 </ol>
 </section>
 <section id="pattern-1-parallel-independent-work" class="slide level2 compact">
@@ -1561,7 +1578,8 @@ Pedro H. C. Sant’Anna
 <section id="why-this-part-lands-hardest-for-applied-causal-work" class="slide level2 compact">
 <h2>Why this part lands hardest for applied-causal work</h2>
 <ul>
-<li><strong>AEA Data Editor</strong> position created 2018; operational replication-package verification since 2019. Every accepted AEA paper (AER / AEJs / P&amp;P) goes through a numerical reproduction check.</li>
+<li><strong>AEA Data Editor</strong> position created 2018; operational replication verification since 2019.</li>
+<li>Every accepted AEA paper (AER / AEJs / P&amp;P) goes through a numerical reproduction check.</li>
 <li><strong>AEA Data and Code Availability Policy</strong> is strict — a single non-reproducing number is grounds for revision.</li>
 <li><strong>Top-5 econ + REStud + EJ</strong> all run formal verification at acceptance.</li>
 <li>The trend extends: more journals, tighter tolerances, faster cycles.</li>
@@ -1837,9 +1855,16 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <section id="a-pre-submission-check-that-surprised-me" class="slide level2 compact">
 <h2>A pre-submission check that surprised me</h2>
 <ul>
-<li>I started using this skill expecting it to be useful for catching surface stuff (typos, clarity).</li>
-<li>It turns out the more interesting use is the <strong>disposition modeling</strong> — simulating that a credibility-skeptic referee would read your paper differently than a policy-relevance referee, and seeing what each would surface.</li>
-<li>The output isn’t <em>the</em> peer review. It’s a structured <em>practice</em> peer review: an editor + two referees with different priors + an editorial-decision template.</li>
+<li>I started using this skill expecting it to be useful for surface stuff — typos, clarity.</li>
+<li>The interesting use is <strong>disposition modeling</strong>.
+<ul>
+<li>A credibility-skeptic referee would read your paper differently than a policy-relevance referee.</li>
+<li>The skill simulates both — and shows what each would surface.</li>
+</ul></li>
+<li>The output isn’t <em>the</em> peer review. It’s a structured <em>practice</em> peer review.
+<ul>
+<li>Editor + two referees with different priors + an editorial-decision template.</li>
+</ul></li>
 </ul>
 <p>Twenty minutes. Useful as a dress rehearsal — not a substitute for real referees.</p>
 </section>
@@ -2110,9 +2135,10 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h2>Alternative: <code>strategic-revision</code> (jusi-aalto)</h2>
 <p>A community Claude skill from outside our template. Different approach than ours.</p>
 <ul>
-<li>Where <code>/respond-to-referees</code> produces concern-by-concern drafted responses, <a href="https://github.com/jusi-aalto/strategic-revision"><code>jusi-aalto/strategic-revision</code></a> treats reviewer requests as a <strong>directed acyclic graph</strong>.</li>
-<li>It identifies dependencies (e.g., “Referee 2’s concern about the IV depends on resolving Referee 1’s concern about sample selection first”), validates the DAG with NetworkX, and sequences work into execution blocks with co-author assignments.</li>
-<li>Worth knowing about; whether it fits your workflow depends on how complex your typical R&amp;R round is.</li>
+<li>Where <code>/respond-to-referees</code> drafts concern-by-concern responses, <a href="https://github.com/jusi-aalto/strategic-revision"><code>jusi-aalto/strategic-revision</code></a> treats reviewer requests as a <strong>directed acyclic graph</strong>.</li>
+<li>It identifies dependencies — e.g., <em>“Referee 2’s IV concern depends on resolving Referee 1’s sample-selection concern first”</em>.</li>
+<li>Validates the DAG with NetworkX, sequences work into execution blocks, assigns to co-authors.</li>
+<li>Worth knowing about. Whether it fits your workflow depends on how complex your typical R&amp;R round is.</li>
 </ul>
 <p><strong>Different tool for different sub-task:</strong> <code>/respond-to-referees</code> for the <em>prose</em>; <code>strategic-revision</code> for the <em>project plan</em>.</p>
 </section>
@@ -2392,8 +2418,14 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h2>You’re not alone in this</h2>
 <p>Two complements I’d point you at first:</p>
 <ul>
-<li><strong><a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">Paul Goldsmith-Pinkham × Princeton</a></strong> — Yale finance prof, 5-episode video series for applied economists. <strong>Different format, different angle, longer form.</strong> Watch over a Saturday morning.</li>
-<li><strong><a href="https://claesbackman.com/claude-code-guide.html">Claes Bäckman’s written guide</a></strong> — ~3,500-word practical companion: setup, R/Stata/Python/LaTeX, CLAUDE.md, skills, git, performance.</li>
+<li><strong><a href="https://bcf.princeton.edu/events/paul-goldsmith-pinkham-mini-series-on-claude-code-for-applied-economists/">Paul Goldsmith-Pinkham × Princeton</a></strong> — Yale finance prof, 5-episode video series for applied economists.
+<ul>
+<li><strong>Different format, different angle, longer form.</strong> Watch over a Saturday morning.</li>
+</ul></li>
+<li><strong><a href="https://claesbackman.com/claude-code-guide.html">Claes Bäckman’s written guide</a></strong> — ~3,500-word practical companion.
+<ul>
+<li>Covers: setup, R/Stata/Python/LaTeX, CLAUDE.md, skills, git, performance.</li>
+</ul></li>
 </ul>
 <p>Six more high-quality projects (clo-author, strategic-revision, crossref, claudeblattman, MixtapeTools, autoresearch, AI MBA) are in <code>handouts/resources.md</code> — won’t fit on a slide; will fit on your reference card.</p>
 </section>
@@ -2401,7 +2433,10 @@ clean.rds      ──by──&gt; scripts/R/02_clean.R
 <h2>Anthropic-shipped utilities</h2>
 <p>Built into Claude Code itself, no fork needed:</p>
 <ul>
-<li><strong><code>/team-onboarding</code></strong> (<a href="https://code.claude.com/docs/en/whats-new/2026-w15">Week 15 digest</a>) — package your local setup into a replayable guide for collaborators. <strong>Recommend for lab groups.</strong></li>
+<li><strong><code>/team-onboarding</code></strong> (<a href="https://code.claude.com/docs/en/whats-new/2026-w15">Week 15 digest</a>) — package your local setup into a replayable guide for collaborators.
+<ul>
+<li><strong>Recommended for lab groups.</strong></li>
+</ul></li>
 <li><strong><code>/autofix-pr</code></strong> — runs Claude Code on a GitHub PR, applying CI-style fixes</li>
 <li><strong><code>/powerup</code></strong> — interactive lessons (Anthropic’s tutorial system)</li>
 <li><strong>Ultraplan</strong> (<a href="https://code.claude.com/docs/en/ultraplan">docs</a>) — cloud-based plan editing, sync to local</li>
