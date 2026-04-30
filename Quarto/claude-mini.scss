@@ -189,15 +189,15 @@ $selection-bg: $emorygold !default;
   display: inline-block;
 }
 
-// Lists - VERY generous breathing room (user request 2026-04-29 round 2)
+// Lists - MAXIMALLY generous breathing room (user request 2026-04-30: 1.5em globally)
 .reveal ul {
   font-weight: 300;
   padding-left: 1.5em;
-  margin-top: 0.9em;
-  margin-bottom: 0.9em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 
   li {
-    margin-bottom: 0.95em;  // Much bigger gap between bullets
+    margin-bottom: 1.5em;  // global 1.5em bullet gap per user direction
     line-height: 1.55;
     padding-left: 0.4em;
   }
@@ -232,11 +232,11 @@ $selection-bg: $emorygold !default;
 .reveal ol {
   font-weight: 300;
   padding-left: 1.5em;
-  margin-top: 0.9em;
-  margin-bottom: 0.9em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 
   li {
-    margin-bottom: 0.95em;
+    margin-bottom: 1.5em;  // matches ul — global 1.5em per user direction
     line-height: 1.55;
     padding-left: 0.4em;
   }
@@ -573,8 +573,8 @@ $selection-bg: $emorygold !default;
   }
 }
 
-// Compact spacing — even .compact slides get breathing room now.
-// Was very-tight (0.25em); now "comfortably spaced" (0.7em).
+// Compact spacing — also bumped to 1.5em per global direction (2026-04-30).
+// Effectively the same as default; .compact retains tighter paragraph margins only.
 .compact {
   p {
     margin-top: 0.6em;
@@ -582,11 +582,11 @@ $selection-bg: $emorygold !default;
   }
 
   ul, ol {
-    margin-top: 0.6em;
-    margin-bottom: 0.7em;
+    margin-top: 0.7em;
+    margin-bottom: 0.8em;
 
     li {
-      margin-bottom: 0.7em;  // user-requested generous bullet rhythm
+      margin-bottom: 1.2em;  // a hair tighter than default to leave headroom on dense slides
       line-height: 1.5;
     }
   }
