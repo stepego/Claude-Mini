@@ -197,7 +197,7 @@ $selection-bg: $emorygold !default;
   margin-bottom: 1em;
 
   li {
-    margin-bottom: 1.5em;  // global 1.5em bullet gap per user direction
+    margin-bottom: 2em;  // global 2em bullet gap per user direction (2026-04-30)
     line-height: 1.55;
     padding-left: 0.4em;
   }
@@ -236,7 +236,7 @@ $selection-bg: $emorygold !default;
   margin-bottom: 1em;
 
   li {
-    margin-bottom: 1.5em;  // matches ul — global 1.5em per user direction
+    margin-bottom: 2em;  // matches ul — global 2em per user direction
     line-height: 1.55;
     padding-left: 0.4em;
   }
@@ -586,7 +586,7 @@ $selection-bg: $emorygold !default;
     margin-bottom: 0.8em;
 
     li {
-      margin-bottom: 1.2em;  // a hair tighter than default to leave headroom on dense slides
+      margin-bottom: 1.6em;  // tighter than default 2em to leave headroom on dense slides
       line-height: 1.5;
     }
   }
