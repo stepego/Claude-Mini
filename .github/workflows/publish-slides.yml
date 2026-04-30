@@ -1,0 +1,63 @@
+name: Publish slides to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Quarto/**'
+      - 'Figures/**'
+      - '.github/workflows/publish-slides.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render Quarto deck
+        working-directory: Quarto
+        run: quarto render notre-dame-claude-mini.qmd
+
+      - name: Stage site
+        run: |
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='_site' \
+            --exclude='node_modules' \
+            --exclude='.claude' \
+            --exclude='quality_reports' \
+            ./ _site/
+          cat > _site/index.html <<'EOF'
+          <!doctype html>
+          <meta charset="utf-8">
+          <meta http-equiv="refresh" content="0; url=Quarto/notre-dame-claude-mini.html">
+          <title>Claude-Mini — Notre Dame Watch-Along</title>
+          <p><a href="Quarto/notre-dame-claude-mini.html">Open the slides &rarr;</a></p>
+          EOF
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

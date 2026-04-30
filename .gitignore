@@ -30,6 +30,12 @@ Thumbs.db
 .claude/settings.local.json
 .claude/state/
 CLAUDE.local.md
+CLAUDE-paper-DR_weak_overlap.md
+CLAUDE_Academic_Guide_repo.md
+CLAUDE_Econ730.MD
+
+# Private speaker-facing material
+speaker-notes/
 
 # IDE — track .vscode/settings.json (carries Claude Code permission keys for forkers)
 .vscode/*
