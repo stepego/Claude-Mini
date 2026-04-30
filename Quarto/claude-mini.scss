@@ -34,17 +34,51 @@ $selection-bg: $emorygold !default;
 
 /*-- scss:rules --*/
 
+// Universal box-sizing so width:100% + padding doesn't overflow parent.
+// This is the modern default and matches Bootstrap/Tailwind reset behavior.
+.reveal *, .reveal *::before, .reveal *::after {
+  box-sizing: border-box;
+}
+
 // Slide layout - top-aligned content with breathing room
 .reveal .slides {
   text-align: left;
 }
 
 .reveal .slides section {
-  padding: 0.5em 1em;
+  padding: 0.5em 2em;  // generous right/left breathing room (bumped from 1.5em on 2026-04-30)
   top: 0 !important;
   // Hard safety: nothing leaks past slide borders. If content overflows,
   // it gets clipped at the 1600x900 viewport instead of bleeding off.
   overflow: hidden;
+}
+
+// Cap every "content container" at the slide's content box so no child
+// can push the parent past the right edge. (Layer 1 of the right-edge fix.)
+.reveal pre,
+.reveal blockquote,
+.reveal table,
+.reveal .demobox,
+.reveal .keybox,
+.reveal .methodbox,
+.reveal .highlightbox,
+.reveal .assumptionbox,
+.reveal .resultbox,
+.reveal .quotebox,
+.reveal .eqbox,
+.reveal .softbox {
+  max-width: 100%;
+}
+
+// Apply overflow-wrap to PROSE elements as well as code. The earlier safety net
+// only covered <code> and <pre><code>; blockquotes and table cells leaked.
+.reveal p,
+.reveal li,
+.reveal blockquote,
+.reveal td,
+.reveal th {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .reveal a {
@@ -52,6 +86,8 @@ $selection-bg: $emorygold !default;
   text-decoration: none;
   border-bottom: 1px dotted $emorygold;
   transition: border-color 0.2s ease;
+  // Allow long URL labels to break instead of clipping at slide right edge.
+  overflow-wrap: anywhere;
 
   &:hover {
     border-bottom-color: $emoryblue;
@@ -558,17 +594,26 @@ $selection-bg: $emorygold !default;
 }
 
 // Wide table - centered and expanded
+// NOTE: do NOT set `width: 100%` together with horizontal margins —
+// block-element math makes the box wider than its parent and overflows.
 .wide-table {
   display: flex;
   justify-content: center;
-  width: 100%;
+  margin-left: 1em;     // visual inset; flex container shrinks to fit minus margins
+  margin-right: 1em;
+  max-width: calc(100% - 2em);  // safety cap so flex container can't overrun parent
 
   table {
-    width: 90%;
+    width: 100%;        // table fills the (already-inset) flex container
+    max-width: 100%;
     margin: 0 auto;
+    word-break: break-word;
+    table-layout: auto;
 
     th, td {
       padding: 0.5em 1em;
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
   }
 }
@@ -723,11 +768,20 @@ $selection-bg: $emorygold !default;
 .reveal .columns {
   display: flex !important;
   align-items: flex-start;
-  gap: 2em;
+  gap: 1.2em;  // 2em pushed 50%+50% past 100% under border-box; 1.2em fits cleanly
+  margin-left: 0.5em;  // surgical inset so visual edge isn't flush to section padding
+  margin-right: 0.5em;
+  max-width: 100%;
 }
 
 .reveal .column {
   flex: 1;
+  // CRITICAL: flex items default to min-width: auto, which means a column
+  // with a long unbreakable atom (path, URL, inline code) refuses to shrink
+  // below that atom's width — pushing the column past its declared width=N%.
+  // Setting min-width: 0 lets the column actually honor its width attribute
+  // and lets `overflow-wrap: anywhere` on inner content do its job.
+  min-width: 0;
 
   img {
     max-width: 100%;
@@ -743,13 +797,18 @@ $selection-bg: $emorygold !default;
   background-color: rgba($emoryblue, 0.04);
   border-left: 4px solid $emorygold;
   padding: 1em 1.5em;
-  margin: 1em 0;
+  margin: 1em auto;       // center horizontally with auto side margins
+  max-width: 95%;         // small inset so blockquotes never reach the slide edge
   border-radius: 0 6px 6px 0;
   font-style: italic;
   color: #444;
+  overflow-wrap: break-word;
+  word-break: break-word;
 
   p {
     margin: 0.3em 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 }
 
@@ -762,6 +821,9 @@ $selection-bg: $emorygold !default;
   padding: 0.15em 0.4em;
   border-radius: 3px;
   font-size: 0.85em;
+  // Prevent long inline code (paths, commands, URLs) from clipping at slide right edge.
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .reveal pre {
@@ -770,7 +832,20 @@ $selection-bg: $emorygold !default;
   border-radius: 6px;
   padding: 1em;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  // No overflow-x: auto here — it makes the <pre> a scrollable container
+  // and RevealJS routes the down-arrow into intra-pre scrolling instead of
+  // advancing the slide. Wrapping is handled by `white-space: pre-wrap` on
+  // the inner <code> element.
 }
+
+// Inside fenced code blocks, allow wrapping of overly-long lines so they stay
+// inside the slide instead of being silently clipped by section overflow:hidden.
+.reveal pre code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 
 // ============================================================================
 // TRANSITIONS AND POLISH
@@ -955,8 +1030,11 @@ section.claudeorange {
   border-left: 5px solid $claudeorange;
   border-radius: 4px;
   padding: 1em 1.4em;
-  margin: 0.8em 0;
+  margin: 0.8em 0.5em;  // 0.5em horizontal — surgical inset from section padding
   font-size: 0.95em;
+  max-width: calc(100% - 1em);  // honor the 0.5em side margins; never overrun parent
+  overflow-wrap: break-word;
+  word-break: break-word;
 
   &::before {
     content: "▶ LIVE DEMO ";
@@ -968,8 +1046,16 @@ section.claudeorange {
     margin-bottom: 0.4em;
   }
 
-  p { margin-bottom: 0.5em; }
+  p { margin-bottom: 0.5em; overflow-wrap: break-word; }
   p:last-child { margin-bottom: 0; }
+
+  // Blockquotes nested inside a demobox must not overflow it.
+  // Reset the outer .reveal blockquote 95% inset so they fit the demobox content box.
+  blockquote {
+    max-width: 100%;
+    margin: 0.5em 0;
+    padding: 0.6em 1em;
+  }
 
   code {
     background: rgba(204, 120, 92, 0.1);
